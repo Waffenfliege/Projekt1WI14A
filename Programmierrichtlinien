@@ -6,5 +6,23 @@ Stand: 23.01.2017
 
 ## Kommentierung und Dokumentation
 
+- Alle Methoden werden direkt darüber kommentiert : "/** **/"
+- Immer Autor und Datum angeben, JDoc Doku benutzen: 
+	Dokumentation JDoc-Dokumentierung:
+	http://www.oracle.com/technetwork/articles/java/index-137868.html
+	- bei Klassen: variablen, Konstruktor, Schnittstellen
+	- bei Methoden: Beschreibung von Input, evtl. Output, Funktion
 
 ## Code-Style
+	- Formatter benutzen VOR dem Comitten, Format von Jan.
+	- Variablen:
+		- Zugriffsmodifikatoren immer angeben
+		- lokale Variablen klein, sprechend, englisch, Camelcase: "ultraStupidVariable"
+		- final: ULTRA_STUPID_VARIABLE
+		- Klassennamen: Groß
+			Class testClass;
+		- KEINE öffentlichen Variablen
+		
+		Methoden: 
+		- klein geschrieben
+		- IMMER Getter und Setter
