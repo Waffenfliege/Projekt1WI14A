@@ -10,3 +10,9 @@ Java
 
 Projektstand:
 Warten auf vorgelagerte Gruppen.
+
+Programmiersprache: JAVA
+Code-Absprache über Github (Robert)
+Vor Programmierung: Klassendiagramm/-definitionen / Struktur festlegen (Nina&Sammy)
+Genaue Zuteilung der Programmierung folgt am Donnerstag wenn Fachkonzept/Pflichtenheft großteils bekannt ist.
+Programmierrichtlinien: Formatierung (Strg+Shift+F - Einstellungen noch absprechen), Kommentieren (Englisch!), JDoc-Dokumentation
