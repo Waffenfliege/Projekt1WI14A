@@ -22,7 +22,7 @@ Stand: 23.01.2017
 		- Klassennamen: Groß
 			Class testClass;
 		- KEINE öffentlichen Variablen
-		
+		  
 		Methoden: 
 		- klein geschrieben
 		- IMMER Getter und Setter
