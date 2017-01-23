@@ -7,3 +7,5 @@ inkl. GUI erfolgreich zu programmieren.
 
 Projektstand:
 Warten auf vorgelagerte Gruppen.
+
+Banane 123
