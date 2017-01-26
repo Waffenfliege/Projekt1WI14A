@@ -1,5 +1,6 @@
 package view;
 
+//Jan
 public class ViewHandler
 {
 	private MainFrame mainFrame;
