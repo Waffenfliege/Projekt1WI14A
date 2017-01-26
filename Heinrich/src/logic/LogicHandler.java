@@ -8,6 +8,12 @@ import data.StatisticClass;
 public class LogicHandler
 {
 	
+	/**
+	 * Methode zur Ermittlung der Klassenmitten eines Datensatzes
+	 * @param classes Datensatz, für den die Klassenmitten ermittelt werden sollen.
+	 * @return Array der Klassenmitten
+	 * @author Mathias Engmann
+	 */
 	public float[] classMiddle(ArrayList<StatisticClass> classes){
 		float[]results = new float[classes.size()];
 		
@@ -22,6 +28,12 @@ public class LogicHandler
 		return results;
 	}
 	
+	/**
+	 * Methode zur Berechnung der relativen Häufigkeiten der Klassen eines Datensatzes
+	 * @param classes Datensatz, für den die relativen Häufigkeiten ermittelt werden sollen.
+	 * @return Array der relativen Häufigkeiten
+	 * @author Mathias Engmann
+	 */
 	public float[] relativeOccurence(ArrayList<StatisticClass> classes){
 		float[]results = new float[classes.size()];
 		
