@@ -1,6 +1,12 @@
 package view;
 
-//statische Methoden
-public class ViewHandler {
-
+public class ViewHandler
+{
+	private MainFrame mainFrame;
+	
+	public ViewHandler()
+	{
+		mainFrame = new MainFrame();
+		mainFrame.startFrame();
+	}
 }

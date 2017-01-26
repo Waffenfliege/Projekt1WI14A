@@ -1,8 +1,8 @@
 package main;
 
-import main.data.DataHandler;
-import main.logic.LogicHandler;
-import main.view.ViewHandler;
+import data.DataHandler;
+import logic.LogicHandler;
+import view.ViewHandler;
 
 public class Main
 {
