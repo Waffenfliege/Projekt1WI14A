@@ -1,5 +1,9 @@
 package main;
 
+import main.data.DataHandler;
+import main.logic.LogicHandler;
+import main.view.ViewHandler;
+
 public class Main
 {
 	private static DataHandler dataHandler;
