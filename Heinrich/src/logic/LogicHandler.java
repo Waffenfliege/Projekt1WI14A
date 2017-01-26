@@ -8,8 +8,29 @@ import data.StatisticClass;
 public class LogicHandler
 {
 	
+	public float[] classMiddle(ArrayList<StatisticClass> classes){
+		float[]results = new float[classes.size()];
+		
+		for(int i=0; i<classes.size(); i++){
+			float a = classes.get(i).getLowerValue();
+			float b  = classes.get(i).getUpperValue();
+			float currentClassMiddle = (a+b)/2;
+		
+			results[i] = currentClassMiddle;
+		}
+	
+		return results;
+	}
+	
 	public float[] relativeOccurence(ArrayList<StatisticClass> classes){
-		float[]result = new float[classes.size()];
+		float[]results = new float[classes.size()];
+		
+		for(int i=0; i<classes.size();i++){
+			//result[i] = ;
+			
+		}
+		
+		return results;
 	}
 
 	public static float median(){
