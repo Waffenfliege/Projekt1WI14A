@@ -1,9 +1,8 @@
-package main;
+package test;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.*;
 import javax.swing.table.*;
 import java.text.*;
 
@@ -15,6 +14,7 @@ import java.text.*;
  * @author
  */
 
+@SuppressWarnings("serial")
 public class BeispielGUI extends JFrame
 {
 	// Anfang Attribute
@@ -25,6 +25,7 @@ public class BeispielGUI extends JFrame
 	private JTextField n_sw = new JTextField();
 	private JButton jButton1 = new JButton();
 	private JTable tb_tab = new JTable(2, 13);
+	@SuppressWarnings("unused")
 	private DefaultTableModel tb_tabModel = (DefaultTableModel) tb_tab.getModel();
 	private JScrollPane tb_tabScrollPane = new JScrollPane(tb_tab);
 	DecimalFormat df = new DecimalFormat("0.0");
