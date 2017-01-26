@@ -7,6 +7,10 @@ public class ViewHandler
 	public ViewHandler()
 	{
 		mainFrame = new MainFrame();
+
+	}
+	
+	public void start(){
 		mainFrame.startFrame();
 	}
 }
