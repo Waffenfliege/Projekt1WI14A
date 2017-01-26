@@ -11,13 +11,13 @@ import javax.swing.border.EmptyBorder;
 public class MainFrame extends JFrame
 {
 
-	private JPanel contentPane;
+	// private JPanel contentPane;
 	private InputFrame inputFrame;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args)
+	public void startFrame()
 	{
 		EventQueue.invokeLater(new Runnable()
 		{
