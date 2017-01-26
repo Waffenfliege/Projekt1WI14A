@@ -1,6 +1,6 @@
 package main;
 
-import model.ClampTypes;
+
 
 public class Program {
 
