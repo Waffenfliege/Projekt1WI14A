@@ -7,6 +7,20 @@ import data.StatisticClass;
 //Robert, Mathias
 public class LogicHandler
 {
+	//#################################TEST#######################################
+	ArrayList<StatisticClass> testClasses = new ArrayList<StatisticClass>();
+	
+	public void postTestResult(){
+		testClasses.add(new StatisticClass());
+		testClasses.add(new StatisticClass());
+		testClasses.add(new StatisticClass());
+		testClasses.add(new StatisticClass());
+		testClasses.add(new StatisticClass());
+		testClasses.add(new StatisticClass());
+		
+	}
+
+	//#################################TEST#######################################
 	
 	/**
 	 * Methode zur Ermittlung der Klassenmitten eines Datensatzes
