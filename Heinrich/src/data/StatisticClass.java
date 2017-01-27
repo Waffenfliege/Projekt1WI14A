@@ -9,7 +9,10 @@ public class StatisticClass {
 	private float relativeOccurences;
 	
 	public StatisticClass(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurences){
+		this.lowerValue = lowerValue;
+		this.upperValue = upperValue;
 		
+		this.absoluteOccurences = absoluteOccurences;
 		
 	}
 	
