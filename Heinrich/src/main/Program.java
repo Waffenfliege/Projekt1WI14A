@@ -16,9 +16,9 @@ public class Program
 		
 		//######################TEST###################
 		
-		//float relativeOccurences[] = LogicHandler.getRelativeOccurences(dataHandler.getList(), dataHandler.getSampleSize());
+		
 		try{
-			float relativeOccurences[] = LogicHandler.getRelativeOccurences(dataHandler.getList(), 0);
+			float relativeOccurences[] = LogicHandler.getRelativeOccurences(dataHandler.getList(), dataHandler.getSampleSize());
 			float classMiddles[] = LogicHandler.getClassMiddles(dataHandler.getList());
 
 			
@@ -32,10 +32,12 @@ public class Program
 				System.out.println("--- Klassenmitte: " + classMiddles[i]);
 			}
 			
+			float median = LogicHandler.getMedian(dataHandler.getList(), classMiddles, relativeOccurences);
+			float arithmeticMiddle = LogicHandler.getArithmeticMiddle(classMiddles);
 			
-			float median = LogicHandler.median(dataHandler.getList());
-		
-			
+			System.out.println("Daten für Liste: ");
+			System.out.println("--- arithmetisches Mittel: " + arithmeticMiddle);
+			System.out.println("--- Median: " + median);
 		}catch(Exception e){
 			e.printStackTrace();
 		}

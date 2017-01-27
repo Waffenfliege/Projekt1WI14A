@@ -56,12 +56,54 @@ public class LogicHandler
 		}
 	}
 
-	public static float getMedian(ArrayList<StatisticClass> classes){
+	public static float getMedian(ArrayList<StatisticClass> classes, float[] classMiddles, float[] relativeOccurences) throws Exception{
 		//Braucht: Klassenmitten, relative Häufigkeiten
-		return 0;
+		
+		
+		if(classes.size() <=0 || classMiddles.length <= 0 || relativeOccurences.length <=0 || classMiddles.length != relativeOccurences.length){
+			throw new IllegalArgumentException("Die angegebenen Wertearrays sind nicht gefüllt oder die Anzahl ihrer Elemente ist nicht gleich.");
+		}
+		
+		else{
+			float currentRelativeShare = 0;
+			float relativeShareBeforeHit = 0;
+			
+			int classIndexWithMedian = -1;
+			
+			for(int i=0 ; i<classMiddles.length; i++){
+				
+				currentRelativeShare += relativeOccurences[i];
+				
+				if(currentRelativeShare>0.5f){
+					classIndexWithMedian = i;
+					break;	
+				}
+				
+				else{
+					relativeShareBeforeHit = currentRelativeShare;
+				}
+			
+			}
+			
+			if(classIndexWithMedian==-1){
+				throw new Exception("Es konnte keine Klasse ermittelt werden, in dem der Median liegt");
+			}
+			
+			else{
+				
+				float z1 =  classes.get(classIndexWithMedian).getLowerValue().value;
+				float z2 =  classes.get(classIndexWithMedian).getUpperValue().value;
+				
+				float r1 = relativeShareBeforeHit;
+				float r2 = currentRelativeShare;
+				
+				float result = z1 +((0.5f-r1)/(r2-r1))*(z2-z1);
+				return result;
+			}
+		}
 	}
 	
-	public static float getArithmeticMiddle(float[] classMiddles ){
+	public static float getArithmeticMiddle(float[] classMiddles){
 		
 		
 		return 0;
