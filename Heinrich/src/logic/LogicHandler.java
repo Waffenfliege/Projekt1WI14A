@@ -7,7 +7,7 @@ import data.StatisticClassValue;
 import data.ClampType;
 
 //Robert, Mathias
-public class LogicHandler
+public class LogicHandler 
 {
 	
 
@@ -21,8 +21,8 @@ public class LogicHandler
 		float[]results = new float[classes.size()];
 		
 		for(int i=0; i<classes.size(); i++){
-			float a = classes.get(i).getLowerValue();
-			float b  = classes.get(i).getUpperValue();
+			float a = classes.get(i).getLowerValue().value;
+			float b  = classes.get(i).getUpperValue().value;
 			float currentClassMiddle = (a+b)/2;
 		
 			results[i] = currentClassMiddle;
@@ -38,10 +38,10 @@ public class LogicHandler
 	 * @author Mathias Engmann
 	 * @param statisticClass 
 	 */
-	public static float[] getRelativeOccurences(ArrayList<StatisticClass> classes, int sampleSize){
+	public static float[] getRelativeOccurences(ArrayList<StatisticClass> classes, int sampleSize) throws IllegalArgumentException{
 		float[]results = new float[classes.size()];
 
-		if(sampleSize<=0){
+		if(sampleSize<=0  || classes.size()<=0){
 			
 			throw new IllegalArgumentException("Die Stichprobengröße muss größer als 0 sein.");
 		}
@@ -54,48 +54,47 @@ public class LogicHandler
 			
 			return results;
 		}
-
-	
 	}
 
-	public static float median(ArrayList<StatisticClass> classes){
+	public static float getMedian(ArrayList<StatisticClass> classes){
 		//Braucht: Klassenmitten, relative Häufigkeiten
 		return 0;
 	}
 	
-	public static float arithmeticMiddle(){
-		//Braucht: Klassenmitten
+	public static float getArithmeticMiddle(float[] classMiddles ){
+		
+		
 		return 0;
 	}
 	
-	public static float absoluteDeviation(){
+	public static float getAbsoluteDeviation(){
 		//Braucht: Median, Mittelwert, Randwerte ??
 		return 0;
 	}
 	
-	public static float standardDeviation(){
+	public static float getStandardDeviation(){
 		return 0;
 	}
 	
-	public static float variance(){
+	public static float getVariance(){
 		return 0;
 	}
 	
-	public static float giniCoefficient(){
+	public static float getGiniCoefficient(){
 		return 0;
 	}
 	
-	public static float[] quantiles(){
+	public static float[] getQuantiles(){
 		float[] a = new float[1];
 		a[0]=0;
 		return a;
 	}
 	
-	public static float histogramElementHeight(){
+	public static float getHistogramElementHeight(){
 		return 0;
 	}
 	
-	public static float histogramElementWidth(){
-		return 0;
+	public static float getHistogramElementWidth(){
+		return  0;
 	}
 }
