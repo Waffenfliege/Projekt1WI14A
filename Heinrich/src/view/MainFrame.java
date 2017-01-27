@@ -16,7 +16,7 @@ import javax.swing.border.EmptyBorder;
 public class MainFrame extends JFrame
 {
 
-	// private JPanel contentPane;
+	private JPanel contentPane;
 	private InputFrame inputFrame;
 
 	/**
@@ -47,15 +47,24 @@ public class MainFrame extends JFrame
 	{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 200, 800, 600);
+		setTitle("Statistik-Projekt 2017");
 
 		inputFrame = new InputFrame();
 
-		// contentPane = new JPanel();
-		// contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		// contentPane.setLayout(new BorderLayout(0, 0));
-		// setContentPane(contentPane);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
 
-		setContentPane(inputFrame.getMainContentPane());
+		setContentPane(contentPane);
+		switchPane(inputFrame.getMainContentPane());
+	}
+
+	public void switchPane(JPanel contentPane)
+	{
+		this.contentPane.removeAll();
+		this.contentPane.add(contentPane);
+		this.contentPane.revalidate();
+		this.contentPane.repaint();
 	}
 
 }
