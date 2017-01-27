@@ -61,10 +61,16 @@ public class LogicHandler
 		return 0;
 	}
 	
-	public static float getArithmeticMiddle(float[] classMiddles ){
+	//TODO Comments
+	public static float getArithmeticMiddle(float[] classMiddles, float[] relativeOccurences){
+		int classCount = classMiddles.length;
+		float arithmeticMiddle = 0;
 		
+		for (int i = 0; i < classCount; i++){
+			arithmeticMiddle += (classMiddles[i] * relativeOccurences[i]);
+		}
 		
-		return 0;
+		return arithmeticMiddle;
 	}
 	
 	public static float getAbsoluteDeviation(){
