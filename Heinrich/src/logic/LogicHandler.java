@@ -17,7 +17,7 @@ public class LogicHandler
 	 * @return Array der Klassenmitten
 	 * @author Mathias Engmann
 	 */
-	public float[] classMiddle(ArrayList<StatisticClass> classes){
+	public static float[] getClassMiddles(ArrayList<StatisticClass> classes){
 		float[]results = new float[classes.size()];
 		
 		for(int i=0; i<classes.size(); i++){
@@ -36,8 +36,9 @@ public class LogicHandler
 	 * @param classes Datensatz, für den die relativen Häufigkeiten ermittelt werden sollen.
 	 * @return Array der relativen Häufigkeiten
 	 * @author Mathias Engmann
+	 * @param statisticClass 
 	 */
-	public float[] relativeOccurence(ArrayList<StatisticClass> classes){
+	public static float[] getRelativeOccurences(ArrayList<StatisticClass> classes){
 		float[]results = new float[classes.size()];
 		
 		for(int i=0; i<classes.size();i++){
