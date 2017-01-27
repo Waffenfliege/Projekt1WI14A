@@ -31,7 +31,7 @@ public class Program
 		}
 		
 		
-		float median = LogicHandler.median(TestDataHandler.getList());
+		float median = LogicHandler.median(dataHandler.getList());
 	
 	}
 
