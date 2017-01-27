@@ -33,7 +33,7 @@ public class DataHandler
 	}
 	
 	public  int getSampleSize(){
-		int sampleSize = 0;
+		int  sampleSize = 0;
 		
 		return sampleSize;
 	}
