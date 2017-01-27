@@ -47,37 +47,42 @@ public class LogicHandler
 
 	public static float median(){
 		//Braucht: Klassenmitten, relative Häufigkeiten
+		return 0;
 	}
 	
 	public static float arithmeticMiddle(){
 		//Braucht: Klassenmitten
+		return 0;
 	}
 	
 	public static float absoluteDeviation(){
 		//Braucht: Median, Mittelwert, Randwerte ??
+		return 0;
 	}
 	
 	public static float standardDeviation(){
-		
+		return 0;
 	}
 	
 	public static float variance(){
-		
+		return 0;
 	}
 	
 	public static float giniCoefficient(){
-		
+		return 0;
 	}
 	
 	public static float[] quantiles(){
-		
+		float[] a = new float[1];
+		a[0]=0;
+		return a;
 	}
 	
 	public static float histogramElementHeight(){
-		
+		return 0;
 	}
 	
 	public static float histogramElementWidth(){
-		
+		return 0;
 	}
 }

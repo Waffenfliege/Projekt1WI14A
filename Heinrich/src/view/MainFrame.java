@@ -8,6 +8,11 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 @SuppressWarnings("serial")
+/**
+ * 
+ * @author Jan Sauerland
+ *
+ */
 public class MainFrame extends JFrame
 {
 
@@ -17,7 +22,7 @@ public class MainFrame extends JFrame
 	/**
 	 * Launch the application.
 	 */
-	public void startFrame()
+	public static void startFrame()
 	{
 		EventQueue.invokeLater(new Runnable()
 		{
@@ -45,13 +50,11 @@ public class MainFrame extends JFrame
 
 		inputFrame = new InputFrame();
 
-		/* 
-		 * contentPane = new JPanel();
-		 * contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		 * contentPane.setLayout(new BorderLayout(0, 0));
-		 * setContentPane(contentPane);
-		 */
-		
+		// contentPane = new JPanel();
+		// contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		// contentPane.setLayout(new BorderLayout(0, 0));
+		// setContentPane(contentPane);
+
 		setContentPane(inputFrame.getMainContentPane());
 	}
 

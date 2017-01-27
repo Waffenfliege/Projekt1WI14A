@@ -22,8 +22,9 @@ public class InputFrame
 		mainContentPane.add(inputContentPane);
 	}
 
-	public void setInputFrame(int[] param1) // Anzeige entsprechend des Input-Arrays
-	{ 
+	public void setInputFrame(int[] param1) // Anzeige entsprechend des
+											// Input-Arrays
+	{
 		mainContentPane.add(tableContentPane);
 		mainContentPane.add(inputContentPane);
 	}

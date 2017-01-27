@@ -3,15 +3,14 @@ package view;
 //Jan
 public class ViewHandler
 {
-	private MainFrame mainFrame;
-	
+
 	public ViewHandler()
 	{
-		mainFrame = new MainFrame();
-
+		start();
 	}
-	
-	public void start(){
-		mainFrame.startFrame();
+
+	public static void start()
+	{
+		MainFrame.startFrame();
 	}
 }
