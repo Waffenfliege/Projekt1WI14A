@@ -11,12 +11,10 @@ public class LogicHandler
 	ArrayList<StatisticClass> testClasses = new ArrayList<StatisticClass>();
 	
 	public void postTestResult(){
-		testClasses.add(new StatisticClass());
-		testClasses.add(new StatisticClass());
-		testClasses.add(new StatisticClass());
-		testClasses.add(new StatisticClass());
-		testClasses.add(new StatisticClass());
-		testClasses.add(new StatisticClass());
+		testClasses.add(new StatisticClass(new ClassValue(35,CLAMPTYPE.INCLUSIVE), new ClassValue(37,CLAMPTYPE.EXCLUSIVE),1));
+		testClasses.add(new StatisticClass(37,40,3));
+		testClasses.add(new StatisticClass(40,43,2));
+		testClasses.add(new StatisticClass(43,48,1));
 		
 	}
 
