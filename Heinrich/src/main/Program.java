@@ -1,5 +1,7 @@
 package main;
 
+import logic.LogicHandler;
+import test.TestDataHandler;
 import view.ViewHandler;
 
 public class Program
@@ -10,6 +12,11 @@ public class Program
 
 		ViewHandler view = new ViewHandler();
 
+		
+		//######################TEST###################
+		
+		float median = LogicHandler.median(TestDataHandler.getAllClasses());
+		System.out.println(x);
 	}
 
 }

@@ -9,20 +9,8 @@ import data.ClampType;
 //Robert, Mathias
 public class LogicHandler
 {
-	//#################################TEST#######################################
-	ArrayList<StatisticClass> testClasses = new ArrayList<StatisticClass>();
 	
-	public void postTestResult(){
-		testClasses.add(new StatisticClass(new StatisticClassValue(35, Clamp)))
-		testClasses.add(new StatisticClass(new StatisticClassValue(35,ClampType.INCLUSIVE), new StatisticClassValue(37,ClampType.EXCLUSIVE),1));
-		testClasses.add(new StatisticClass(37,40,3));
-		testClasses.add(new StatisticClass(40,43,2));
-		testClasses.add(new StatisticClass(43,48,1));
-		
-	}
 
-	//#################################TEST#######################################
-	
 	/**
 	 * Methode zur Ermittlung der Klassenmitten eines Datensatzes
 	 * @param classes Datensatz, für den die Klassenmitten ermittelt werden sollen.

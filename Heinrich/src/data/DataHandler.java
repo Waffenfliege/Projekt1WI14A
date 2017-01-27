@@ -13,11 +13,11 @@ public class DataHandler
 		classes = new ArrayList<StatisticClass>();
 	}
 	
-	public ArrayList<StatisticClass> getAllClasses(){
+	public static ArrayList<StatisticClass> getAllClasses(){
 		return classes;
 	}
 	
-	public StatisticClass getElement(int index){
+	public static StatisticClass getElement(int index){
 		return classes.get(index);
 		
 	}
