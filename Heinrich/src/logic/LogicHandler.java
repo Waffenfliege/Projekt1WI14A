@@ -3,6 +3,8 @@ package logic;
 import java.util.ArrayList;
 
 import data.StatisticClass;
+import data.StatisticClassValue;
+import data.ClampType;
 
 //Robert, Mathias
 public class LogicHandler
@@ -11,6 +13,7 @@ public class LogicHandler
 	ArrayList<StatisticClass> testClasses = new ArrayList<StatisticClass>();
 	
 	public void postTestResult(){
+		testClasses.add(new StatisticClass(new StatisticClassValue(35, Clamp)))
 		testClasses.add(new StatisticClass(new StatisticClassValue(35,ClampType.INCLUSIVE), new StatisticClassValue(37,ClampType.EXCLUSIVE),1));
 		testClasses.add(new StatisticClass(37,40,3));
 		testClasses.add(new StatisticClass(40,43,2));
