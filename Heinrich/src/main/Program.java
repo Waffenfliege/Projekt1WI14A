@@ -18,14 +18,14 @@ public class Program
 		
 		for(int i=0; i<TestDataHandler.getAllClasses().size();i++){
 		
-			float absoluteOccurence;
+			float absoluteOccurence = TestDataHandler.getElement(i).
 			float relativeOccurence;
 			float classMiddle;	
 			System.out.println("Daten für Klasse "+ (i+1) + ": ");
 			
 			System.out.println("--- absolute Häufigkeit: " + absoluteOccurence);
-			System.out.println("--- relative Häufigkeit: " + absoluteOccurence);
-			System.out.println("--- absolute Häufigkeit: " + absoluteOccurence);
+			System.out.println("--- relative Häufigkeit: " + relativeOccurence);
+			System.out.println("--- absolute Häufigkeit: " + classMiddle);
 		}
 		
 		

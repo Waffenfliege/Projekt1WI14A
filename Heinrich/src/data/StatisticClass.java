@@ -5,10 +5,10 @@ public class StatisticClass {
 	private StatisticClassValue lowerValue;
 	private StatisticClassValue upperValue;
 	
-	private int absoluteFrequency;
-	private float relativeFrequency;
+	private int absoluteOccurences;
+	private float relativeOccurences;
 	
-	public StatisticClass(StatisticClassValue lowerValue, StatisticClassValue upperValue, int frequency){
+	public StatisticClass(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurences){
 		
 		
 	}
@@ -23,4 +23,7 @@ public class StatisticClass {
 		return 0;
 	}
 
+	public int getAbsoluteOccurences(){
+		return absoluteOccurences;
+	}
 }

@@ -10,10 +10,10 @@ public class TestDataHandler extends DataHandler{
 	public TestDataHandler(){
 		super();
 		
-		this.getAllClasses().add(new StatisticClass(new StatisticClassValue(35,ClampType.INCLUSIVE), new StatisticClassValue(37,ClampType.EXCLUSIVE),1));
-		this.getAllClasses().add(new StatisticClass(new StatisticClassValue(37,ClampType.INCLUSIVE), new StatisticClassValue(40,ClampType.EXCLUSIVE),1));
-		this.getAllClasses().add(new StatisticClass(new StatisticClassValue(40,ClampType.INCLUSIVE), new StatisticClassValue(43,ClampType.EXCLUSIVE),1));
-		this.getAllClasses().add(new StatisticClass(new StatisticClassValue(43,ClampType.INCLUSIVE), new StatisticClassValue(48,ClampType.EXCLUSIVE),1));
+		getAllClasses().add(new StatisticClass(new StatisticClassValue(35,ClampType.INCLUSIVE), new StatisticClassValue(37,ClampType.EXCLUSIVE),1));
+		getAllClasses().add(new StatisticClass(new StatisticClassValue(37,ClampType.INCLUSIVE), new StatisticClassValue(40,ClampType.EXCLUSIVE),1));
+		getAllClasses().add(new StatisticClass(new StatisticClassValue(40,ClampType.INCLUSIVE), new StatisticClassValue(43,ClampType.EXCLUSIVE),1));
+		getAllClasses().add(new StatisticClass(new StatisticClassValue(43,ClampType.INCLUSIVE), new StatisticClassValue(48,ClampType.EXCLUSIVE),1));
 	
 	}
 }
