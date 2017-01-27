@@ -16,26 +16,24 @@ public class StatisticClass {
 		
 	}
 	
-	public float getLowerValue() {
-		// TODO Auto-generated method stub
-		return 0;
+	public StatisticClassValue getLowerValue() {
+		return lowerValue;
 	}
-
-	public float getUpperValue() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public int getAbsoluteOccurences(){
-		return absoluteOccurences;
-	}
-
+	
 	public void setLowerValue(StatisticClassValue lowerValue) {
 		this.lowerValue = lowerValue;
 	}
 
+	public StatisticClassValue getUpperValue() {
+		return upperValue;
+	}
+	
 	public void setUpperValue(StatisticClassValue upperValue) {
 		this.upperValue = upperValue;
+	}
+
+	public int getAbsoluteOccurences(){
+		return absoluteOccurences;
 	}
 
 	public void setAbsoluteOccurences(int absoluteOccurences) {
