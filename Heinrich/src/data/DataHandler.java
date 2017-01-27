@@ -21,6 +21,7 @@ public class DataHandler
 	public  StatisticClass getElement(int index){
 		return classes.get(index);		
 	}
+	
 	//TODO Comments
 	public void updateListItem(int index, StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence) {
 		classes.get(index).setLowerValue(lowerValue);
