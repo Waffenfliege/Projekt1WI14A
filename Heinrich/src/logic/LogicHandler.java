@@ -48,7 +48,7 @@ public class LogicHandler
 		return results;
 	}
 
-	public static float median(){
+	public static float median(ArrayList<StatisticClass> classes){
 		//Braucht: Klassenmitten, relative Häufigkeiten
 		return 0;
 	}

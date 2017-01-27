@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class DataHandler
 {
 	private final static int MAX_CLASS_COUNT = 20;
-	private ArrayList<StatisticClass> classes;
+	private static ArrayList<StatisticClass> classes;
 	
 	public DataHandler()
 	{
