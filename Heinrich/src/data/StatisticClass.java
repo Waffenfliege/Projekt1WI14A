@@ -16,10 +16,6 @@ public class StatisticClass {
 		
 	}
 	
-	public int getAbsoluteOccurences(){
-		return absoluteOccurences;
-	}
-
 	public void setLowerValue(StatisticClassValue lowerValue) {
 		this.lowerValue = lowerValue;
 	}
