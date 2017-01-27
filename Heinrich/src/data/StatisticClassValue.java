@@ -1,6 +1,6 @@
 package data;
 
-public class ClassValue {
+public class StatisticClassValue {
 
 	public float value;
 	public ClampType clamp;

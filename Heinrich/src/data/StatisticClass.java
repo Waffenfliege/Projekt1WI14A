@@ -2,8 +2,8 @@ package data;
 
 public class StatisticClass {
 
-	private double lowerValue;
-	private double upperValue;
+	private StatisticClassValue lowerValue;
+	private StatisticClassValue upperValue;
 	
 	private int absoluteQuantity;
 	private float relativeQuantity;
