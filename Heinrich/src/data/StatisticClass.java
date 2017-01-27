@@ -26,4 +26,16 @@ public class StatisticClass {
 	public int getAbsoluteOccurences(){
 		return absoluteOccurences;
 	}
+
+	public void setLowerValue(StatisticClassValue lowerValue) {
+		this.lowerValue = lowerValue;
+	}
+
+	public void setUpperValue(StatisticClassValue upperValue) {
+		this.upperValue = upperValue;
+	}
+
+	public void setAbsoluteOccurences(int absoluteOccurences) {
+		this.absoluteOccurences = absoluteOccurences;
+	}	
 }
