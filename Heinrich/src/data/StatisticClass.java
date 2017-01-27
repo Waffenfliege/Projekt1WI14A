@@ -6,7 +6,6 @@ public class StatisticClass {
 	private StatisticClassValue upperValue;
 	
 	private int absoluteOccurences;
-	private float relativeOccurences;
 	
 	public StatisticClass(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurences){
 		this.lowerValue = lowerValue;
@@ -16,6 +15,10 @@ public class StatisticClass {
 		
 	}
 	
+	public StatisticClassValue getLowerValue() {
+		return lowerValue;
+	}
+
 	public void setLowerValue(StatisticClassValue lowerValue) {
 		this.lowerValue = lowerValue;
 	}
