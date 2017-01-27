@@ -15,7 +15,7 @@ import java.awt.Rectangle;
 import java.awt.Dimension;
 
 @SuppressWarnings("serial")
-public class TestFrame extends JFrame
+public class TestFrame1 extends JFrame
 {
 
 	private JPanel mainContentPane;
@@ -32,7 +32,7 @@ public class TestFrame extends JFrame
 			{
 				try
 				{
-					TestFrame frame = new TestFrame();
+					TestFrame1 frame = new TestFrame1();
 					frame.setTitle("Haupteingabemaske");
 					frame.setVisible(true);
 				} catch (Exception e)
@@ -46,7 +46,7 @@ public class TestFrame extends JFrame
 	/**
 	 * Create the frame.
 	 */
-	public TestFrame()
+	public TestFrame1()
 	{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);

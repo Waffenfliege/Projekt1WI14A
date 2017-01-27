@@ -13,28 +13,22 @@ import javax.swing.border.EmptyBorder;
  * @author Jan Sauerland
  *
  */
-public class MainFrame extends JFrame
-{
+public class MainFrame extends JFrame {
 
 	private JPanel contentPane;
-	private InputFrame inputFrame;
+	private InputPanel inputPanel;
 	private OutputFrame outputFrame;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void startFrame()
-	{
-		EventQueue.invokeLater(new Runnable()
-		{
-			public void run()
-			{
-				try
-				{
+	public static void startFrame() {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
 					MainFrame frame = new MainFrame();
 					frame.setVisible(true);
-				} catch (Exception e)
-				{
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -44,13 +38,12 @@ public class MainFrame extends JFrame
 	/**
 	 * Create the frame.
 	 */
-	public MainFrame()
-	{
+	public MainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 200, 800, 600);
 		setTitle("Statistik-Projekt 2017");
 
-		inputFrame = new InputFrame();
+		inputPanel = new InputPanel();
 		outputFrame = new OutputFrame();
 
 		contentPane = new JPanel();
@@ -58,11 +51,10 @@ public class MainFrame extends JFrame
 		contentPane.setLayout(new BorderLayout(0, 0));
 
 		setContentPane(contentPane);
-		switchPane(inputFrame.getMainContentPane());
+		switchPane(inputPanel.get());
 	}
 
-	public void switchPane(JPanel contentPane)
-	{
+	public void switchPane(JPanel contentPane) {
 		this.contentPane.removeAll();
 		this.contentPane.add(contentPane);
 		this.contentPane.revalidate();
