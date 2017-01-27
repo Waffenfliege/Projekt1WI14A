@@ -38,15 +38,24 @@ public class LogicHandler
 	 * @author Mathias Engmann
 	 * @param statisticClass 
 	 */
-	public static float[] getRelativeOccurences(ArrayList<StatisticClass> classes){
+	public static float[] getRelativeOccurences(ArrayList<StatisticClass> classes, int sampleSize){
 		float[]results = new float[classes.size()];
-		
-		for(int i=0; i<classes.size();i++){
-			//result[i] = ;
+
+		if(sampleSize<=0){
 			
+			throw new IllegalArgumentException("Die Stichprobengröße muss größer als 0 sein.");
 		}
 		
-		return results;
+		else{
+			for(int i=0; i<classes.size();i++){
+				results[i] = classes.get(i).getAbsoluteOccurences()/(float)sampleSize;
+			}
+			
+			
+			return results;
+		}
+
+	
 	}
 
 	public static float median(ArrayList<StatisticClass> classes){

@@ -16,7 +16,8 @@ public class Program
 		
 		//######################TEST###################
 		
-		float relativeOccurences[] = LogicHandler.getRelativeOccurences(dataHandler.getList());
+		//float relativeOccurences[] = LogicHandler.getRelativeOccurences(dataHandler.getList(), dataHandler.getSampleSize());
+		float relativeOccurences[] = LogicHandler.getRelativeOccurences(dataHandler.getList(), 7);
 		float classMiddles[] = LogicHandler.getClassMiddles(dataHandler.getList());
 
 		
@@ -27,7 +28,7 @@ public class Program
 			
 			System.out.println("--- absolute Häufigkeit: " + absoluteOccurence);
 			System.out.println("--- relative Häufigkeit: " + relativeOccurences[i]);
-			System.out.println("--- absolute Häufigkeit: " + classMiddles[i]);
+			System.out.println("--- Klassenmitte: " + classMiddles[i]);
 		}
 		
 		
