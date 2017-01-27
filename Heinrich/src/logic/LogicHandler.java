@@ -95,6 +95,6 @@ public class LogicHandler
 	}
 	
 	public static float getHistogramElementWidth(){
-		return 0;
+		return  0;
 	}
 }
