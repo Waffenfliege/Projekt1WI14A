@@ -5,10 +5,10 @@ public class StatisticClass {
 	private StatisticClassValue lowerValue;
 	private StatisticClassValue upperValue;
 	
-	private int absoluteQuantity;
-	private float relativeQuantity;
+	private int absoluteFrequency;
+	private float relativeFrequency;
 	
-	public StatisticClass(){
+	public StatisticClass(StatisticClassValue lowerValue, StatisticClassValue upperValue, int frequency){
 		
 		
 	}
