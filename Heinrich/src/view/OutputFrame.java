@@ -2,6 +2,11 @@ package view;
 
 import javax.swing.*;
 
+/**
+ * 
+ * @author Jan Sauerland
+ *
+ */
 public class OutputFrame
 {
 	private JPanel mainContentPane;

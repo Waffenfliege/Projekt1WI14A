@@ -1,6 +1,10 @@
 package view;
 
-//Jan
+/**
+ * 
+ * @author Jan Sauerland
+ *
+ */
 public class ViewHandler
 {
 

@@ -20,10 +20,18 @@ import java.awt.Cursor;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.swing.UIManager;
 import java.awt.GridLayout;
 import javax.swing.border.EmptyBorder;
 
+/**
+ * 
+ * @author Jan Sauerland
+ *
+ */
 public class InputPanel extends JPanel {
 	// private JTable table;
 	private JTextField leftClassBorderField;
@@ -75,6 +83,7 @@ public class InputPanel extends JPanel {
 		leftClassBorderLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		leftClassBorderLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		leftClassBorderLabel.setFont(new Font("Arial", Font.PLAIN, 26));
+		leftClassBorderLabel.addMouseListener(borderClick);
 		classInputPane.add(leftClassBorderLabel);
 
 		leftClassBorderField = new JTextField();
@@ -100,6 +109,7 @@ public class InputPanel extends JPanel {
 		rightClassBorderLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		rightClassBorderLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		rightClassBorderLabel.setFont(new Font("Arial", Font.PLAIN, 26));
+		rightClassBorderLabel.addMouseListener(borderClick);
 		classInputPane.add(rightClassBorderLabel);
 
 		JPanel quantityPane = new JPanel();
@@ -232,6 +242,15 @@ public class InputPanel extends JPanel {
 		public void actionPerformed(ActionEvent actionEvent) {
 			// TODO: Action bei Button "Berechnen"
 		}
+	};
+	private MouseListener borderClick = new MouseListener() {
+		public void mouseClicked(MouseEvent mouseEvent) {
+			// TODO: Action bei Klick auf linke Klammer
+		}
+		public void mouseEntered(MouseEvent mouseEvent) {}
+		public void mouseExited(MouseEvent mouseEvent) {}
+		public void mouseReleased(MouseEvent mouseEvent) {}
+		public void mousePressed(MouseEvent mouseEvent) {}
 	};
 	
 	public InputPanel get() {

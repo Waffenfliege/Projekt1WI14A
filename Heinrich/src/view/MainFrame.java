@@ -45,7 +45,8 @@ public class MainFrame extends JFrame {
 
 		inputPanel = new InputPanel();
 		outputFrame = new OutputFrame();
-
+		// TODO: OutputFrame in OutputPanel umformen & anpassen
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -59,6 +60,7 @@ public class MainFrame extends JFrame {
 		this.contentPane.add(contentPane);
 		this.contentPane.revalidate();
 		this.contentPane.repaint();
+		// TODO: Prüfen, ob switchPane() in der Form funktioniert
 	}
 
 }
