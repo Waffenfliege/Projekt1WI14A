@@ -16,11 +16,11 @@ public class Program
 		
 		//######################TEST###################
 		
-		float relativeOccurences[] = LogicHandler.getRelativeOccurences(dataHandler.getAllClasses());
-		float classMiddles[] = LogicHandler.getClassMiddles(dataHandler.getAllClasses());
+		float relativeOccurences[] = LogicHandler.getRelativeOccurences(dataHandler.getList());
+		float classMiddles[] = LogicHandler.getClassMiddles(dataHandler.getList());
 
 		
-		for(int i=0; i<dataHandler.getAllClasses().size();i++){
+		for(int i=0; i<dataHandler.getList().size();i++){
 		
 			float absoluteOccurence = dataHandler.getElement(i).getAbsoluteOccurences();
 			System.out.println("Daten für Klasse "+ (i+1) + ": ");
@@ -31,7 +31,7 @@ public class Program
 		}
 		
 		
-		float median = LogicHandler.median(TestDataHandler.getAllClasses());
+		float median = LogicHandler.median(TestDataHandler.getList());
 	
 	}
 
