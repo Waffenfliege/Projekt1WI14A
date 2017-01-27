@@ -18,6 +18,7 @@ public class MainFrame extends JFrame
 
 	private JPanel contentPane;
 	private InputFrame inputFrame;
+	private OutputFrame outputFrame;
 
 	/**
 	 * Launch the application.
@@ -50,6 +51,7 @@ public class MainFrame extends JFrame
 		setTitle("Statistik-Projekt 2017");
 
 		inputFrame = new InputFrame();
+		outputFrame = new OutputFrame();
 
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
