@@ -31,6 +31,7 @@ public class LogicHandler
 		return results;
 	}
 	
+	//TODO ERRORHANDLING, KOMMENTARE
 	/**
 	 * Methode zur Berechnung der relativen Häufigkeiten der Klassen eines Datensatzes
 	 * @param classes Datensatz, für den die relativen Häufigkeiten ermittelt werden sollen.
@@ -56,12 +57,13 @@ public class LogicHandler
 		}
 	}
 
+	//TODO KOMMENTARE; DOKU; ERRORHANDLING
 	public static float getMedian(ArrayList<StatisticClass> classes, float[] classMiddles, float[] relativeOccurences) throws Exception{
 		//Braucht: Klassenmitten, relative Häufigkeiten
 		
 		
-		if(classes.size() <=0 || classMiddles.length <= 0 || relativeOccurences.length <=0 || classMiddles.length != relativeOccurences.length){
-			throw new IllegalArgumentException("Die angegebenen Wertearrays sind nicht gefüllt oder die Anzahl ihrer Elemente ist nicht gleich.");
+		if(classes.size() ==0 || classMiddles.length == 0 || relativeOccurences.length ==0){
+			throw new IllegalArgumentException("Die angegebenen Wertearrays sind nicht gefüllt.");
 		}
 		
 		else{

@@ -12,10 +12,12 @@ public class Program
 	{
 
 		ViewHandler view = new ViewHandler();
-		TestDataHandler dataHandler = new TestDataHandler();
+		
 		
 		//######################TEST###################
 		
+		TestDataHandler dataHandler = new TestDataHandler();
+	
 		
 		try{
 			float relativeOccurences[] = LogicHandler.getRelativeOccurences(dataHandler.getList(), dataHandler.getSampleSize());
@@ -33,7 +35,7 @@ public class Program
 			}
 			
 			float median = LogicHandler.getMedian(dataHandler.getList(), classMiddles, relativeOccurences);
-			float arithmeticMiddle = LogicHandler.getArithmeticMiddle(classMiddles);
+			float arithmeticMiddle = LogicHandler.getArithmeticMiddle(classMiddles, relativeOccurences);
 			
 			System.out.println("Daten für Liste: ");
 			System.out.println("--- arithmetisches Mittel: " + arithmeticMiddle);
@@ -41,6 +43,10 @@ public class Program
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		
+		
+		//######################TEST###################
+		
 	
 	}
 
