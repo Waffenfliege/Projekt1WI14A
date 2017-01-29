@@ -2,6 +2,7 @@ package main;
 
 import data.DataHandler;
 import logic.LogicHandler;
+import logic.Quantile;
 import test.TestDataHandler;
 import view.ViewHandler;
 
@@ -40,6 +41,26 @@ public class Program
 			System.out.println("Daten für Liste: ");
 			System.out.println("--- arithmetisches Mittel: " + arithmeticMiddle);
 			System.out.println("--- Median: " + median);
+			System.out.println("--- Quantile: ");
+			
+			Quantile[] quantiles = LogicHandler.getQuantiles(dataHandler.getList(), classMiddles, relativeOccurences);
+			
+			for(int i=0; i<quantiles.length; i++){
+				System.out.println("----- Quantil " + quantiles[i].getAlpha() + ": " + quantiles[i].getValue());
+			}
+			
+			float z = 48;
+			float meanAbsoluteDeviation = LogicHandler.getMeanAbsoluteDeviation(dataHandler.getList(), classMiddles, relativeOccurences, z);
+			System.out.println("--- Mittlere arithmetische Abweichung für z = " + z +": " + meanAbsoluteDeviation);
+			
+			float variance = LogicHandler.getVariance(dataHandler.getList(), classMiddles, arithmeticMiddle, dataHandler.getSampleSize());
+			System.out.println("--- Varianz: " + variance);
+		
+			float standardDeviation = LogicHandler.getStandardDeviation(variance);
+			System.out.println("--- Standardabweichung: " + standardDeviation);
+		
+		
+		
 		}catch(Exception e){
 			e.printStackTrace();
 		}
