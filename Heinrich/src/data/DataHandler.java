@@ -12,29 +12,49 @@ public class DataHandler
 		classes = new ArrayList<StatisticClass>();
 	}
 	
-	//TODO Comments
+	/**
+	 * 
+	 * @return ArrayList of all statistic classes.
+	 */
 	public  ArrayList<StatisticClass> getList(){
 		return classes;
 	}
 	
-	//TODO Comments
+	/**
+	 * 
+	 * @param index number specifying the element in the ArrayList. 
+	 * @return Specific element of the statistic class ArrayList.
+	 */
 	public  StatisticClass getElement(int index){
 		return classes.get(index);		
 	}
 	
-	//TODO Comments
+	/**
+	 * This method will update an existing element of the ArrayList. 
+	 * @param index number specifying the element in the ArrayList. 
+	 * @param lowerValue lower value of the statistical class. 
+	 * @param upperValue upper value of the statistical class. 
+	 * @param absoluteOccurence absolute occurrence of data points in this statistical class.
+	 */
 	public void updateListItem(int index, StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence) {
 		classes.get(index).setLowerValue(lowerValue);
 		classes.get(index).setUpperValue(upperValue);
 		classes.get(index).setAbsoluteOccurences(absoluteOccurence);
 	}
 	
-	//TODO Comments & Validation w/ classCount?
+	/**
+	 * This method will add a new element to the ArrayList for the statistical classes.
+	 * @param lowerValue lower value of the statistical class. 
+	 * @param upperValue upper value of the statistical class. 
+	 * @param absoluteOccurence absolute occurrence of samples in this statistical class. 
+	 */
 	public  void put(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence){
 		classes.add(new StatisticClass(lowerValue, upperValue, absoluteOccurence));	
 	}
 	
-	//TODO Comments
+	/**
+	 * @return absolute sample size over all statistical classes
+	 */
 	public  int getSampleSize(){
 		int sampleSize = 0;
 		int classCount = classes.size();
