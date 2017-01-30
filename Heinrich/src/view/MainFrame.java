@@ -17,7 +17,7 @@ public class MainFrame extends JFrame {
 
 	private JPanel contentPane;
 	private InputPanel inputPanel;
-	private OutputFrame outputFrame;
+	private OutputPanel outputFrame;
 
 	/**
 	 * Launch the application.
@@ -44,7 +44,7 @@ public class MainFrame extends JFrame {
 		setTitle("Statistik-Projekt 2017");
 
 		inputPanel = new InputPanel();
-		outputFrame = new OutputFrame();
+		outputFrame = new OutputPanel();
 		// TODO: OutputFrame in OutputPanel umformen & anpassen
 		
 		contentPane = new JPanel();
