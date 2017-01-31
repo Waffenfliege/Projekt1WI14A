@@ -43,13 +43,19 @@ public class DataHandler
 	}
 	
 	/**
-	 * This method will add a new element to the ArrayList for the statistical classes.
+	 * This method will add a new element to the ArrayList for the statistical classes if maximum of classes is not yet reached. 
 	 * @param lowerValue lower value of the statistical class. 
 	 * @param upperValue upper value of the statistical class. 
 	 * @param absoluteOccurence absolute occurrence of samples in this statistical class. 
+	 * @throws Exception Throws exception if the maximum number of statistical classes is reached.
 	 */
-	public static  void put(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence){
-		classes.add(new StatisticClass(lowerValue, upperValue, absoluteOccurence));	
+
+	public static void put(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence) throws Exception{
+		if(classes.size() < 20){
+			classes.add(new StatisticClass(lowerValue, upperValue, absoluteOccurence));	
+		}else{
+			throw new Exception("Es können keine weiteren Klassen hinzugefügt werden.");
+		}
 	}
 	
 	/**

@@ -159,7 +159,7 @@ public class LogicHandler
 	 */
 	public static Quantile[] getQuantiles(ArrayList<StatisticClass> classes, float[] classMiddles, float[] relativeOccurences) throws Exception{
 		Quantile[] quantiles = new Quantile[6];
-		quantiles[0] = new Quantile(-1f, 0.05f);
+		quantiles[0] = new Quantile(-1f, 0.2f);
 		quantiles[1] = new Quantile(-1f, 0.1f);
 		quantiles[2] = new Quantile(-1f, 0.25f);
 		quantiles[3] = new Quantile(-1f, 0.75f);
@@ -272,8 +272,14 @@ public class LogicHandler
 		return result;
 	}
 	
-	
-	public static float getGiniCoefficient(){
+	/**
+	 * 
+	 * @author Robert
+	 */
+	public static float getGiniCoefficient(ArrayList<StatisticClass> classes){
+		//Step 1: Klassenmitte/Wert (Wirklich Klassenmitte?) https://de.wikipedia.org/wiki/Gini-Koeffizient
+		//Step 2: Ordnen der Ergebnissen (von klein nach groﬂ)
+		
 		return 0;
 	}
 	
