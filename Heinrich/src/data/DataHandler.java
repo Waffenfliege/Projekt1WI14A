@@ -36,7 +36,7 @@ public class DataHandler
 	 * @param upperValue upper value of the statistical class. 
 	 * @param absoluteOccurence absolute occurrence of data points in this statistical class.
 	 */
-	private void updateListItem(int index, StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence) {
+	private static void updateListItem(int index, StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence) {
 		classes.get(index).setLowerValue(lowerValue);
 		classes.get(index).setUpperValue(upperValue);
 		classes.get(index).setAbsoluteOccurences(absoluteOccurence);
@@ -50,12 +50,8 @@ public class DataHandler
 	 * @throws Exception Throws exception if the maximum number of statistical classes is reached.
 	 */
 
-	private void put(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence) throws Exception{
-		if(classes.size() < 20){
-			classes.add(new StatisticClass(lowerValue, upperValue, absoluteOccurence));	
-		}else{
-			throw new Exception("Es können keine weiteren Klassen hinzugefügt werden.");
-		}
+	private static void putListItem(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence){
+		classes.add(new StatisticClass(lowerValue, upperValue, absoluteOccurence));	
 	}
 	
 	/**
@@ -70,20 +66,75 @@ public class DataHandler
 		return sampleSize;
 	}
 	
+	public static void receiveData(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence, int currentViewIndex) throws Exception{
+		//are we handling a newly entered class or were data just changed?
+		//new class
+		if(isNewClass(currentViewIndex)){
+			checkClassCreation(lowerValue, upperValue, absoluteOccurence);
+		}
+		
+		//data were just changed
+		else{
+			checkClassChange(lowerValue, upperValue, absoluteOccurence, currentViewIndex);
+		}
+	}
 	
-	public static void receiveData(StatisticClassValue statisticClassValue, StatisticClassValue statisticClassValue2, int absoluteOccurence){
+	private static void checkClassCreation(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence) throws Exception{
+		//no classes existing yet
+		if(classes.size()==0){
+			putListItem(lowerValue, upperValue, absoluteOccurence);
+		}
+		
+		//classes already existing
+		else{
+			
+			//class limit reached
+			if(isClassLimitReached()){
+				throw new Exception("Es wurden bereits 20 Klassen eingegeben!");
+			}
+			
+			//class limit not reached
+			else{
+				
+				int[] overlappingClasses = checkForOverlap();
+				//there are no overlapping class values
+				if(overlappingClasses==null){
+					putListItem(lowerValue, upperValue, absoluteOccurence);
+				}
+				
+				//there are overlapping class values
+				else{
+					throw new IllegalOverlapException("Einige Klassengrenzen überschneiden sich!", overlappingClasses);
+				}
+			}
+		}
+	}
+	
+	private static void checkClassChange(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence, int currentViewIndex){
+		int[] overlappingClasses = checkForOverlap();
+		
+		//no overlap
+		if(overlappingClasses==null){
+			updateListItem(currentViewIndex, lowerValue, upperValue, absoluteOccurence);
+		}
+		
+		//overlap
+		else{
+			throw new IllegalOverlapException("Einige Klassengrenzen überschneiden sich!", overlappingClasses);
+		}
+	}
+	
+	private static boolean isNewClass(int currentViewIndex){
+		return false;
 		
 	}
 	
-	private boolean isNewClass(int currentViewIndex){
+	private static boolean isClassLimitReached(){
+		return false;
 		
 	}
 	
-	private boolean isClassLimitReached(){
-		
-	}
-	
-	private int[] checkForOverlap(){
+	private static int[] checkForOverlap(){
 		int[] result = null; 
 		
 		
