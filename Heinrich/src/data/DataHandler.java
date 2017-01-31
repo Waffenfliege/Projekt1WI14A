@@ -51,6 +51,7 @@ public class DataHandler
 	 */
 
 	private void put(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence) throws Exception{
+		//validierung aus anderer Methode
 		if(classes.size() < 20){
 			classes.add(new StatisticClass(lowerValue, upperValue, absoluteOccurence));	
 		}else{
@@ -75,12 +76,28 @@ public class DataHandler
 		
 	}
 	
+	/**
+	 * If the given view index is smaller than the number of elements in the array list, an element with that index already exists. If it is equal oder higher than the array list size, there is no element with that index in the array list.  
+	 * @param currentViewIndex Index number of the statistical class that is modified in the view.
+	 * @return True if the given index of the view is equal to the array size. 
+	 */
 	private boolean isNewClass(int currentViewIndex){
-		
+		if(currentViewIndex >= classes.size()){
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
+	/** 
+	 * @return True if class limit is reached. False if class limit is not reached.
+	 */
 	private boolean isClassLimitReached(){
-		
+		if(classes.size() < MAX_CLASS_COUNT){
+			return false;
+		}else{
+			return true;
+		}
 	}
 	
 	private int[] checkForOverlap(){
