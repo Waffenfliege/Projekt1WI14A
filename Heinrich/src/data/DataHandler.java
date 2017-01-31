@@ -36,7 +36,7 @@ public class DataHandler
 	 * @param upperValue upper value of the statistical class. 
 	 * @param absoluteOccurence absolute occurrence of data points in this statistical class.
 	 */
-	public static void updateListItem(int index, StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence) {
+	private void updateListItem(int index, StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence) {
 		classes.get(index).setLowerValue(lowerValue);
 		classes.get(index).setUpperValue(upperValue);
 		classes.get(index).setAbsoluteOccurences(absoluteOccurence);
@@ -50,7 +50,7 @@ public class DataHandler
 	 * @throws Exception Throws exception if the maximum number of statistical classes is reached.
 	 */
 
-	public static void put(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence) throws Exception{
+	private void put(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence) throws Exception{
 		if(classes.size() < 20){
 			classes.add(new StatisticClass(lowerValue, upperValue, absoluteOccurence));	
 		}else{
@@ -69,6 +69,27 @@ public class DataHandler
 		}
 		return sampleSize;
 	}
+	
+	
+	public static void receiveData(StatisticClassValue statisticClassValue, StatisticClassValue statisticClassValue2, int absoluteOccurence){
+		
+	}
+	
+	private boolean isNewClass(int currentViewIndex){
+		
+	}
+	
+	private boolean isClassLimitReached(){
+		
+	}
+	
+	private int[] checkForOverlap(){
+		int[] result = null; 
+		
+		
+		return result; //null, wenn kein Overlap, index von den betroffenen Klassen, wenn Overlap
+	}
+	
 	
 	//Vorgehen: 
 		//Anschließend prüfen, ob bereits Klassen existieren.
