@@ -44,6 +44,7 @@ public class InputPanel extends JPanel
 	 */
 	public InputPanel()
 	{
+		super();
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setBackground(Color.WHITE);
 		setLayout(new BorderLayout(20, 5));

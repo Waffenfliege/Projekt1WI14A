@@ -32,6 +32,7 @@ public class OutputPanel extends JPanel
 	 */
 	public OutputPanel()
 	{
+		super();
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setBackground(Color.WHITE);
 		setLayout(new BorderLayout(20, 5));

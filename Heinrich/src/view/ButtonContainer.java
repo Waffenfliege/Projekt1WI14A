@@ -25,6 +25,7 @@ public class ButtonContainer extends JPanel
 	 */
 	public ButtonContainer(boolean output)
 	{
+		super();
 		if (output)
 		{
 			setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -65,7 +66,11 @@ public class ButtonContainer extends JPanel
 		{
 			// TODO: Action bei Button "Neue Berechnung": Input-Panel komplett
 			// neu aufrufen
-			MainFrame.switchToInputPanel(true);
+			String dialogString = InputDialog.startNewDialog();
+			if (dialogString.equals("Ja"))
+			{
+				MainFrame.switchToInputPanel(true);
+			}
 		}
 	};
 
@@ -96,23 +101,24 @@ public class ButtonContainer extends JPanel
 		{
 			// TODO: Action bei Button "nächste Klasse": Werte überprüfen,
 			// abspeichern, Eingabefelder leeren
-			
-			//Folgende Werte aus den Texboxen / Klammerbuttons auslesen
+
+			// Folgende Werte aus den Texboxen / Klammerbuttons auslesen
 			float lowerValue;
 			float upperValue;
 			ClampType lowerClampType;
 			ClampType upperClampType;
 			int absoluteOccurence;
-			
-//			try{
-//				DataHandler.receiveData(new StatisticClassValue(lowerValue, lowerClampType),  
-//						new StatisticClassValue(upperValue, upperClampType), 
-//						absoluteOccurence);
-//			}catch(Exception e){
-//				e.printStackTrace();
-//			}
-			//VORGEHEN: DataHandler.receiveData(Parametern) aufrufen, 
-			
+
+			// try{
+			// DataHandler.receiveData(new StatisticClassValue(lowerValue,
+			// lowerClampType),
+			// new StatisticClassValue(upperValue, upperClampType),
+			// absoluteOccurence);
+			// }catch(Exception e){
+			// e.printStackTrace();
+			// }
+			// VORGEHEN: DataHandler.receiveData(Parametern) aufrufen,
+
 			MainFrame.getInputPanel().revalidate();
 			MainFrame.getInputPanel().repaint();
 		}
@@ -125,6 +131,8 @@ public class ButtonContainer extends JPanel
 			// TODO: Action bei Button "Berechnen": Werte überprüfen,
 			// abspeichern, OutputPanel aufrufen, Berechnete Werte anzeigen,
 			// Diagramme berechnen (= Werte an LogicHandler übergeben)
+			String dialogString = InputDialog.startZDialog();
+			// variable z = Double.parseDouble(dialogString);
 			MainFrame.switchToOutputPanel();
 		}
 	};
