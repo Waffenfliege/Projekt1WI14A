@@ -12,6 +12,9 @@ public class DataHandler
 		classes = new ArrayList<StatisticClass>();
 	}
 	
+	public static void initialize(){
+		classes = new ArrayList<StatisticClass>();
+	}
 	/**
 	 * 
 	 * @return ArrayList of all statistic classes.
@@ -80,7 +83,7 @@ public class DataHandler
 		}
 	}
 	
-	private static void checkClassCreation(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence) throws Exception{
+	private static void checkClassCreation(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence) throws IllegalOverlapException, Exception{
 		//no classes existing yet
 		if(classes.size()==0){
 			putListItem(lowerValue, upperValue, absoluteOccurence);
@@ -95,34 +98,19 @@ public class DataHandler
 			}
 			
 			//class limit not reached
-			else{
-				
-				int[] overlappingClasses = checkForOverlap();
-				//there are no overlapping class values
-				if(overlappingClasses==null){
-					putListItem(lowerValue, upperValue, absoluteOccurence);
-				}
-				
-				//there are overlapping class values
-				else{
-					throw new IllegalOverlapException("Einige Klassengrenzen überschneiden sich!", overlappingClasses);
-				}
+			else{				
+				checkForOverlap(lowerValue, upperValue);
+								
+				putListItem(lowerValue, upperValue, absoluteOccurence);
 			}
 		}
 	}
 	
-	private static void checkClassChange(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence, int currentViewIndex){
-		int[] overlappingClasses = checkForOverlap();
+	private static void checkClassChange(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence, int currentViewIndex) throws IllegalOverlapException{
+		checkForOverlap(lowerValue, upperValue);
 		
-		//no overlap
-		if(overlappingClasses==null){
-			updateListItem(currentViewIndex, lowerValue, upperValue, absoluteOccurence);
-		}
+		updateListItem(currentViewIndex, lowerValue, upperValue, absoluteOccurence);
 		
-		//overlap
-		else{
-			throw new IllegalOverlapException("Einige Klassengrenzen überschneiden sich!", overlappingClasses);
-		}
 	}
 	
 	/**
@@ -131,7 +119,7 @@ public class DataHandler
 	 * @return True if the given index of the view is equal to the array size. 
 	 */
 	private static boolean isNewClass(int currentViewIndex){
-		if(currentViewIndex >= classes.size()){
+		if(currentViewIndex == classes.size()){
 			return true;
 		}else{
 			return false;
@@ -148,11 +136,34 @@ public class DataHandler
 		}
 	}
 	
-	private static int[] checkForOverlap(){
-		int[] result = null; 
+	private static void checkForOverlap(StatisticClassValue lowerValue, StatisticClassValue upperValue) throws IllegalOverlapException{
+		ArrayList<Integer> result = new ArrayList<Integer>(); 
 		
+		for(int i = 0; i < classes.size(); i++){
+			if(classes.get(i).getUpperValue().value <= lowerValue.value){
+				if(classes.get(i).getUpperValue().clamp == ClampType.INCLUSIVE && lowerValue.clamp == ClampType.INCLUSIVE){
+					result.add(i);
+				}
+				else {
+					continue;
+				}
+			}
+			else if(classes.get(i).getLowerValue().value >= upperValue.value){
+				if(classes.get(i).getLowerValue().clamp == ClampType.INCLUSIVE && upperValue.clamp == ClampType.INCLUSIVE){
+					result.add(i);
+				}
+				else {
+					continue;
+				}
+			}
+			else {
+				result.add(i);
+			}
+		}
 		
-		return result; //null, wenn kein Overlap, index von den betroffenen Klassen, wenn Overlap
+		if(result.size() > 0){
+			throw new IllegalOverlapException("Klassen überschneiden sich.", result);
+		}
 	}
 	
 	

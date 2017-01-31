@@ -1,15 +1,17 @@
 package data;
 
+import java.util.ArrayList;
+
 public class IllegalOverlapException extends RuntimeException{
 	
-	int[] overlappingClassIndices;
+	ArrayList<Integer> overlappingClassIndices;
 	
-	public IllegalOverlapException(String text, int[] overlappingClassIndices){
+	public IllegalOverlapException(String text, ArrayList<Integer> overlappingClassIndices){
 		super(text);
 		this.overlappingClassIndices = overlappingClassIndices;
 	}
 
-	public int[] getOverlappingClasses(){
+	public ArrayList<Integer> getOverlappingClasses(){
 		return overlappingClassIndices;
 	}
 }
