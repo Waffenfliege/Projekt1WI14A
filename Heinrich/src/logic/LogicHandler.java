@@ -13,11 +13,11 @@ public class LogicHandler
 	 * x Klassenmitten
 	 * x Median
 	 * x Arithmetisches Mittel
-	 * x Absolute Häufigkeit
-	 * x Relative Häufigkeit
+	 * x Absolute HÃ¤ufigkeit
+	 * x Relative HÃ¤ufigkeit
 	 * Histogramm
 	 * - Breite
-	 * - Höhe
+	 * - HÃ¶he
 	 * Empirische Verteilungsfunktion
 	 * Quantil
 	 * Mittlere absolute Abweichung
@@ -29,7 +29,7 @@ public class LogicHandler
 	//TODO ERRORHANDLING, KOMMENTARE
 	/**
 	 * Methode zur Ermittlung der Klassenmitten eines Datensatzes
-	 * @param classes Datensatz, für den die Klassenmitten ermittelt werden sollen.
+	 * @param classes Datensatz, fÃ¼r den die Klassenmitten ermittelt werden sollen.
 	 * @return Array der Klassenmitten
 	 * @author Mathias Engmann
 	 */
@@ -48,9 +48,9 @@ public class LogicHandler
 	}
 	
 	/**
-	 * Methode zur Berechnung der relativen Häufigkeiten der Klassen eines Datensatzes
-	 * @param classes Datensatz, für den die relativen Häufigkeiten ermittelt werden sollen.
-	 * @return Array der relativen Häufigkeiten
+	 * Methode zur Berechnung der relativen HÃ¤ufigkeiten der Klassen eines Datensatzes
+	 * @param classes Datensatz, fÃ¼r den die relativen HÃ¤ufigkeiten ermittelt werden sollen.
+	 * @return Array der relativen HÃ¤ufigkeiten
 	 * @author Mathias Engmann
 	 * @param statisticClass 
 	 */
@@ -59,7 +59,7 @@ public class LogicHandler
 
 		if(sampleSize<=0  || classes.size()<=0){
 			
-			throw new IllegalArgumentException("Die Stichprobengröße muss größer als 0 sein.");
+			throw new IllegalArgumentException("Die StichprobengrÃ¶ÃŸe muss grÃ¶ÃŸer als 0 sein.");
 		}
 		
 		else{
@@ -83,11 +83,11 @@ public class LogicHandler
 	 * @author Mathias Engmann
 	 */
 	public static float getMedian(ArrayList<StatisticClass> classes, float[] classMiddles, float[] relativeOccurences) throws Exception{
-		//Braucht: Klassenmitten, relative Häufigkeiten
+		//Braucht: Klassenmitten, relative HÃ¤ufigkeiten
 		
 		
 		if(classes.size() ==0 || classMiddles.length == 0 || relativeOccurences.length ==0){
-			throw new IllegalArgumentException("Die angegebenen Wertearrays sind nicht gefüllt.");
+			throw new IllegalArgumentException("Die angegebenen Wertearrays sind nicht gefÃ¼llt.");
 		}
 		
 		else{
@@ -166,10 +166,10 @@ public class LogicHandler
 		quantiles[4] = new Quantile(-1f, 0.9f);
 		quantiles[5] = new Quantile(-1f, 0.95f);
 		
-		//Für jedes gesuchte Quantil...
+		//FÃ¼r jedes gesuchte Quantil...
 		for(int i=0; i<quantiles.length; i++){
 			
-			//...zunächst die Klasse finden, in der sich das Quantil befindet (analog wie beim Median)
+			//...zunÃ¤chst die Klasse finden, in der sich das Quantil befindet (analog wie beim Median)
 			float currentAlpha = quantiles[i].getAlpha();
 		
 			float currentRelativeShare = 0;
@@ -191,7 +191,7 @@ public class LogicHandler
 				}
 			}
 			
-			//Prüfung, ob eine Klasse gefunden wurde
+			//PrÃ¼fung, ob eine Klasse gefunden wurde
 			if(classIndexWithQuantile==-1){
 				throw new Exception("Es konnte keine Klasse ermittelt werden, in dem das Quantil " + threshholdRelativeShare + " liegt");
 			}
@@ -276,9 +276,30 @@ public class LogicHandler
 	 * 
 	 * @author Robert
 	 */
-	public static float getGiniCoefficient(ArrayList<StatisticClass> classes){
-		//Step 1: Klassenmitte/Wert (Wirklich Klassenmitte?) https://de.wikipedia.org/wiki/Gini-Koeffizient
-		//Step 2: Ordnen der Ergebnissen (von klein nach groß)
+	public static float getGiniCoefficient(){
+		//Step 1: Klassenmitte/Wert https://de.wikipedia.org/wiki/Gini-Koeffizient
+		
+		
+		//Step 2: Ordnen der Ergebnissen (von klein nach groÃŸ)
+		
+		return 0;
+	}
+	
+	/**
+	 * 
+	 * @author Robert
+	 */
+	public static float getGiniCoefficientOrder(ArrayList<StatisticClass> classes){
+		float[] classMiddles = getClassMiddles(classes); //Prozentual oder standartwerte?? FÃ¼r Lorenzkurve prozentual benÃ¶tigt
+		float[] relativeOccurences = getRelativeOccurences(classes);
+		float[] newValue = float[classes.size()]; //Anderer Name, hier wird Klassenmitte/Wert gespeichert und danach geordnet
+		
+		
+		//Step 1: Klassenmitte/Wert https://de.wikipedia.org/wiki/Gini-Koeffizient
+		for (i = 0; i<classes.length(); i++){
+			newValue[i] = classesMiddles[i]/relativeOccurences[i]; //relativer 
+		}
+		//Step 2: Ordnen der Ergebnissen (von klein nach groÃŸ)
 		
 		return 0;
 	}
