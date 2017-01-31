@@ -272,8 +272,14 @@ public class LogicHandler
 		return result;
 	}
 	
-	
-	public static float getGiniCoefficient(){
+	/**
+	 * 
+	 * @author Robert
+	 */
+	public static float getGiniCoefficient(ArrayList<StatisticClass> classes){
+		//Step 1: Klassenmitte/Wert (Wirklich Klassenmitte?) https://de.wikipedia.org/wiki/Gini-Koeffizient
+		//Step 2: Ordnen der Ergebnissen (von klein nach groﬂ)
+		
 		return 0;
 	}
 	
