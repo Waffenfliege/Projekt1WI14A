@@ -1,0 +1,12 @@
+LogicHandler: Robert / Mathias
+  - GINI -> Robert
+  - Histogramm
+  - Empirische Verteilungsfunktion
+  
+ViewHandler
+  - Verknüpfung mit LogicHandler (Mathias gibt Schnittstellen an Lukas, Lukas fügt ein)
+  - Diagramme -> Jan
+  - Sonderzeichen für Ergebnisse -> Lukas
+  - Formatierung der Ergebnisse als Grid / Tabelle? -> Jan
+  - Tiefstellen von Schrift -> Mathias
+  - Methoden für das Anlegen neuer Klassen (Parameter, Spezifikation). Jonathan -> Lukas / Mathias
