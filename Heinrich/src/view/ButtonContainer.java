@@ -104,11 +104,15 @@ public class ButtonContainer extends JPanel
 			ClampType upperClampType;
 			int absoluteOccurence;
 			
+			try{
+				DataHandler.receiveData(new StatisticClassValue(lowerValue, lowerClampType),  
+						new StatisticClassValue(upperValue, upperClampType), 
+						absoluteOccurence);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 			//VORGEHEN: DataHandler.receiveData(Parametern) aufrufen, 
 			
-			DataHandler.put(new StatisticClassValue(lowerValue, lowerClampType),  
-							new StatisticClassValue(upperValue, upperClampType), 
-							absoluteOccurence);
 			MainFrame.getInputPanel().revalidate();
 			MainFrame.getInputPanel().repaint();
 		}
