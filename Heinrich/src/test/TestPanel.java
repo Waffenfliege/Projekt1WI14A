@@ -1,31 +1,20 @@
 package test;
 
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-
 import java.awt.BorderLayout;
 import javax.swing.JButton;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Component;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
-import java.awt.Insets;
-import java.awt.Cursor;
-import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.UIManager;
 import java.awt.GridLayout;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JTabbedPane;
-import javax.swing.BoxLayout;
-import javax.swing.JSplitPane;
 
 public class TestPanel extends JPanel {
 	// private JTable table;
@@ -77,9 +66,10 @@ public class TestPanel extends JPanel {
 		JPanel resultValuePanel = new JPanel();
 		resultValuePanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		resultPanel.add(resultValuePanel, BorderLayout.CENTER);
-		resultValuePanel.setLayout(new GridLayout(7, 1, 0, 0));
+		resultValuePanel.setLayout(new GridLayout(7, 4, 0, 0));
 		
 		JPanel resultMiddlePanel = new JPanel();
+		resultMiddlePanel.setBorder(new LineBorder(Color.LIGHT_GRAY));
 		FlowLayout flowLayout_1 = (FlowLayout) resultMiddlePanel.getLayout();
 		flowLayout_1.setHgap(10);
 		flowLayout_1.setAlignment(FlowLayout.LEFT);
@@ -98,6 +88,7 @@ public class TestPanel extends JPanel {
 		resultMiddlePanel.add(lblValue);
 		
 		JPanel resultMedianPanel = new JPanel();
+		resultMedianPanel.setBorder(new LineBorder(Color.LIGHT_GRAY));
 		FlowLayout flowLayout_2 = (FlowLayout) resultMedianPanel.getLayout();
 		flowLayout_2.setHgap(10);
 		flowLayout_2.setAlignment(FlowLayout.LEFT);
@@ -116,6 +107,7 @@ public class TestPanel extends JPanel {
 		resultMedianPanel.add(label_6);
 		
 		JPanel resultQuantilePanel = new JPanel();
+		resultQuantilePanel.setBorder(new LineBorder(Color.LIGHT_GRAY));
 		FlowLayout fl_resultQuantilePanel = (FlowLayout) resultQuantilePanel.getLayout();
 		fl_resultQuantilePanel.setHgap(10);
 		fl_resultQuantilePanel.setAlignment(FlowLayout.LEFT);
@@ -134,6 +126,7 @@ public class TestPanel extends JPanel {
 		resultQuantilePanel.add(label_5);
 		
 		JPanel resultDeviationPanel = new JPanel();
+		resultDeviationPanel.setBorder(new LineBorder(Color.LIGHT_GRAY));
 		FlowLayout fl_resultDeviationPanel = (FlowLayout) resultDeviationPanel.getLayout();
 		fl_resultDeviationPanel.setHgap(10);
 		fl_resultDeviationPanel.setAlignment(FlowLayout.LEFT);
@@ -152,6 +145,7 @@ public class TestPanel extends JPanel {
 		resultDeviationPanel.add(label_10);
 		
 		JPanel resultVariancePanel = new JPanel();
+		resultVariancePanel.setBorder(new LineBorder(Color.LIGHT_GRAY));
 		FlowLayout fl_resultVariancePanel = (FlowLayout) resultVariancePanel.getLayout();
 		fl_resultVariancePanel.setHgap(10);
 		fl_resultVariancePanel.setAlignment(FlowLayout.LEFT);
@@ -170,6 +164,7 @@ public class TestPanel extends JPanel {
 		resultVariancePanel.add(label_13);
 		
 		JPanel resultStandardPanel = new JPanel();
+		resultStandardPanel.setBorder(new LineBorder(Color.LIGHT_GRAY));
 		FlowLayout fl_resultStandardPanel = (FlowLayout) resultStandardPanel.getLayout();
 		fl_resultStandardPanel.setHgap(10);
 		fl_resultStandardPanel.setAlignment(FlowLayout.LEFT);
@@ -188,6 +183,7 @@ public class TestPanel extends JPanel {
 		resultStandardPanel.add(label_16);
 		
 		JPanel resultGiniPanel = new JPanel();
+		resultGiniPanel.setBorder(new LineBorder(Color.LIGHT_GRAY));
 		FlowLayout fl_resultGiniPanel = (FlowLayout) resultGiniPanel.getLayout();
 		fl_resultGiniPanel.setHgap(10);
 		fl_resultGiniPanel.setAlignment(FlowLayout.LEFT);

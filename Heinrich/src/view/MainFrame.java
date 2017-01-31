@@ -13,22 +13,28 @@ import javax.swing.border.EmptyBorder;
  * @author Jan Sauerland
  *
  */
-public class MainFrame extends JFrame {
+public class MainFrame extends JFrame
+{
 
-	private JPanel contentPane;
-	private InputPanel inputPanel;
-	private OutputFrame outputFrame;
+	private static JPanel contentPanel;
+	private static InputPanel inputPanel;
+	private static OutputPanel outputPanel;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void startFrame() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
+	public static void startFrame()
+	{
+		EventQueue.invokeLater(new Runnable()
+		{
+			public void run()
+			{
+				try
+				{
 					MainFrame frame = new MainFrame();
 					frame.setVisible(true);
-				} catch (Exception e) {
+				} catch (Exception e)
+				{
 					e.printStackTrace();
 				}
 			}
@@ -36,31 +42,85 @@ public class MainFrame extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Create the frame and set the inputPanel as the initial contentPanel.
 	 */
-	public MainFrame() {
+	public MainFrame()
+	{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 200, 800, 600);
 		setTitle("Statistik-Projekt 2017");
 
 		inputPanel = new InputPanel();
-		outputFrame = new OutputFrame();
+		outputPanel = new OutputPanel();
 		// TODO: OutputFrame in OutputPanel umformen & anpassen
-		
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 
-		setContentPane(contentPane);
-		switchPane(inputPanel.get());
+		contentPanel = new JPanel();
+		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPanel.setLayout(new BorderLayout(0, 0));
+
+		setContentPane(contentPanel);
+		switchPanel(inputPanel.get());
 	}
 
-	public void switchPane(JPanel contentPane) {
-		this.contentPane.removeAll();
-		this.contentPane.add(contentPane);
-		this.contentPane.revalidate();
-		this.contentPane.repaint();
+	/**
+	 * Change the current shown contentPanel of the MainFrame to the given
+	 * JPanel Object.
+	 * 
+	 * @param content
+	 *            JPanel Object that shall be shown in the MainFrame
+	 */
+	public static void switchPanel(JPanel content)
+	{
+		contentPanel.removeAll();
+		contentPanel.add(content);
+		contentPanel.revalidate();
+		contentPanel.repaint();
 		// TODO: Prüfen, ob switchPane() in der Form funktioniert
 	}
 
+	/**
+	 * Change the current shown contentPanel of the MainFrame to the current
+	 * outputPanel.
+	 * 
+	 * @see switchPanel()
+	 */
+	public static void switchToOutputPanel()
+	{
+		switchPanel(outputPanel);
+	}
+
+	/**
+	 * Change the current shown contentPanel of the MainFrame to the current
+	 * inputPanel according to the given parameter.
+	 * 
+	 * @param resetValues
+	 *            determines whether or not the values in the inputPanel shall
+	 *            be reset.
+	 * @see switchPanel()
+	 */
+	public static void switchToInputPanel(boolean resetValues)
+	{
+		// TODO: Ablaufsteuerung einfügen
+		switchPanel(inputPanel);
+	}
+
+	/**
+	 * Return the inputPanel.
+	 * 
+	 * @return the inputPanel
+	 */
+	public static InputPanel getInputPanel()
+	{
+		return inputPanel;
+	}
+
+	/**
+	 * Return the inputPanel.
+	 * 
+	 * @return the inputPanel
+	 */
+	public static OutputPanel getOutputPanel()
+	{
+		return outputPanel;
+	}
 }
