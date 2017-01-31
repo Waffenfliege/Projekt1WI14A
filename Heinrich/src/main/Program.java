@@ -23,8 +23,11 @@ public class Program
 
 		MainFrame.startFrame();
 
+		
+		
+		
+		
 		// ######################TEST###################
-
 		TestDataHandler dataHandler = new TestDataHandler();
 
 		try
