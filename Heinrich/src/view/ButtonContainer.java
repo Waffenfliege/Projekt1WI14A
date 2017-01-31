@@ -7,6 +7,11 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
+
+import data.ClampType;
+import data.DataHandler;
+import data.StatisticClassValue;
+
 import java.awt.Color;
 
 @SuppressWarnings("serial")
@@ -91,6 +96,19 @@ public class ButtonContainer extends JPanel
 		{
 			// TODO: Action bei Button "nächste Klasse": Werte überprüfen,
 			// abspeichern, Eingabefelder leeren
+			
+			//Folgende Werte aus den Texboxen / Klammerbuttons auslesen
+			float lowerValue;
+			float upperValue;
+			ClampType lowerClampType;
+			ClampType upperClampType;
+			int absoluteOccurence;
+			
+			//VORGEHEN: DataHandler.receiveData(Parametern) aufrufen, 
+			
+			DataHandler.put(new StatisticClassValue(lowerValue, lowerClampType),  
+							new StatisticClassValue(upperValue, upperClampType), 
+							absoluteOccurence);
 			MainFrame.getInputPanel().revalidate();
 			MainFrame.getInputPanel().repaint();
 		}

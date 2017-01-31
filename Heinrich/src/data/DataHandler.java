@@ -16,7 +16,7 @@ public class DataHandler
 	 * 
 	 * @return ArrayList of all statistic classes.
 	 */
-	public  ArrayList<StatisticClass> getList(){
+	public  static ArrayList<StatisticClass> getList(){
 		return classes;
 	}
 	
@@ -25,7 +25,7 @@ public class DataHandler
 	 * @param index number specifying the element in the ArrayList. 
 	 * @return Specific element of the statistic class ArrayList.
 	 */
-	public  StatisticClass getElement(int index){
+	public static  StatisticClass getElement(int index){
 		return classes.get(index);		
 	}
 	
@@ -36,7 +36,7 @@ public class DataHandler
 	 * @param upperValue upper value of the statistical class. 
 	 * @param absoluteOccurence absolute occurrence of data points in this statistical class.
 	 */
-	public void updateListItem(int index, StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence) {
+	public static void updateListItem(int index, StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence) {
 		classes.get(index).setLowerValue(lowerValue);
 		classes.get(index).setUpperValue(upperValue);
 		classes.get(index).setAbsoluteOccurences(absoluteOccurence);
@@ -48,14 +48,14 @@ public class DataHandler
 	 * @param upperValue upper value of the statistical class. 
 	 * @param absoluteOccurence absolute occurrence of samples in this statistical class. 
 	 */
-	public  void put(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence){
+	public static  void put(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence){
 		classes.add(new StatisticClass(lowerValue, upperValue, absoluteOccurence));	
 	}
 	
 	/**
 	 * @return absolute sample size over all statistical classes
 	 */
-	public  int getSampleSize(){
+	public static  int getSampleSize(){
 		int sampleSize = 0;
 		int classCount = classes.size();
 		for (int i = 0; i < classCount; i++) {
@@ -63,4 +63,13 @@ public class DataHandler
 		}
 		return sampleSize;
 	}
+	
+	//Vorgehen: 
+		//Anschließend prüfen, ob bereits Klassen existieren.
+		//Wenn bereits Klassen existieren muss geprüft werden 
+			// Ist bereits eine gefüllte Klasse selektiert ? 
+				// JA: Gibt es im View andere Werte als in der gespeicherten Klasse?
+						//JA : Weiter mit Prüfung der überlappenden Klassengrenzen
+						//NEIN : Keine Aktion
+				// NEIN: Prüfung überlappender Klassengrenzen, dann DataHandler.put();	
 }
