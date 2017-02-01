@@ -10,6 +10,7 @@ import javax.swing.border.LineBorder;
 
 import data.ClampType;
 import data.DataHandler;
+import data.IllegalOverlapException;
 import data.StatisticClassValue;
 
 import java.awt.Color;
@@ -105,7 +106,10 @@ public class ButtonContainer extends JPanel
 							new StatisticClassValue(upperValue, upperClampType), absoluteOccurence, index);
 					InputPanel.resetFields();
 					index--;
-				} catch (Exception e)
+				} catch (IllegalOverlapException e)
+				{
+					e.printStackTrace();
+				}catch (Exception e)
 				{
 					e.printStackTrace();
 				}
@@ -134,7 +138,10 @@ public class ButtonContainer extends JPanel
 							new StatisticClassValue(upperValue, upperClampType), absoluteOccurence, index);
 					InputPanel.resetFields();
 					index++;
-				} catch (Exception e)
+				} catch (IllegalOverlapException e)
+				{
+					e.printStackTrace();
+				}catch (Exception e)
 				{
 					e.printStackTrace();
 				}
