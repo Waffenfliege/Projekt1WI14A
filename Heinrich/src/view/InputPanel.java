@@ -32,7 +32,9 @@ import javax.swing.border.EmptyBorder;
 @SuppressWarnings("serial")
 public class InputPanel extends JPanel
 {
-	private JTextField leftClassBorderField, rightClassBorderField, quantityField;
+	private static JTextField leftClassBorderField;
+	private static JTextField rightClassBorderField;
+	private static JTextField quantityField;
 	private JPanel inputContainer, inputPanel, classPanel, classInputPanel, quantityPanel, quantityInputPanel, tableContainer;
 	private JLabel classLabel, leftClassBorderLabel, classSeparatorLabel, rightClassBorderLabel, quantityLabel,
 			smallQuantityLabel, quantitySumLabel;
@@ -232,6 +234,30 @@ public class InputPanel extends JPanel
 	{
 		return this;
 	}
+	
+	public static String getLeftClassBorderField()
+	{
+		return leftClassBorderField.getText();
+	}
+
+	public static String getRightClassBorderField()
+	{
+		return rightClassBorderField.getText();
+	}
+
+	public static String getQuantityField()
+	{
+		return quantityField.getText();
+
+	}
+
+	public static void resetFields()
+	{
+		leftClassBorderField.setText("");
+		rightClassBorderField.setText("");
+		quantityField.setText("");
+	}
+
 
 	public JTextField getLeftClassInputField(){
 		return leftClassBorderField;
