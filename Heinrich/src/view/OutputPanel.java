@@ -29,8 +29,14 @@ public class OutputPanel extends JPanel
 	private JTabbedPane outputTabbedPane;
 	private JLabel resultHeaderLabel, middleLabel1, medianLabel1, quantileLabel1, absoluteLabel1, standardLabel1,
 			varianceLabel1, giniLabel1, middleLabel2, medianLabel2, quantileLabel2, absoluteLabel2, varianceLabel2,
-			standardLabel2, giniLabel2, middleLabel3, medianLabel3, quantileLabel3, absoluteLabel3, varianceLabel3,
-			standardLabel3, giniLabel3;
+			standardLabel2, giniLabel2;
+	private static JLabel middleLabel3;
+	private static JLabel medianLabel3;
+	private JLabel quantileLabel3;
+	private static JLabel absoluteLabel3;
+	private static JLabel varianceLabel3;
+	private static JLabel standardLabel3;
+	private static JLabel giniLabel3;
 
 	/**
 	 * Create the panel.
@@ -366,7 +372,7 @@ public class OutputPanel extends JPanel
 	 * 
 	 * @param median
 	 */
-	public void setMedian(float median)
+	public static void setMedian(float median)
 	{
 		medianLabel3.setText("" + median);
 	}
@@ -375,7 +381,7 @@ public class OutputPanel extends JPanel
 	 * 
 	 * @param middle
 	 */
-	public void setMiddle(float middle)
+	public static void setMiddle(float middle)
 	{
 		middleLabel3.setText("" + middle);
 	}
@@ -384,7 +390,7 @@ public class OutputPanel extends JPanel
 	 * 
 	 * @param variance
 	 */
-	public void setVariance(float variance)
+	public static void setVariance(float variance)
 	{
 		varianceLabel3.setText("" + variance);
 	}
@@ -393,7 +399,7 @@ public class OutputPanel extends JPanel
 	 * 
 	 * @param deviation
 	 */
-	public void setAbsoluteDeviation(float deviation)
+	public static void setAbsoluteDeviation(float deviation)
 	{
 		absoluteLabel3.setText("" + deviation);
 	}
@@ -402,7 +408,7 @@ public class OutputPanel extends JPanel
 	 * 
 	 * @param deviation
 	 */
-	public void setStandardDeviation(float deviation)
+	public static void setStandardDeviation(float deviation)
 	{
 		standardLabel3.setText("" + deviation);
 	}
@@ -411,7 +417,7 @@ public class OutputPanel extends JPanel
 	 * 
 	 * @param gini
 	 */
-	public void setGini(float gini)
+	public static void setGini(float gini)
 	{
 		giniLabel3.setText("" + gini);
 	}

@@ -150,6 +150,7 @@ public class InputDialog extends JDialog
 							{
 								try {
 									setOutputPanelData(Float.parseFloat(zInputField.getText()));
+									MainFrame.switchToOutputPanel();
 								} catch (Exception e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
@@ -261,7 +262,11 @@ public class InputDialog extends JDialog
 
 		standardDeviation = LogicHandler.getStandardDeviation(variance);
 		
-		
+		OutputPanel.setMedian(median);
+		OutputPanel.setMiddle(arithmeticMiddle);
+		OutputPanel.setAbsoluteDeviation(meanAbsoluteDeviation);
+		OutputPanel.setVariance(variance);
+		OutputPanel.setStandardDeviation(standardDeviation);
 	}
 
 }
