@@ -40,6 +40,7 @@ public class InputPanel extends JPanel
 			smallQuantityLabel, quantitySumLabel;
 	private JScrollPane tableScrollPane;
 	private ButtonContainer buttonContainer;
+	private JTable table;
 
 	/**
 	 * Creating the panel with all its components.
@@ -163,7 +164,7 @@ public class InputPanel extends JPanel
 		add(tableContainer, BorderLayout.WEST);
 		tableContainer.setLayout(new BorderLayout(5, 5));
 
-		final JTable table = new JTable()
+		table = new JTable()
 		// ist das überhaupt nötig? -> am besten alles oben als private
 		// deklarieren
 		{
@@ -250,6 +251,11 @@ public class InputPanel extends JPanel
 	public InputPanel get()
 	{
 		return this;
+	}
+	
+	public void setTableValue()
+	{
+		
 	}
 
 	public static String getLeftClassBorderField()
