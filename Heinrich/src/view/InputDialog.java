@@ -261,6 +261,7 @@ public class InputDialog extends JDialog
 
 		standardDeviation = LogicHandler.getStandardDeviation(variance);
 		
+		
 	}
 
 }
