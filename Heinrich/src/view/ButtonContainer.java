@@ -103,22 +103,17 @@ public class ButtonContainer extends JPanel
 			// abspeichern, Eingabefelder leeren
 
 			// Folgende Werte aus den Texboxen / Klammerbuttons auslesen
-			float lowerValue;
-			float upperValue;
+			float lowerValueFloat = Float.parseFloat(InputPanel.getLeftClassBorderField());
+			float upperValueFloat = Float.parseFloat(InputPanel.getRightClassBorderField());
+			int absoluteOccurence = Integer.parseInt(InputPanel.getQuantityField());
+			int currentViewIndex = InputPanel.getCurrentClassIndex();
 			ClampType lowerClampType;
 			ClampType upperClampType;
-			int absoluteOccurence;
-
-			// try{
-			// DataHandler.receiveData(new StatisticClassValue(lowerValue,
-			// lowerClampType),
-			// new StatisticClassValue(upperValue, upperClampType),
-			// absoluteOccurence);
-			// }catch(Exception e){
-			// e.printStackTrace();
-			// }
-			// VORGEHEN: DataHandler.receiveData(Parametern) aufrufen,
-
+			
+			StatisticClassValue lowerValue = new StatisticClassValue(lowerValueFloat, lowerClampType);
+			StatisticClassValue upperValue = new StatisticClassValue(upperValueFloat, upperClampType);
+			
+			DataHandler.receiveData(lowerValue, upperValue, absoluteOccurence, currentViewIndex);
 			MainFrame.getInputPanel().revalidate();
 			MainFrame.getInputPanel().repaint();
 		}
