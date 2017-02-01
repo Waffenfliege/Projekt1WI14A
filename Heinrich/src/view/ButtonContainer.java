@@ -133,7 +133,8 @@ public class ButtonContainer extends JPanel
 	{
 		public void actionPerformed(ActionEvent actionEvent) 
 		{
-				try
+			float variableZ = 0;
+			try
 				{
 					processInputMasks();
 				} catch (IllegalOverlapException e)
@@ -144,6 +145,12 @@ public class ButtonContainer extends JPanel
 					e.printStackTrace();
 				}
 			
+			String dialogCommand = InputDialog.startZDialog();
+			if (!dialogCommand.equals("Ohne")) {
+				variableZ = Float.parseFloat(dialogCommand);
+			} else {
+				variableZ = 0;
+			}
 			MainFrame.switchToOutputPanel();
 		}
 	};
@@ -190,7 +197,7 @@ private boolean isValid(String input)
 	{
 		try
 		{
-			Double.parseDouble(input);
+			Float.parseFloat(input);
 			return true;
 		} catch (NumberFormatException e)
 		{
