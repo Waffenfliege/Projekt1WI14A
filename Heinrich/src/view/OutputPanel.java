@@ -12,6 +12,8 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.ImageIcon;
+import java.awt.Component;
 
 /**
  * 
@@ -26,6 +28,27 @@ public class OutputPanel extends JPanel
 	private ButtonContainer oButtonContainer, hButtonContainer, eButtonContainer;
 	private JTabbedPane outputTabbedPane;
 	private JLabel resultHeaderLabel;
+	private JLabel middleLabel1;
+	private JLabel medianLabel1;
+	private JLabel quantileLabel1;
+	private JLabel absoluteLabel1;
+	private JLabel standardLabel1;
+	private JLabel varianceLabel1;
+	private JLabel giniLabel1;
+	private JLabel middleLabel2;
+	private JLabel medianLabel2;
+	private JLabel quantileLabel2;
+	private JLabel absoluteLabel2;
+	private JLabel varianceLabel2;
+	private JLabel standardLabel2;
+	private JLabel giniLabel2;
+	private JLabel middleLabel3;
+	private JLabel medianLabel3;
+	private JLabel quantileLabel3;
+	private JLabel absoluteLabel3;
+	private JLabel varianceLabel3;
+	private JLabel standardLabel3;
+	private JLabel giniLabel3;
 
 	/**
 	 * Create the panel.
@@ -73,11 +96,133 @@ public class OutputPanel extends JPanel
 		resultHeaderLabel.setMinimumSize(new Dimension(100, 20));
 
 		resultValuePanel = new JPanel();
+		resultValuePanel.setAlignmentY(Component.TOP_ALIGNMENT);
+		resultValuePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		resultValuePanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		resultPanel.add(resultValuePanel, BorderLayout.CENTER);
-		resultValuePanel.setLayout(new GridLayout(7, 4, 0, 0));
+		resultValuePanel.setLayout(new GridLayout(7, 3, 0, 0));
+		
+		middleLabel1 = new JLabel("Mittelwert");
+		middleLabel1.setVerticalTextPosition(SwingConstants.TOP);
+		middleLabel1.setVerticalAlignment(SwingConstants.TOP);
+		resultValuePanel.add(middleLabel1);
+		
+		middleLabel2 = new JLabel("");
+		middleLabel2.setVerticalAlignment(SwingConstants.TOP);
+		middleLabel2.setSize(new Dimension(100, 35));
+		middleLabel2.setPreferredSize(new Dimension(100, 35));
+		middleLabel2.setMaximumSize(new Dimension(100, 35));
+		middleLabel2.setMinimumSize(new Dimension(100, 35));
+		middleLabel2.setIcon(new ImageIcon(OutputPanel.class.getResource("/view/Mittel.png")));
+		resultValuePanel.add(middleLabel2);
+		
+		middleLabel3 = new JLabel("value");
+		middleLabel3.setVerticalAlignment(SwingConstants.TOP);
+		resultValuePanel.add(middleLabel3);
+		
+		medianLabel1 = new JLabel("Median");
+		medianLabel1.setVerticalAlignment(SwingConstants.TOP);
+		resultValuePanel.add(medianLabel1);
+		
+		medianLabel2 = new JLabel("");
+		medianLabel2.setVerticalAlignment(SwingConstants.TOP);
+		medianLabel2.setSize(new Dimension(100, 35));
+		medianLabel2.setPreferredSize(new Dimension(100, 35));
+		medianLabel2.setMinimumSize(new Dimension(100, 35));
+		medianLabel2.setMaximumSize(new Dimension(100, 35));
+		medianLabel2.setIcon(new ImageIcon(OutputPanel.class.getResource("/view/Median.png")));
+		resultValuePanel.add(medianLabel2);
+		
+		medianLabel3 = new JLabel("value");
+		medianLabel3.setVerticalAlignment(SwingConstants.TOP);
+		resultValuePanel.add(medianLabel3);
+		
+		quantileLabel1 = new JLabel("Quantile");
+		quantileLabel1.setVerticalAlignment(SwingConstants.TOP);
+		resultValuePanel.add(quantileLabel1);
+		
+		quantileLabel2 = new JLabel("");
+		quantileLabel2.setVerticalTextPosition(SwingConstants.TOP);
+		quantileLabel2.setVerticalAlignment(SwingConstants.TOP);
+		quantileLabel2.setSize(new Dimension(100, 145));
+		quantileLabel2.setPreferredSize(new Dimension(100, 145));
+		quantileLabel2.setMinimumSize(new Dimension(100, 145));
+		quantileLabel2.setMaximumSize(new Dimension(100, 145));
+		quantileLabel2.setIcon(new ImageIcon(OutputPanel.class.getResource("/view/Quantile.png")));
+		resultValuePanel.add(quantileLabel2);
+		
+		quantileLabel3 = new JLabel("value");
+		quantileLabel3.setVerticalAlignment(SwingConstants.TOP);
+		resultValuePanel.add(quantileLabel3);
+		
+		absoluteLabel1 = new JLabel("Absolut");
+		absoluteLabel1.setVerticalAlignment(SwingConstants.TOP);
+		resultValuePanel.add(absoluteLabel1);
+		
+		absoluteLabel2 = new JLabel("");
+		absoluteLabel2.setSize(new Dimension(100, 35));
+		absoluteLabel2.setPreferredSize(new Dimension(100, 35));
+		absoluteLabel2.setMinimumSize(new Dimension(100, 35));
+		absoluteLabel2.setMaximumSize(new Dimension(100, 35));
+		absoluteLabel2.setIcon(new ImageIcon(OutputPanel.class.getResource("/view/absolute.png")));
+		absoluteLabel2.setVerticalAlignment(SwingConstants.TOP);
+		resultValuePanel.add(absoluteLabel2);
+		
+		absoluteLabel3 = new JLabel("value");
+		absoluteLabel3.setVerticalAlignment(SwingConstants.TOP);
+		resultValuePanel.add(absoluteLabel3);
+		
+		varianceLabel1 = new JLabel("Varianz");
+		varianceLabel1.setVerticalAlignment(SwingConstants.TOP);
+		resultValuePanel.add(varianceLabel1);
+		
+		varianceLabel2 = new JLabel("");
+		varianceLabel2.setVerticalAlignment(SwingConstants.TOP);
+		varianceLabel2.setSize(new Dimension(100, 35));
+		varianceLabel2.setPreferredSize(new Dimension(100, 35));
+		varianceLabel2.setMinimumSize(new Dimension(100, 35));
+		varianceLabel2.setMaximumSize(new Dimension(100, 35));
+		varianceLabel2.setIcon(new ImageIcon(OutputPanel.class.getResource("/view/variance.png")));
+		resultValuePanel.add(varianceLabel2);
+		
+		varianceLabel3 = new JLabel("value");
+		varianceLabel3.setVerticalAlignment(SwingConstants.TOP);
+		resultValuePanel.add(varianceLabel3);
+		
+		standardLabel1 = new JLabel("Standard");
+		standardLabel1.setVerticalAlignment(SwingConstants.TOP);
+		resultValuePanel.add(standardLabel1);
+		
+		standardLabel2 = new JLabel("");
+		standardLabel2.setVerticalAlignment(SwingConstants.TOP);
+		standardLabel2.setSize(new Dimension(100, 35));
+		standardLabel2.setPreferredSize(new Dimension(100, 35));
+		standardLabel2.setMinimumSize(new Dimension(100, 35));
+		standardLabel2.setMaximumSize(new Dimension(100, 35));
+		standardLabel2.setIcon(new ImageIcon(OutputPanel.class.getResource("/view/standard.png")));
+		resultValuePanel.add(standardLabel2);
+		
+		standardLabel3 = new JLabel("value");
+		standardLabel3.setVerticalAlignment(SwingConstants.TOP);
+		resultValuePanel.add(standardLabel3);
+		
+		giniLabel1 = new JLabel("Gini");
+		giniLabel1.setVerticalAlignment(SwingConstants.TOP);
+		resultValuePanel.add(giniLabel1);
+		
+		giniLabel2 = new JLabel("");
+		giniLabel2.setVerticalAlignment(SwingConstants.TOP);
+		giniLabel2.setSize(new Dimension(100, 35));
+		giniLabel2.setPreferredSize(new Dimension(100, 35));
+		giniLabel2.setMinimumSize(new Dimension(100, 35));
+		giniLabel2.setMaximumSize(new Dimension(100, 35));
+		giniLabel2.setIcon(new ImageIcon(OutputPanel.class.getResource("/view/gini.png")));
+		resultValuePanel.add(giniLabel2);
+		
+		giniLabel3 = new JLabel("value");
+		resultValuePanel.add(giniLabel3);
 
-		JPanel resultMiddlePanel = new JPanel();
+		/*JPanel resultMiddlePanel = new JPanel();
 		resultMiddlePanel.setBorder(new LineBorder(Color.LIGHT_GRAY));
 		FlowLayout flowLayout_1 = (FlowLayout) resultMiddlePanel.getLayout();
 		flowLayout_1.setHgap(10);
@@ -209,7 +354,7 @@ public class OutputPanel extends JPanel
 
 		JLabel label_19 = new JLabel("value");
 		resultGiniPanel.add(label_19);
-
+		*/
 		diagramContainer = new JPanel();
 		diagramContainer.setBorder(new LineBorder(new Color(0, 0, 0)));
 		resultContainer.add(diagramContainer);
