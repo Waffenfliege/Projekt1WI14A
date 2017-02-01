@@ -257,19 +257,6 @@ public class InputPanel extends JPanel
 		rightClassBorderField.setText("");
 		quantityField.setText("");
 	}
-
-
-	public JTextField getLeftClassInputField(){
-		return leftClassBorderField;
-	}
-	
-	public JTextField getRightClassInputField(){
-		return rightClassBorderField;
-	}
-	
-	public JTextField getQuantityField(){
-		return quantityField;
-	}
 }
 
 
