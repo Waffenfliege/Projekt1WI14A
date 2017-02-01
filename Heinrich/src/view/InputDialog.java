@@ -220,7 +220,7 @@ public class InputDialog extends JDialog
 	{
 		try
 		{
-			Float.parseFloat(input);
+			Double.parseDouble(input);
 			return true;
 		} catch (NumberFormatException e)
 		{
