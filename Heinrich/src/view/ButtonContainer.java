@@ -96,8 +96,28 @@ public class ButtonContainer extends JPanel
 			{
 				float lowerValue = Float.parseFloat(InputPanel.getLeftClassBorderField());
 				float upperValue = Float.parseFloat(InputPanel.getRightClassBorderField());
-				ClampType lowerClampType = ClampType.INCLUSIVE;
-				ClampType upperClampType = ClampType.EXCLUSIVE;
+				ClampType lowerClampType;
+				ClampType upperClampType;
+				
+				if (InputPanel.getLeftClamp().equals(" ( "))
+				{
+					lowerClampType = ClampType.INCLUSIVE;
+
+				}else
+				{
+					lowerClampType = ClampType.EXCLUSIVE;
+
+				}
+				
+				if (InputPanel.getRightClamp().equals(" ) "))
+				{
+					upperClampType = ClampType.INCLUSIVE;
+
+				}else
+				{
+					upperClampType = ClampType.EXCLUSIVE;
+
+				}
 				int absoluteOccurence = Integer.parseInt(InputPanel.getQuantityField());
 
 				try
@@ -109,7 +129,7 @@ public class ButtonContainer extends JPanel
 				} catch (IllegalOverlapException e)
 				{
 					e.printStackTrace();
-				}catch (Exception e)
+				} catch (Exception e)
 				{
 					e.printStackTrace();
 				}
@@ -128,8 +148,28 @@ public class ButtonContainer extends JPanel
 			{
 				float lowerValue = Float.parseFloat(InputPanel.getLeftClassBorderField());
 				float upperValue = Float.parseFloat(InputPanel.getRightClassBorderField());
-				ClampType lowerClampType = ClampType.INCLUSIVE;
-				ClampType upperClampType = ClampType.EXCLUSIVE;
+				ClampType lowerClampType;
+				ClampType upperClampType;
+				
+				if (InputPanel.getLeftClamp().equals(" ( "))
+				{
+					lowerClampType = ClampType.INCLUSIVE;
+
+				}else
+				{
+					lowerClampType = ClampType.EXCLUSIVE;
+
+				}
+				
+				if (InputPanel.getRightClamp().equals(" ) "))
+				{
+					upperClampType = ClampType.INCLUSIVE;
+
+				}else
+				{
+					upperClampType = ClampType.EXCLUSIVE;
+
+				}
 				int absoluteOccurence = Integer.parseInt(InputPanel.getQuantityField());
 
 				try
@@ -141,7 +181,7 @@ public class ButtonContainer extends JPanel
 				} catch (IllegalOverlapException e)
 				{
 					e.printStackTrace();
-				}catch (Exception e)
+				} catch (Exception e)
 				{
 					e.printStackTrace();
 				}

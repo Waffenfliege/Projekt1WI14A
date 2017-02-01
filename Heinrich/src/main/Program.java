@@ -24,6 +24,7 @@ public class Program
 	public static void main(String args[])
 	{
 
+		DataHandler.initialize();
 		MainFrame.startFrame();
 
 		

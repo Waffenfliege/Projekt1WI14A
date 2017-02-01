@@ -7,6 +7,8 @@ import java.awt.BorderLayout;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import java.awt.FlowLayout;
+
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Dimension;
@@ -17,6 +19,12 @@ import java.awt.Color;
 import java.awt.Insets;
 import java.awt.Cursor;
 import javax.swing.table.DefaultTableModel;
+
+import data.ClampType;
+import data.DataHandler;
+import data.StatisticClassValue;
+import logic.LogicHandler;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -35,12 +43,20 @@ public class InputPanel extends JPanel
 	private static JTextField leftClassBorderField;
 	private static JTextField rightClassBorderField;
 	private static JTextField quantityField;
-	private JPanel inputContainer, inputPanel, classPanel, classInputPanel, quantityPanel, quantityInputPanel, tableContainer;
-	private JLabel classLabel, leftClassBorderLabel, classSeparatorLabel, rightClassBorderLabel, quantityLabel,
-			smallQuantityLabel, quantitySumLabel;
+	private JPanel inputContainer, inputPanel, classPanel, classInputPanel, quantityPanel, quantityInputPanel;
+	private static JPanel tableContainer;
+	private JLabel classLabel;
+	private static JLabel leftClassBorderLabel;
+	private JLabel classSeparatorLabel;
+	private static JLabel rightClassBorderLabel;
+	private JLabel quantityLabel;
+	private JLabel smallQuantityLabel;
+	private JLabel quantitySumLabel;
 	private JScrollPane tableScrollPane;
 	private ButtonContainer buttonContainer;
-	private JTable table;
+	private static JTable table;
+	private static JTable table1;
+	private static DefaultTableModel model;
 
 	/**
 	 * Creating the panel with all its components.
@@ -165,34 +181,40 @@ public class InputPanel extends JPanel
 		tableContainer.setLayout(new BorderLayout(5, 5));
 
 		table = new JTable()
-		// ist das überhaupt nötig? -> am besten alles oben als private
-		// deklarieren
 		{
 			public boolean getScrollableTracksViewportWidth()
 			{
 				return getPreferredSize().width < getParent().getWidth();
 			}
 		};
+
 		table.setBackground(UIManager.getColor("Label.background"));
 		table.setIntercellSpacing(new Dimension(2, 2));
-		table.setModel(new DefaultTableModel(new Object[][] { { "1", "(a , b]", "h", "r" }, { "2", "", "", "" },
-				{ "3", "", "", "" }, { "4", null, null, null }, { "5", null, null, null }, { "6", null, null, null },
-				{ "7", null, null, null }, { "8", null, null, null }, { "9", null, null, null }, { "10", null, null, null },
-				{ "11", null, null, null }, { "12", null, null, null }, { "13", null, null, null }, { "14", null, null, null },
-				{ "15", null, null, null }, { "16", null, null, null }, { "17", null, null, null }, { "18", null, null, null },
-				{ "19", null, null, null }, { "20", null, null, null }, }, new String[] { "j", "K(j)", "h(Kj)", "r(Kj)" }));
+		String rows[][] = new String[20][4];
+		for (int i = 0; i < 20; i++)
+		{
+			rows[i][0] = null;
+			rows[i][1] = null;
+			rows[i][2] = null;
+			rows[i][3] = null;
+
+		}
+		table.setModel(new DefaultTableModel(rows, new String[] { "j", "K(j)", "h(Kj)", "r(Kj)" }));
+
 		table.getColumnModel().getColumn(0).setResizable(false);
 		table.getColumnModel().getColumn(0).setPreferredWidth(20);
 		table.getColumnModel().getColumn(0).setMaxWidth(30);
 		table.getColumnModel().getColumn(1).setResizable(false);
-		table.getColumnModel().getColumn(1).setPreferredWidth(50);
+		table.getColumnModel().getColumn(1).setPreferredWidth(70);
 		table.getColumnModel().getColumn(1).setMaxWidth(75);
 		table.getColumnModel().getColumn(2).setResizable(false);
 		table.getColumnModel().getColumn(2).setPreferredWidth(40);
 		table.getColumnModel().getColumn(2).setMaxWidth(50);
 		table.getColumnModel().getColumn(3).setResizable(false);
-		table.getColumnModel().getColumn(3).setPreferredWidth(40);
-		table.getColumnModel().getColumn(3).setMaxWidth(50);
+		table.getColumnModel().getColumn(3).setPreferredWidth(80);
+		table.getColumnModel().getColumn(3).setMaxWidth(80);
+		table.setEnabled(false);
+
 		table.setFont(new Font("Arial", Font.PLAIN, 12));
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		tableScrollPane = new JScrollPane(table);
@@ -209,19 +231,24 @@ public class InputPanel extends JPanel
 			// TODO: Action bei Klick auf linke Klammer
 			JLabel clamp = (JLabel) mouseEvent.getComponent();
 			String text = clamp.getText();
-			if (text.equals(" ( ")) {
+			if (text.equals(" ( "))
+			{
 				leftClassBorderLabel.setText(" [ ");
 				rightClassBorderLabel.setText(" ) ");
-			} else if (text.equals(" [ ")) {
+			} else if (text.equals(" [ "))
+			{
 				leftClassBorderLabel.setText(" ( ");
 				rightClassBorderLabel.setText(" ] ");
-			} else if (text.equals(" ) ")) {
+			} else if (text.equals(" ) "))
+			{
 				leftClassBorderLabel.setText(" ( ");
 				rightClassBorderLabel.setText(" ] ");
-			} else if (text.equals(" ] ")) {
+			} else if (text.equals(" ] "))
+			{
 				leftClassBorderLabel.setText(" [ ");
 				rightClassBorderLabel.setText(" ) ");
-			} else {
+			} else
+			{
 				System.out.println("Fehler bei Klammer!");
 			}
 		}
@@ -252,10 +279,54 @@ public class InputPanel extends JPanel
 	{
 		return this;
 	}
-	
-	public void setTableValue()
+
+	public static void setTableValue(StatisticClassValue lowerValue, StatisticClassValue upperValue, int quantity, int index)
 	{
-		
+		String lowerClamp = "";
+		String upperClamp = "";
+
+		switch (lowerValue.clamp)
+		{
+		case INCLUSIVE:
+			lowerClamp = "(";
+			break;
+
+		case EXCLUSIVE:
+			lowerClamp = "[";
+			break;
+
+		default:
+			break;
+
+		}
+		switch (upperValue.clamp)
+		{
+		case INCLUSIVE:
+			upperClamp = ")";
+			break;
+
+		case EXCLUSIVE:
+			upperClamp = "]";
+			break;
+
+		default:
+			break;
+		}
+		String row[] = new String[] { String.valueOf(index + 1),
+				lowerClamp + lowerValue.value + ", " + upperValue.value + upperClamp, String.valueOf(quantity), "" };
+		table.getModel().setValueAt(row[0], index, 0);
+		table.getModel().setValueAt(row[1], index, 1);
+		table.getModel().setValueAt(row[2], index, 2);
+		table.getModel().setValueAt(row[3], index, 3);
+
+		// TODO Tabelle updaten
+		// String.valueOf(LogicHandler.getRelativeOccurences(DataHandler.getList(),
+		// DataHandler.getSampleSize())[index]) };
+		// updateTable();
+
+		tableContainer.revalidate();
+		tableContainer.repaint();
+
 	}
 
 	public static String getLeftClassBorderField()
@@ -272,6 +343,16 @@ public class InputPanel extends JPanel
 	{
 		return quantityField.getText();
 
+	}
+
+	public static String getLeftClamp()
+	{
+		return leftClassBorderLabel.getText();
+	}
+
+	public static String getRightClamp()
+	{
+		return rightClassBorderLabel.getText();
 	}
 
 	public static void resetFields()
