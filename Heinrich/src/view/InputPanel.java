@@ -57,6 +57,7 @@ public class InputPanel extends JPanel
 	private static JTable table;
 	private static JTable table1;
 	private static DefaultTableModel model;
+	private final static Color RED = new Color(175,22,20);
 
 	/**
 	 * Creating the panel with all its components.
@@ -80,13 +81,14 @@ public class InputPanel extends JPanel
 		inputContainer.add(inputPanel, BorderLayout.CENTER);
 
 		classPanel = new JPanel();
-		classPanel.setBackground(Color.RED);
+		classPanel.setBackground(RED);
 		classPanel.setAlignmentY(Component.TOP_ALIGNMENT);
 		classPanel.setLayout(new BorderLayout(0, 0));
 
 		classLabel = new JLabel("Klasse K definieren");
+		classLabel.setForeground(Color.WHITE);
 		classLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		classLabel.setFont(new Font("Arial", Font.BOLD, 16));
+		classLabel.setFont(new Font("Calibri", Font.BOLD, 16));
 		classLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		classPanel.add(classLabel, BorderLayout.NORTH);
 
@@ -105,24 +107,24 @@ public class InputPanel extends JPanel
 		leftClassBorderLabel.setVerticalAlignment(SwingConstants.TOP);
 		leftClassBorderLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		leftClassBorderLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		leftClassBorderLabel.setFont(new Font("Arial", Font.PLAIN, 26));
+		leftClassBorderLabel.setFont(new Font("Calibri", Font.PLAIN, 26));
 		leftClassBorderLabel.addMouseListener(borderClick);
 		classInputPanel.add(leftClassBorderLabel);
 
 		leftClassBorderField = new JTextField();
 		leftClassBorderField.setMargin(new Insets(10, 5, 10, 5));
-		leftClassBorderField.setFont(new Font("Arial", Font.PLAIN, 26));
+		leftClassBorderField.setFont(new Font("Calibri", Font.PLAIN, 26));
 		leftClassBorderField.setSize(new Dimension(100, 60));
 		classInputPanel.add(leftClassBorderField);
 		leftClassBorderField.setColumns(5);
 
 		classSeparatorLabel = new JLabel(" , ");
-		classSeparatorLabel.setFont(new Font("Arial", Font.PLAIN, 26));
+		classSeparatorLabel.setFont(new Font("Calibri", Font.PLAIN, 26));
 		classInputPanel.add(classSeparatorLabel);
 
 		rightClassBorderField = new JTextField();
 		rightClassBorderField.setMargin(new Insets(10, 5, 10, 5));
-		rightClassBorderField.setFont(new Font("Arial", Font.PLAIN, 26));
+		rightClassBorderField.setFont(new Font("Calibri", Font.PLAIN, 26));
 		classInputPanel.add(rightClassBorderField);
 		rightClassBorderField.setColumns(5);
 
@@ -131,18 +133,19 @@ public class InputPanel extends JPanel
 		rightClassBorderLabel.setVerticalAlignment(SwingConstants.TOP);
 		rightClassBorderLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		rightClassBorderLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		rightClassBorderLabel.setFont(new Font("Arial", Font.PLAIN, 26));
+		rightClassBorderLabel.setFont(new Font("Calibri", Font.PLAIN, 26));
 		rightClassBorderLabel.addMouseListener(borderClick);
 		classInputPanel.add(rightClassBorderLabel);
 
 		quantityPanel = new JPanel();
 		quantityPanel.setBorder(null);
-		quantityPanel.setBackground(Color.WHITE);
+		quantityPanel.setBackground(RED);
 		quantityPanel.setLayout(new BorderLayout(0, 0));
 
 		quantityLabel = new JLabel("Absolute H\u00E4ufigkeit h");
+		quantityLabel.setForeground(Color.WHITE);
 		quantityLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		quantityLabel.setFont(new Font("Arial", Font.BOLD, 16));
+		quantityLabel.setFont(new Font("Calibri", Font.BOLD, 16));
 		quantityLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		quantityPanel.add(quantityLabel, BorderLayout.NORTH);
 
@@ -155,17 +158,17 @@ public class InputPanel extends JPanel
 		quantityPanel.add(quantityInputPanel, BorderLayout.CENTER);
 
 		smallQuantityLabel = new JLabel("h (K)  = ");
-		smallQuantityLabel.setFont(new Font("Arial", Font.PLAIN, 26));
+		smallQuantityLabel.setFont(new Font("Calibri", Font.PLAIN, 26));
 		quantityInputPanel.add(smallQuantityLabel);
 
 		quantityField = new JTextField();
 		quantityField.setMargin(new Insets(10, 5, 10, 5));
-		quantityField.setFont(new Font("Arial", Font.PLAIN, 26));
+		quantityField.setFont(new Font("Calibri", Font.PLAIN, 26));
 		quantityInputPanel.add(quantityField);
 		quantityField.setColumns(5);
 
 		quantitySumLabel = new JLabel(" n = 0");
-		quantitySumLabel.setFont(new Font("Arial", Font.PLAIN, 26));
+		quantitySumLabel.setFont(new Font("Calibri", Font.PLAIN, 26));
 		quantityInputPanel.add(quantitySumLabel);
 		inputPanel.setLayout(new GridLayout(2, 1, 10, 0));
 		inputPanel.add(classPanel);
@@ -175,6 +178,9 @@ public class InputPanel extends JPanel
 		inputContainer.add(buttonContainer, BorderLayout.SOUTH);
 
 		tableContainer = new JPanel();
+		tableContainer.setPreferredSize(new Dimension(250, 100));
+		tableContainer.setMaximumSize(new Dimension(400, 500));
+		tableContainer.setMinimumSize(new Dimension(250, 100));
 		tableContainer.setBorder(new EmptyBorder(5, 5, 5, 0));
 		tableContainer.setBackground(Color.WHITE);
 		add(tableContainer, BorderLayout.WEST);

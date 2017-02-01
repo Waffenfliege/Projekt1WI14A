@@ -31,6 +31,7 @@ public class OutputPanel extends JPanel
 			varianceLabel1, giniLabel1, middleLabel2, medianLabel2, quantileLabel2, absoluteLabel2, varianceLabel2,
 			standardLabel2, giniLabel2, middleLabel3, medianLabel3, quantileLabel3, absoluteLabel3, varianceLabel3,
 			standardLabel3, giniLabel3;
+	private final static Color RED = new Color(175,22,20);
 
 	/**
 	 * Create the panel.
@@ -61,6 +62,7 @@ public class OutputPanel extends JPanel
 		resultPanel.setLayout(new BorderLayout(0, 0));
 
 		resultHeaderPanel = new JPanel();
+		resultHeaderPanel.setBackground(RED);
 		resultHeaderPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		// FlowLayout auch als private deklarieren?
 		FlowLayout fl_resultHeaderPanel = (FlowLayout) resultHeaderPanel.getLayout();
@@ -69,15 +71,17 @@ public class OutputPanel extends JPanel
 		resultPanel.add(resultHeaderPanel, BorderLayout.NORTH);
 
 		resultHeaderLabel = new JLabel("Ergebnisse");
+		resultHeaderLabel.setForeground(Color.WHITE);
 		resultHeaderPanel.add(resultHeaderLabel);
 		resultHeaderLabel.setHorizontalTextPosition(SwingConstants.CENTER);
 		resultHeaderLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		resultHeaderLabel.setFont(new Font("Arial", Font.BOLD, 16));
+		resultHeaderLabel.setFont(new Font("Calibri", Font.BOLD, 16));
 		resultHeaderLabel.setPreferredSize(new Dimension(100, 20));
 		resultHeaderLabel.setMaximumSize(new Dimension(100, 20));
 		resultHeaderLabel.setMinimumSize(new Dimension(100, 20));
 
 		resultValuePanel = new JPanel();
+		resultValuePanel.setBackground(Color.WHITE);
 		resultValuePanel.setAlignmentY(Component.TOP_ALIGNMENT);
 		resultValuePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 		resultValuePanel.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -327,10 +331,12 @@ public class OutputPanel extends JPanel
 		diagramContainer.setLayout(new GridLayout(2, 1, 0, 0));
 
 		histogramPanel = new JPanel();
+		histogramPanel.setBackground(Color.WHITE);
 		histogramPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		diagramContainer.add(histogramPanel);
 
 		empiricPanel = new JPanel();
+		empiricPanel.setBackground(Color.WHITE);
 		empiricPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		diagramContainer.add(empiricPanel);
 

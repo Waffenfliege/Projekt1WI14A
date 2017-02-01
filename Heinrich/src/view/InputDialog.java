@@ -41,7 +41,7 @@ public class InputDialog extends JDialog
 			InputDialog dialog = new InputDialog(true);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
-			if (chosenCommand.equals("Mit"))
+			if (chosenCommand.equals("OK"))
 			{
 				dialog.dispose();
 				System.out.println(zInputField.getText());
@@ -123,7 +123,7 @@ public class InputDialog extends JDialog
 				JPanel buttonPane = new JPanel();
 				getContentPane().add(buttonPane, BorderLayout.SOUTH);
 				buttonPane.setLayout(new FlowLayout(FlowLayout.CENTER, 25, 20));
-				{
+				/*{
 					JButton withoutZButton = new JButton("Ohne z fortfahren");
 					withoutZButton.setActionCommand("Ohne z fortfahren");
 					withoutZButton.addActionListener(new ActionListener()
@@ -137,10 +137,10 @@ public class InputDialog extends JDialog
 					});
 					buttonPane.add(withoutZButton);
 					getRootPane().setDefaultButton(withoutZButton);
-				}
+				}*/
 				{
-					JButton withZButton = new JButton("Mit z fortfahren");
-					withZButton.setActionCommand("Mit z fortfahren");
+					JButton withZButton = new JButton("Weiter");
+					withZButton.setActionCommand("Weiter");
 					withZButton.addActionListener(new ActionListener()
 					{
 						public void actionPerformed(ActionEvent actionEvent)
@@ -149,13 +149,12 @@ public class InputDialog extends JDialog
 							{
 								try {
 									setOutputPanelData(Float.parseFloat(zInputField.getText()));
-									MainFrame.switchToOutputPanel();
 								} catch (Exception e) {
-									// TODO Auto-generated catch block
 									e.printStackTrace();
 								}
-								chosenCommand = "Mit";
+								chosenCommand = "OK";
 								dispose();
+								MainFrame.switchToOutputPanel();
 							} else
 							{
 								zWarningLabel.setText("Fehlerhaft!");
