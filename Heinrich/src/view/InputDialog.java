@@ -150,6 +150,7 @@ public class InputDialog extends JDialog
 							{
 								try {
 									setOutputPanelData(Float.parseFloat(zInputField.getText()));
+									MainFrame.switchToOutputPanel();
 								} catch (Exception e) {
 									// TODO Auto-generated catch block
 									e.printStackTrace();
