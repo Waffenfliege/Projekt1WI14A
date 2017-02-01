@@ -70,7 +70,7 @@ public class DataHandler
 		return sampleSize;
 	}
 	
-	public static void receiveData(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence, int currentViewIndex) throws Exception{
+	public static void receiveData(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence, int currentViewIndex) throws IllegalOverlapException, Exception{
 		//are we handling a newly entered class or were data just changed?
 		//new class
 		if(isNewClass(currentViewIndex)){
