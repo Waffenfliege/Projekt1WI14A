@@ -33,10 +33,10 @@ public class Program
 		// ######################TEST###################
 
 //		TestDataHandler dataHandler = new TestDataHandler();
-
+/*
 		try
 		{
-			DataHandler.initialize();
+			/*DataHandler.initialize();
 			data.DataHandler.receiveData(new StatisticClassValue(35,ClampType.INCLUSIVE), new StatisticClassValue(37,ClampType.EXCLUSIVE),1,0);
 			data.DataHandler.receiveData(new StatisticClassValue(37,ClampType.INCLUSIVE), new StatisticClassValue(40,ClampType.EXCLUSIVE),3,1);
 			data.DataHandler.receiveData(new StatisticClassValue(40,ClampType.INCLUSIVE), new StatisticClassValue(43,ClampType.EXCLUSIVE),2,2);
@@ -71,7 +71,7 @@ public class Program
 				System.out.println("----- Quantil " + quantiles[i].getAlpha() + ": " + quantiles[i].getValue());
 			}
 
-			float z = 48;
+			float z = 40;
 			float meanAbsoluteDeviation = LogicHandler.getMeanAbsoluteDeviation(DataHandler.getList(), classMiddles,
 					relativeOccurences, z);
 			System.out.println("--- Mittlere arithmetische Abweichung für z = " + z + ": " + meanAbsoluteDeviation);
@@ -86,7 +86,7 @@ public class Program
 		} catch (Exception e)
 		{
 			e.printStackTrace();
-		}
+		}*/
 
 		// ######################TEST###################
 
