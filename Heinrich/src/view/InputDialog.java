@@ -70,7 +70,6 @@ public class InputDialog extends JDialog
 		{
 			e.printStackTrace();
 		}
-		System.out.println(chosenCommand);
 		return chosenCommand;
 	}
 

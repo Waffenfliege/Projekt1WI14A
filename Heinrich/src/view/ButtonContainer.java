@@ -144,7 +144,7 @@ public class ButtonContainer extends JPanel
 					e.printStackTrace();
 				}
 			
-			InputDialog.startNewDialog(); 
+			InputDialog.startZDialog(); 
 		}
 	};
 
