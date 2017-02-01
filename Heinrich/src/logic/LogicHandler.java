@@ -289,15 +289,13 @@ public class LogicHandler
 	 * 
 	 * @author Robert
 	 */
-	public static float getGiniCoefficientOrder(ArrayList<StatisticClass> classes){
-		float[] classMiddles = getClassMiddles(classes); //Prozentual oder standartwerte?? Für Lorenzkurve prozentual benötigt
-		float[] relativeOccurences = getRelativeOccurences(classes);
-		float[] newValue = float[classes.size()]; //Anderer Name, hier wird Klassenmitte/Wert gespeichert und danach geordnet
+	public static float getGiniCoefficientOrder(ArrayList<StatisticClass> classes, float[] classMiddles , float[] relativeOccurences){
+		float[] newValue = new float[classes.size()]; //Anderer Name, hier wird Klassenmitte/Wert gespeichert und danach geordnet
 		
 		
 		//Step 1: Klassenmitte/Wert https://de.wikipedia.org/wiki/Gini-Koeffizient
-		for (i = 0; i<classes.length(); i++){
-			newValue[i] = classesMiddles[i]/relativeOccurences[i]; //relativer 
+		for (int i = 0; i<classes.size(); i++){
+			newValue[i] = classMiddles[i]/relativeOccurences[i]; //relativer 
 		}
 		//Step 2: Ordnen der Ergebnissen (von klein nach groß)
 		

@@ -61,7 +61,7 @@ public class InputPanel extends JPanel
 		inputContainer.add(inputPanel, BorderLayout.CENTER);
 
 		classPanel = new JPanel();
-		classPanel.setBackground(Color.WHITE);
+		classPanel.setBackground(Color.RED);
 		classPanel.setAlignmentY(Component.TOP_ALIGNMENT);
 		classPanel.setLayout(new BorderLayout(0, 0));
 
@@ -233,7 +233,15 @@ public class InputPanel extends JPanel
 		return this;
 	}
 
+	public JTextField getLeftClassInputField(){
+		return leftClassBorderField;
+	}
+	
+	public JTextField getRightClassInputField(){
+		return rightClassBorderField;
+	}
 }
+
 
 /*
  * public void setInputFrame() // erstes Initialisieren der Anzeige {
