@@ -8,6 +8,11 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import data.DataHandler;
+import logic.LogicHandler;
+import logic.Quantile;
+
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -126,6 +131,7 @@ public class InputDialog extends JDialog
 					{
 						public void actionPerformed(ActionEvent actionEvent)
 						{
+							//setOutputPanelData(null);
 							chosenCommand = "Ohne";
 							dispose();
 						}
@@ -142,6 +148,12 @@ public class InputDialog extends JDialog
 						{
 							if (isValid(zInputField.getText()))
 							{
+								try {
+									setOutputPanelData(Float.parseFloat(zInputField.getText()));
+								} catch (Exception e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
 								chosenCommand = "Mit";
 								dispose();
 							} else
@@ -214,6 +226,41 @@ public class InputDialog extends JDialog
 		{
 			return false;
 		}
+	}
+	
+	private void setOutputPanelData(float z) throws Exception{
+		float relativeOccurences[]; 
+		float classMiddles[]; 
+		float absoluteOccurence;
+		float median;
+		float arithmeticMiddle;
+		Quantile[] quantiles;
+		float meanAbsoluteDeviation;
+		float variance;
+		float standardDeviation;
+		
+		relativeOccurences = LogicHandler.getRelativeOccurences(DataHandler.getList(), DataHandler.getSampleSize());
+		classMiddles = LogicHandler.getClassMiddles(DataHandler.getList());
+		
+		for (int i = 0; i < DataHandler.getList().size(); i++)
+		{
+			absoluteOccurence = DataHandler.getElement(i).getAbsoluteOccurences();
+		}
+
+		median = LogicHandler.getMedian(DataHandler.getList(), classMiddles, relativeOccurences);
+		arithmeticMiddle = LogicHandler.getArithmeticMiddle(classMiddles, relativeOccurences);
+
+		quantiles = LogicHandler.getQuantiles(DataHandler.getList(), classMiddles, relativeOccurences);
+
+	
+		meanAbsoluteDeviation = LogicHandler.getMeanAbsoluteDeviation(DataHandler.getList(), classMiddles,
+				relativeOccurences, z);
+
+		variance = LogicHandler.getVariance(DataHandler.getList(), classMiddles, arithmeticMiddle,
+				DataHandler.getSampleSize());
+
+		standardDeviation = LogicHandler.getStandardDeviation(variance);
+		
 	}
 
 }

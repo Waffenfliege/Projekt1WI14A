@@ -12,6 +12,8 @@ import data.ClampType;
 import data.DataHandler;
 import data.IllegalOverlapException;
 import data.StatisticClassValue;
+import logic.LogicHandler;
+import logic.Quantile;
 
 import java.awt.Color;
 
@@ -90,41 +92,9 @@ public class ButtonContainer extends JPanel
 	{
 		public void actionPerformed(ActionEvent actionEvent)
 		{
-
-			if (isValid(InputPanel.getLeftClassBorderField()) && isValid(InputPanel.getRightClassBorderField())
-					&& isValid(InputPanel.getQuantityField()))
-			{
-				float lowerValue = Float.parseFloat(InputPanel.getLeftClassBorderField());
-				float upperValue = Float.parseFloat(InputPanel.getRightClassBorderField());
-				ClampType lowerClampType;
-				ClampType upperClampType;
-				
-				if (InputPanel.getLeftClamp().equals(" ( "))
-				{
-					lowerClampType = ClampType.INCLUSIVE;
-
-				}else
-				{
-					lowerClampType = ClampType.EXCLUSIVE;
-
-				}
-				
-				if (InputPanel.getRightClamp().equals(" ) "))
-				{
-					upperClampType = ClampType.INCLUSIVE;
-
-				}else
-				{
-					upperClampType = ClampType.EXCLUSIVE;
-
-				}
-				int absoluteOccurence = Integer.parseInt(InputPanel.getQuantityField());
-
 				try
 				{
-					DataHandler.receiveData(new StatisticClassValue(lowerValue, lowerClampType),
-							new StatisticClassValue(upperValue, upperClampType), absoluteOccurence, index);
-					InputPanel.resetFields();
+					processInputMasks();
 					index--;
 				} catch (IllegalOverlapException e)
 				{
@@ -133,7 +103,6 @@ public class ButtonContainer extends JPanel
 				{
 					e.printStackTrace();
 				}
-			}
 			MainFrame.getInputPanel().revalidate();
 			MainFrame.getInputPanel().repaint();
 		}
@@ -143,40 +112,9 @@ public class ButtonContainer extends JPanel
 	{
 		public void actionPerformed(ActionEvent actionEvent)
 		{
-			if (isValid(InputPanel.getLeftClassBorderField()) && isValid(InputPanel.getRightClassBorderField())
-					&& isValid(InputPanel.getQuantityField()))
-			{
-				float lowerValue = Float.parseFloat(InputPanel.getLeftClassBorderField());
-				float upperValue = Float.parseFloat(InputPanel.getRightClassBorderField());
-				ClampType lowerClampType;
-				ClampType upperClampType;
-				
-				if (InputPanel.getLeftClamp().equals(" ( "))
-				{
-					lowerClampType = ClampType.INCLUSIVE;
-
-				}else
-				{
-					lowerClampType = ClampType.EXCLUSIVE;
-
-				}
-				
-				if (InputPanel.getRightClamp().equals(" ) "))
-				{
-					upperClampType = ClampType.INCLUSIVE;
-
-				}else
-				{
-					upperClampType = ClampType.EXCLUSIVE;
-
-				}
-				int absoluteOccurence = Integer.parseInt(InputPanel.getQuantityField());
-
 				try
 				{
-					DataHandler.receiveData(new StatisticClassValue(lowerValue, lowerClampType),
-							new StatisticClassValue(upperValue, upperClampType), absoluteOccurence, index);
-					InputPanel.resetFields();
+					processInputMasks();
 					index++;
 				} catch (IllegalOverlapException e)
 				{
@@ -185,33 +123,70 @@ public class ButtonContainer extends JPanel
 				{
 					e.printStackTrace();
 				}
-			}
 			MainFrame.getInputPanel().revalidate();
 			MainFrame.getInputPanel().repaint();
 		}
 	};
 
+	
 	private ActionListener calculateAction = new ActionListener()
 	{
-		public void actionPerformed(ActionEvent actionEvent)
+		public void actionPerformed(ActionEvent actionEvent) 
 		{
-
-			if (isValid(InputPanel.getLeftClassBorderField()) && isValid(InputPanel.getRightClassBorderField())
-					&& isValid(InputPanel.getQuantityField()))
-			{
-				// TODO: Action bei Button "Berechnen": Werte überprüfen,
-
-				// abspeichern, OutputPanel aufrufen, Berechnete Werte anzeigen,
-				// Diagramme berechnen (= Werte an LogicHandler übergeben)
-				String dialogString = InputDialog.startZDialog();
-
-				// variable z = Double.parseDouble(dialogString);
-			}
+				try
+				{
+					processInputMasks();
+				} catch (IllegalOverlapException e)
+				{
+					e.printStackTrace();
+				} catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+			
 			MainFrame.switchToOutputPanel();
 		}
 	};
 
-	private boolean isValid(String input)
+	private void processInputMasks() throws IllegalOverlapException, Exception{
+		if (isValid(InputPanel.getLeftClassBorderField()) && isValid(InputPanel.getRightClassBorderField())
+				&& isValid(InputPanel.getQuantityField()))
+		{
+			float lowerValue = Float.parseFloat(InputPanel.getLeftClassBorderField());
+			float upperValue = Float.parseFloat(InputPanel.getRightClassBorderField());
+			ClampType lowerClampType;
+			ClampType upperClampType;
+			
+			if (InputPanel.getLeftClamp().equals(" ( "))
+			{
+				lowerClampType = ClampType.INCLUSIVE;
+
+			}else
+			{
+				lowerClampType = ClampType.EXCLUSIVE;
+
+			}
+			
+			if (InputPanel.getRightClamp().equals(" ) "))
+			{
+				upperClampType = ClampType.INCLUSIVE;
+
+			}else
+			{
+				upperClampType = ClampType.EXCLUSIVE;
+
+			}
+			int absoluteOccurence = Integer.parseInt(InputPanel.getQuantityField());
+
+			DataHandler.receiveData(new StatisticClassValue(lowerValue, lowerClampType),
+					new StatisticClassValue(upperValue, upperClampType), absoluteOccurence, index);
+			InputPanel.resetFields();	
+		}
+	}
+	
+	
+	
+private boolean isValid(String input)
 	{
 		try
 		{
