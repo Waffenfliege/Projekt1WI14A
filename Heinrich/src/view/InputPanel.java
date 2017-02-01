@@ -240,6 +240,10 @@ public class InputPanel extends JPanel
 	public JTextField getRightClassInputField(){
 		return rightClassBorderField;
 	}
+	
+	public JTextField getQuantityField(){
+		return quantityField;
+	}
 }
 
 
