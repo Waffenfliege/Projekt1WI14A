@@ -206,6 +206,23 @@ public class InputPanel extends JPanel
 		public void mouseClicked(MouseEvent mouseEvent)
 		{
 			// TODO: Action bei Klick auf linke Klammer
+			JLabel clamp = (JLabel) mouseEvent.getComponent();
+			String text = clamp.getText();
+			if (text.equals(" ( ")) {
+				leftClassBorderLabel.setText(" [ ");
+				rightClassBorderLabel.setText(" ) ");
+			} else if (text.equals(" [ ")) {
+				leftClassBorderLabel.setText(" ( ");
+				rightClassBorderLabel.setText(" ] ");
+			} else if (text.equals(" ) ")) {
+				leftClassBorderLabel.setText(" ( ");
+				rightClassBorderLabel.setText(" ] ");
+			} else if (text.equals(" ] ")) {
+				leftClassBorderLabel.setText(" [ ");
+				rightClassBorderLabel.setText(" ) ");
+			} else {
+				System.out.println("Fehler bei Klammer!");
+			}
 		}
 
 		public void mouseEntered(MouseEvent mouseEvent)
@@ -234,7 +251,7 @@ public class InputPanel extends JPanel
 	{
 		return this;
 	}
-	
+
 	public static String getLeftClassBorderField()
 	{
 		return leftClassBorderField.getText();
@@ -258,7 +275,6 @@ public class InputPanel extends JPanel
 		quantityField.setText("");
 	}
 }
-
 
 /*
  * public void setInputFrame() // erstes Initialisieren der Anzeige {
