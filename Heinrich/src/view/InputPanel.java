@@ -193,7 +193,7 @@ public class InputPanel extends JPanel
 				return getPreferredSize().width < getParent().getWidth();
 			}
 		};
-
+		table.getTableHeader().setReorderingAllowed(false);
 		table.setBackground(UIManager.getColor("Label.background"));
 		table.setIntercellSpacing(new Dimension(2, 2));
 		String rows[][] = new String[20][4];
@@ -222,7 +222,7 @@ public class InputPanel extends JPanel
 		table.setEnabled(false);
 
 		table.setFont(new Font("Arial", Font.PLAIN, 12));
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		tableScrollPane = new JScrollPane(table);
 		tableScrollPane.setBorder(null);
 		tableScrollPane.setBackground(Color.WHITE);
