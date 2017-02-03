@@ -50,6 +50,7 @@ public class MainFrame extends JFrame
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 200, 800, 600);
 		setTitle("Statistik-Projekt 2017");
+		setResizable(false);
 
 		inputPanel = new InputPanel();
 		outputPanel = new OutputPanel();
