@@ -101,16 +101,8 @@ public class MainFrame extends JFrame
 	 *            be reset.
 	 * @see switchPanel()
 	 */
-	public static void switchToInputPanel(boolean resetValues)
+	public static void switchToInputPanel()
 	{
-		// TODO: Ablaufsteuerung einfügen
-		if (resetValues)
-		{
-			DataHandler.getList().clear();
-			InputPanel.resetFields();
-			InputPanel.resetTable();
-		}
-
 		switchPanel(inputPanel);
 	}
 

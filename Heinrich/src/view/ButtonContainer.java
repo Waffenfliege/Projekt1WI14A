@@ -66,15 +66,17 @@ public class ButtonContainer extends JPanel
 	{
 		public void actionPerformed(ActionEvent actionEvent)
 		{
-			// TODO: Action bei Button "Neue Berechnung": Input-Panel komplett
-			// neu aufrufen
 			String dialogString = InputDialog.startNewDialog();
 			if (dialogString.equals("Ja"))
 			{
-				MainFrame.switchToInputPanel(true);
+				DataHandler.getList().clear();
+				DataHandler.initialize();
+				index = 0;
+				InputPanel.resetFields();
+				InputPanel.resetTable();
+				MainFrame.switchToInputPanel();
 			}
 			calculateButton.setEnabled(false);
-
 		}
 	};
 
@@ -82,9 +84,7 @@ public class ButtonContainer extends JPanel
 	{
 		public void actionPerformed(ActionEvent actionEvent)
 		{
-			// TODO: Action bei Button "Werte ändern": Input-Panel mit
-			// bestehenden Daten aufrufen
-			MainFrame.switchToInputPanel(false);
+			MainFrame.switchToInputPanel();
 		}
 	};
 
