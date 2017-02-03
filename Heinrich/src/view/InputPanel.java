@@ -55,8 +55,6 @@ public class InputPanel extends JPanel
 	private JScrollPane tableScrollPane;
 	private ButtonContainer buttonContainer;
 	private static JTable table;
-	private static JTable table1;
-	private static DefaultTableModel model;
 	private final static Color RED = new Color(175,22,20);
 
 	/**
@@ -324,15 +322,21 @@ public class InputPanel extends JPanel
 		table.getModel().setValueAt(row[1], index, 1);
 		table.getModel().setValueAt(row[2], index, 2);
 		table.getModel().setValueAt(row[3], index, 3);
-
-		// TODO Tabelle updaten
-		// String.valueOf(LogicHandler.getRelativeOccurences(DataHandler.getList(),
-		// DataHandler.getSampleSize())[index]) };
-		// updateTable();
+		updateTable();
 
 		tableContainer.revalidate();
 		tableContainer.repaint();
 
+	}
+	/**
+	 * Updates relative Occurrences in table
+	 */
+	public static void updateTable()
+	{
+		for(int i = 0; i< DataHandler.getClassesSize(); i++)
+		{
+			table.getModel().setValueAt(String.valueOf(LogicHandler.getRelativeOccurences(DataHandler.getList(), DataHandler.getSampleSize())[i]), i, 3);
+		}
 	}
 
 	public static String getLeftClassBorderField()

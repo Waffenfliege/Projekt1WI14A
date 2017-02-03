@@ -180,12 +180,17 @@ public class ButtonContainer extends JPanel
 
 			DataHandler.receiveData(new StatisticClassValue(lowerValue, lowerClampType),
 					new StatisticClassValue(upperValue, upperClampType), absoluteOccurence, index);
+			InputPanel.updateTable();
 			InputPanel.resetFields();	
 		}
 	}
 	
 	
-	
+	/**
+	 * Validates numbers in Input Fields
+	 * @param input String from Input Fields
+	 * @return true if input is a valid number
+	 */
 private boolean isValid(String input)
 	{
 		try
