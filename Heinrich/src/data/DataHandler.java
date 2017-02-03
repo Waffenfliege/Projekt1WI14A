@@ -92,7 +92,7 @@ public class DataHandler
 		}
 		return sampleSize;
 	}
-	
+
 	public static int getClassesSize()
 	{
 		return classes.size();
@@ -241,7 +241,7 @@ public class DataHandler
 			throw new IllegalOverlapException("Klassen überschneiden sich.", result);
 		}
 	}
-	
+
 	// Vorgehen:
 	// Anschließend prüfen, ob bereits Klassen existieren.
 	// Wenn bereits Klassen existieren muss geprüft werden

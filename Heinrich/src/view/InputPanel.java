@@ -55,7 +55,7 @@ public class InputPanel extends JPanel
 	private JScrollPane tableScrollPane;
 	private ButtonContainer buttonContainer;
 	private static JTable table;
-	private final static Color RED = new Color(175,22,20);
+	private final static Color RED = new Color(175, 22, 20);
 
 	/**
 	 * Creating the panel with all its components.
@@ -328,14 +328,17 @@ public class InputPanel extends JPanel
 		tableContainer.repaint();
 
 	}
+
 	/**
 	 * Updates relative Occurrences in table
 	 */
 	public static void updateTable()
 	{
-		for(int i = 0; i< DataHandler.getClassesSize(); i++)
+		for (int i = 0; i < DataHandler.getClassesSize(); i++)
 		{
-			table.getModel().setValueAt(String.valueOf(LogicHandler.getRelativeOccurences(DataHandler.getList(), DataHandler.getSampleSize())[i]), i, 3);
+			table.getModel().setValueAt(
+					String.valueOf(LogicHandler.getRelativeOccurences(DataHandler.getList(), DataHandler.getSampleSize())[i]),
+					i, 3);
 		}
 	}
 

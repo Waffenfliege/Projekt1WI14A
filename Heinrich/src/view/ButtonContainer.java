@@ -12,9 +12,6 @@ import data.ClampType;
 import data.DataHandler;
 import data.IllegalOverlapException;
 import data.StatisticClassValue;
-import logic.LogicHandler;
-import logic.Quantile;
-
 import java.awt.Color;
 
 @SuppressWarnings("serial")
@@ -57,6 +54,7 @@ public class ButtonContainer extends JPanel
 			calculateButton = new JButton("Berechnen");
 			calculateButton.addActionListener(calculateAction);
 			add(calculateButton);
+			calculateButton.setEnabled(false);
 
 			nextClassButton = new JButton("N\u00E4chste Klasse");
 			nextClassButton.addActionListener(nextClassAction);
@@ -75,6 +73,8 @@ public class ButtonContainer extends JPanel
 			{
 				MainFrame.switchToInputPanel(true);
 			}
+			calculateButton.setEnabled(false);
+
 		}
 	};
 
@@ -92,17 +92,17 @@ public class ButtonContainer extends JPanel
 	{
 		public void actionPerformed(ActionEvent actionEvent)
 		{
-				try
-				{
-					processInputMasks();
-					index--;
-				} catch (IllegalOverlapException e)
-				{
-					e.printStackTrace();
-				} catch (Exception e)
-				{
-					e.printStackTrace();
-				}
+			try
+			{
+				processInputMasks();
+				index--;
+			} catch (IllegalOverlapException e)
+			{
+				e.printStackTrace();
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+			}
 			MainFrame.getInputPanel().revalidate();
 			MainFrame.getInputPanel().repaint();
 		}
@@ -112,43 +112,43 @@ public class ButtonContainer extends JPanel
 	{
 		public void actionPerformed(ActionEvent actionEvent)
 		{
-				try
-				{
-					processInputMasks();
-					index++;
-				} catch (IllegalOverlapException e)
-				{
-					e.printStackTrace();
-				} catch (Exception e)
-				{
-					e.printStackTrace();
-				}
+			try
+			{
+				processInputMasks();
+				index++;
+			} catch (IllegalOverlapException e)
+			{
+				e.printStackTrace();
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+			}
 			MainFrame.getInputPanel().revalidate();
 			MainFrame.getInputPanel().repaint();
 		}
 	};
 
-	
 	private ActionListener calculateAction = new ActionListener()
 	{
-		public void actionPerformed(ActionEvent actionEvent) 
+		public void actionPerformed(ActionEvent actionEvent)
 		{
-				try
-				{
-					processInputMasks();
-				} catch (IllegalOverlapException e)
-				{
-					e.printStackTrace();
-				} catch (Exception e)
-				{
-					e.printStackTrace();
-				}
-			
-			InputDialog.startZDialog(); 
+			try
+			{
+				processInputMasks();
+			} catch (IllegalOverlapException e)
+			{
+				e.printStackTrace();
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+
+			InputDialog.startZDialog();
 		}
 	};
 
-	private void processInputMasks() throws IllegalOverlapException, Exception{
+	private void processInputMasks() throws IllegalOverlapException, Exception
+	{
 		if (isValid(InputPanel.getLeftClassBorderField()) && isValid(InputPanel.getRightClassBorderField())
 				&& isValid(InputPanel.getQuantityField()))
 		{
@@ -156,22 +156,22 @@ public class ButtonContainer extends JPanel
 			float upperValue = Float.parseFloat(InputPanel.getRightClassBorderField());
 			ClampType lowerClampType;
 			ClampType upperClampType;
-			
+
 			if (InputPanel.getLeftClamp().equals(" ( "))
 			{
 				lowerClampType = ClampType.INCLUSIVE;
 
-			}else
+			} else
 			{
 				lowerClampType = ClampType.EXCLUSIVE;
 
 			}
-			
+
 			if (InputPanel.getRightClamp().equals(" ) "))
 			{
 				upperClampType = ClampType.INCLUSIVE;
 
-			}else
+			} else
 			{
 				upperClampType = ClampType.EXCLUSIVE;
 
@@ -181,17 +181,19 @@ public class ButtonContainer extends JPanel
 			DataHandler.receiveData(new StatisticClassValue(lowerValue, lowerClampType),
 					new StatisticClassValue(upperValue, upperClampType), absoluteOccurence, index);
 			InputPanel.updateTable();
-			InputPanel.resetFields();	
+			InputPanel.resetFields();
+			calculateButton.setEnabled(true);
 		}
 	}
-	
-	
+
 	/**
 	 * Validates numbers in Input Fields
-	 * @param input String from Input Fields
+	 * 
+	 * @param input
+	 *            String from Input Fields
 	 * @return true if input is a valid number
 	 */
-private boolean isValid(String input)
+	private boolean isValid(String input)
 	{
 		try
 		{
