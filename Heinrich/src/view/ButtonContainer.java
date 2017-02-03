@@ -17,7 +17,7 @@ import java.awt.Color;
 @SuppressWarnings("serial")
 public class ButtonContainer extends JPanel
 {
-	private JButton changeValueButton, newCalculationButton, lastClassButton, nextClassButton, calculateButton;
+	private static JButton changeValueButton, newCalculationButton, lastClassButton, nextClassButton, calculateButton;
 	private FlowLayout flowLayout;
 	private int index = 0;
 
