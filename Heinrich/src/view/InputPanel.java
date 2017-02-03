@@ -56,6 +56,7 @@ public class InputPanel extends JPanel
 	private ButtonContainer buttonContainer;
 	private static JTable table;
 	private final static Color RED = new Color(175, 22, 20);
+	private final static String[] TABLE_HEADER = { "j", "K(j)", "h(Kj)", "r(Kj)" };
 
 	/**
 	 * Creating the panel with all its components.
@@ -194,16 +195,8 @@ public class InputPanel extends JPanel
 		table.getTableHeader().setReorderingAllowed(false);
 		table.setBackground(UIManager.getColor("Label.background"));
 		table.setIntercellSpacing(new Dimension(2, 2));
-		String rows[][] = new String[20][4];
-		for (int i = 0; i < 20; i++)
-		{
-			rows[i][0] = null;
-			rows[i][1] = null;
-			rows[i][2] = null;
-			rows[i][3] = null;
 
-		}
-		table.setModel(new DefaultTableModel(rows, new String[] { "j", "K(j)", "h(Kj)", "r(Kj)" }));
+		resetTable();
 
 		table.getColumnModel().getColumn(0).setResizable(false);
 		table.getColumnModel().getColumn(0).setPreferredWidth(20);
@@ -373,6 +366,19 @@ public class InputPanel extends JPanel
 		leftClassBorderField.setText("");
 		rightClassBorderField.setText("");
 		quantityField.setText("");
+	}
+
+	public static void resetTable()
+	{
+		String rows[][] = new String[20][4];
+		for (int i = 0; i < 20; i++)
+		{
+			rows[i][0] = null;
+			rows[i][1] = null;
+			rows[i][2] = null;
+			rows[i][3] = null;
+		}
+		table.setModel(new DefaultTableModel(rows, TABLE_HEADER));
 	}
 }
 

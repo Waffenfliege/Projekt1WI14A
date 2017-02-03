@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import data.DataHandler;
 
 @SuppressWarnings("serial")
 /**
@@ -103,6 +104,13 @@ public class MainFrame extends JFrame
 	public static void switchToInputPanel(boolean resetValues)
 	{
 		// TODO: Ablaufsteuerung einfügen
+		if (resetValues)
+		{
+			DataHandler.getList().clear();
+			InputPanel.resetFields();
+			InputPanel.resetTable();
+		}
+
 		switchPanel(inputPanel);
 	}
 
