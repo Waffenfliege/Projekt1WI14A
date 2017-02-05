@@ -29,7 +29,7 @@ public class HistogramPanel extends JPanel{
 		this.chartBackgroundColor = Color.GRAY;
 		panelBorder = new Rectangle(width, height, Color.BLUE);
 		setPreferredSize(new Dimension(width, height));
-		this.chartWidth = chartWidth;
+		this.chartWidth = chartWidth ;
 		this.chartHeight = chartHeight;
 	}
 	
