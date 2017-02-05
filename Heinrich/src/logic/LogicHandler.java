@@ -316,24 +316,56 @@ public class LogicHandler
 	/**
 	 * 
 	 * @author Robert
-	 */
-	public static float getGiniCoefficientOrder(ArrayList<StatisticClass> classes, float[] classMiddles,
-			float[] relativeOccurences)
-	{
-		float[] newValue = new float[classes.size()]; // Anderer Name, hier wird
-														// Klassenmitte/Wert
-														// gespeichert und
-														// danach geordnet
-
-		// Step 1: Klassenmitte/Wert
-		// https://de.wikipedia.org/wiki/Gini-Koeffizient
-		for (int i = 0; i < classes.size(); i++)
-		{
-			newValue[i] = classMiddles[i] / relativeOccurences[i]; // relativer
+	 */	
+	public static float getGiniCoefficient(float[] classMiddles, float[] relativeOccurences, float classMiddlesAdded){ //Nach Fachkonzept her, wir von ordnung von kleinster klassenmitte zur größten ausgegangen
+		float size = classMiddles.length+1;//Da die erste Zeile voller nuller ist
+		float[][] giniTable = new float[6][size];
+		float classMiddlesAddUp;
+		float lorenz;
+		float giniCoefficient;
+		
+		for (i=0, i<6, i++){ //Die erste Zeile der Tabelle beinhaltet immer ausschließlich nuller
+			giniTable[i][0] = 0;
 		}
-		// Step 2: Ordnen der Ergebnissen (von klein nach groß)
-
-		return 0;
+		for (i=1, i<size, i++){ //Die erste Spalte wird durchnummerriert -> m
+			giniTable[0][i] = i;
+		}
+		for (i=1, i<size, i++){ //Die zweite Spalte wird mit den Aufaddierten relativen Häufigkeiten gefüllt ->u (von m)
+			giniTable[1][i] = relativeOccurences[i-1]+giniTable[i-1];
+		}
+		for (i=1, i<size, i++){ //Die dritte Spalte wird mit den Aufaddierten relativen Klassenmitten gefüllt -> v (von m)
+			classMiddlesAddUp = classMiddles[i-1]+classMiddlesAddUp;
+			giniTable[2][i] = classMiddlesAddUp/classMiddlesAdded;
+		}
+		for (i=1, i<size, i++){ // -> u (m) - u (m-1)
+			giniTable[3][i] = giniTable[1][i]-giniTable[1][i-1];
+		}
+		for (i=1, i<size, i++){ // -> v (m) + v (m-1)
+			giniTable[4][i] = giniTable[2][i]+giniTable[2][i-1];
+		}
+		for (i=1, i<size, i++){ // -> (u (m) - u (m-1))*(v (m) + v (m-1))
+			giniTable[5][i] = giniTable[3][i]*giniTable[4][i];
+		}
+		for (i=1, i<size, i++){ 
+			lorenz = giniTable[5][i]+lorenz;
+		}
+		
+		giniCoefficient = 1 - lorenz;
+		
+		return giniCoefficient;
+	}
+	
+	/**
+	 * 
+	 * @author Robert
+	 */	
+	public static float getClassMiddlesAdded(float[] classMiddles){
+		float classMiddlesAdded;
+		
+		for (i = 0; i<classMiddles.length(); i++){ 
+			classMiddlesAdded = classesMiddles[i]+classMiddlesAdded;
+		}
+		return classMiddlesAdded; //Gibt die Klassenmitten + vorherige Klassenmitten aus. 
 	}
 
 	public static float getHistogramElementHeight()
