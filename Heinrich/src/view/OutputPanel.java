@@ -8,11 +8,23 @@ import javax.swing.SwingConstants;
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.border.LineBorder;
+
+import data.DataHandler;
+import graphs.EmpiricDistributionPanel;
+import graphs.GraphFactory;
+import graphs.HistogramPanel;
+
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+
 import java.awt.Component;
 
 /**
@@ -23,30 +35,20 @@ import java.awt.Component;
 @SuppressWarnings("serial")
 public class OutputPanel extends JPanel
 {
-	private JPanel overviewContainer, resultContainer, resultPanel, resultHeaderPanel, resultValuePanel, histogramContainer,
-			empiricContainer, empiricPanel, histogramPanel, diagramContainer;
-	private ButtonContainer oButtonContainer, hButtonContainer, eButtonContainer;
-	private JTabbedPane outputTabbedPane;
-	private JLabel resultHeaderLabel, middleLabel1, medianLabel1, quantileLabel1, absoluteLabel1, standardLabel1,
-			varianceLabel1, giniLabel1, middleLabel2, medianLabel2, quantileLabel2, absoluteLabel2, varianceLabel2,
-			standardLabel2, giniLabel2, middleLabel3, medianLabel3, quantileLabel3, absoluteLabel3, varianceLabel3,
-			standardLabel3, giniLabel3;
+	private JPanel buttonContainer;
+	private JTabbedPane tabbedPane;
+
 	private final static Color RED = new Color(175,22,20);
 
-	/**
-	 * Create the panel.
-	 */
+
+	private JButton changeValueButton;
+	private JButton newCalculationButton;
+	
 	public OutputPanel()
 	{
 		super();
-		setBorder(new LineBorder(new Color(0, 0, 0)));
-		setBackground(Color.WHITE);
-		setLayout(new BorderLayout(20, 5));
-
-		outputTabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		outputTabbedPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		add(outputTabbedPane, BorderLayout.CENTER);
-
+	
+/*
 		overviewContainer = new JPanel();
 		outputTabbedPane.addTab("\u00DCbersicht", null, overviewContainer, "\u00DCbersicht der Ergebnisse");
 		outputTabbedPane.setEnabledAt(0, true);
@@ -208,123 +210,7 @@ public class OutputPanel extends JPanel
 		giniLabel3 = new JLabel("value");
 		resultValuePanel.add(giniLabel3);
 
-		/*
-		 * JPanel resultMiddlePanel = new JPanel();
-		 * resultMiddlePanel.setBorder(new LineBorder(Color.LIGHT_GRAY));
-		 * FlowLayout flowLayout_1 = (FlowLayout) resultMiddlePanel.getLayout();
-		 * flowLayout_1.setHgap(10); flowLayout_1.setAlignment(FlowLayout.LEFT);
-		 * resultValuePanel.add(resultMiddlePanel);
-		 * 
-		 * JLabel resultMiddleLabel = new JLabel("Mittelwert");
-		 * resultMiddlePanel.add(resultMiddleLabel);
-		 * 
-		 * JLabel lblX = new JLabel("x"); resultMiddlePanel.add(lblX);
-		 * 
-		 * JLabel label = new JLabel("="); resultMiddlePanel.add(label);
-		 * 
-		 * JLabel lblValue = new JLabel("value");
-		 * resultMiddlePanel.add(lblValue);
-		 * 
-		 * JPanel resultMedianPanel = new JPanel();
-		 * resultMedianPanel.setBorder(new LineBorder(Color.LIGHT_GRAY));
-		 * FlowLayout flowLayout_2 = (FlowLayout) resultMedianPanel.getLayout();
-		 * flowLayout_2.setHgap(10); flowLayout_2.setAlignment(FlowLayout.LEFT);
-		 * resultValuePanel.add(resultMedianPanel);
-		 * 
-		 * JLabel lblNewLabel_1 = new JLabel("Median");
-		 * resultMedianPanel.add(lblNewLabel_1);
-		 * 
-		 * JLabel label_1 = new JLabel("x"); resultMedianPanel.add(label_1);
-		 * 
-		 * JLabel label_2 = new JLabel("="); resultMedianPanel.add(label_2);
-		 * 
-		 * JLabel label_6 = new JLabel("value"); resultMedianPanel.add(label_6);
-		 * 
-		 * JPanel resultQuantilePanel = new JPanel();
-		 * resultQuantilePanel.setBorder(new LineBorder(Color.LIGHT_GRAY));
-		 * FlowLayout fl_resultQuantilePanel = (FlowLayout)
-		 * resultQuantilePanel.getLayout(); fl_resultQuantilePanel.setHgap(10);
-		 * fl_resultQuantilePanel.setAlignment(FlowLayout.LEFT);
-		 * resultValuePanel.add(resultQuantilePanel);
-		 * 
-		 * JLabel lblQuantile = new JLabel("Quantile");
-		 * resultQuantilePanel.add(lblQuantile);
-		 * 
-		 * JLabel label_3 = new JLabel("x"); resultQuantilePanel.add(label_3);
-		 * 
-		 * JLabel label_4 = new JLabel("="); resultQuantilePanel.add(label_4);
-		 * 
-		 * JLabel label_5 = new JLabel("value");
-		 * resultQuantilePanel.add(label_5);
-		 * 
-		 * JPanel resultDeviationPanel = new JPanel();
-		 * resultDeviationPanel.setBorder(new LineBorder(Color.LIGHT_GRAY));
-		 * FlowLayout fl_resultDeviationPanel = (FlowLayout)
-		 * resultDeviationPanel.getLayout();
-		 * fl_resultDeviationPanel.setHgap(10);
-		 * fl_resultDeviationPanel.setAlignment(FlowLayout.LEFT);
-		 * resultValuePanel.add(resultDeviationPanel);
-		 * 
-		 * JLabel lblAbsoluteAbweichung = new JLabel("Absolute Abweichung");
-		 * resultDeviationPanel.add(lblAbsoluteAbweichung);
-		 * 
-		 * JLabel label_8 = new JLabel("x"); resultDeviationPanel.add(label_8);
-		 * 
-		 * JLabel label_9 = new JLabel("="); resultDeviationPanel.add(label_9);
-		 * 
-		 * JLabel label_10 = new JLabel("value");
-		 * resultDeviationPanel.add(label_10);
-		 * 
-		 * JPanel resultVariancePanel = new JPanel();
-		 * resultVariancePanel.setBorder(new LineBorder(Color.LIGHT_GRAY));
-		 * FlowLayout fl_resultVariancePanel = (FlowLayout)
-		 * resultVariancePanel.getLayout(); fl_resultVariancePanel.setHgap(10);
-		 * fl_resultVariancePanel.setAlignment(FlowLayout.LEFT);
-		 * resultValuePanel.add(resultVariancePanel);
-		 * 
-		 * JLabel lblVarianz = new JLabel("Varianz");
-		 * resultVariancePanel.add(lblVarianz);
-		 * 
-		 * JLabel label_11 = new JLabel("x"); resultVariancePanel.add(label_11);
-		 * 
-		 * JLabel label_12 = new JLabel("="); resultVariancePanel.add(label_12);
-		 * 
-		 * JLabel label_13 = new JLabel("value");
-		 * resultVariancePanel.add(label_13);
-		 * 
-		 * JPanel resultStandardPanel = new JPanel();
-		 * resultStandardPanel.setBorder(new LineBorder(Color.LIGHT_GRAY));
-		 * FlowLayout fl_resultStandardPanel = (FlowLayout)
-		 * resultStandardPanel.getLayout(); fl_resultStandardPanel.setHgap(10);
-		 * fl_resultStandardPanel.setAlignment(FlowLayout.LEFT);
-		 * resultValuePanel.add(resultStandardPanel);
-		 * 
-		 * JLabel lblStandardabweichung_1 = new JLabel("Standardabweichung");
-		 * resultStandardPanel.add(lblStandardabweichung_1);
-		 * 
-		 * JLabel label_14 = new JLabel("x"); resultStandardPanel.add(label_14);
-		 * 
-		 * JLabel label_15 = new JLabel("="); resultStandardPanel.add(label_15);
-		 * 
-		 * JLabel label_16 = new JLabel("value");
-		 * resultStandardPanel.add(label_16);
-		 * 
-		 * JPanel resultGiniPanel = new JPanel(); resultGiniPanel.setBorder(new
-		 * LineBorder(Color.LIGHT_GRAY)); FlowLayout fl_resultGiniPanel =
-		 * (FlowLayout) resultGiniPanel.getLayout();
-		 * fl_resultGiniPanel.setHgap(10);
-		 * fl_resultGiniPanel.setAlignment(FlowLayout.LEFT);
-		 * resultValuePanel.add(resultGiniPanel);
-		 * 
-		 * JLabel lblGiniKoeffizient = new JLabel("Gini Koeffizient");
-		 * resultGiniPanel.add(lblGiniKoeffizient);
-		 * 
-		 * JLabel label_17 = new JLabel("x"); resultGiniPanel.add(label_17);
-		 * 
-		 * JLabel label_18 = new JLabel("="); resultGiniPanel.add(label_18);
-		 * 
-		 * JLabel label_19 = new JLabel("value"); resultGiniPanel.add(label_19);
-		 */
+		
 		diagramContainer = new JPanel();
 		diagramContainer.setBorder(new LineBorder(new Color(0, 0, 0)));
 		resultContainer.add(diagramContainer);
@@ -340,107 +226,126 @@ public class OutputPanel extends JPanel
 		empiricPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		diagramContainer.add(empiricPanel);
 
-		oButtonContainer = new ButtonContainer(true);
-		overviewContainer.add(oButtonContainer, BorderLayout.SOUTH);
+	
 
 		histogramContainer = new JPanel();
 		histogramContainer.setBorder(new LineBorder(new Color(0, 0, 0)));
 		outputTabbedPane.addTab("Histogramm", null, histogramContainer, "Histogramm anzeigen");
 		histogramContainer.setLayout(new BorderLayout(0, 0));
-		hButtonContainer = new ButtonContainer(true);
-		histogramContainer.add(hButtonContainer, BorderLayout.SOUTH);
 
 		empiricContainer = new JPanel();
 		empiricContainer.setBorder(new LineBorder(new Color(0, 0, 0)));
 		outputTabbedPane.addTab("Empirische Verteilung", null, empiricContainer, "Empirische Verteilung anzeigen");
-		empiricContainer.setLayout(new BorderLayout(0, 0));
-		eButtonContainer = new ButtonContainer(true);
-		empiricContainer.add(eButtonContainer, BorderLayout.SOUTH);
+		empiricContainer.setLayout(new BorderLayout(0, 0));*/
+
 	}
 
-	/**
-	 * Return the OutputPanel.
-	 * 
-	 * @return the OutputPanel
-	 */
-	public OutputPanel get()
+	public void setData(DataHandler data){
+		
+		this.removeAll();
+		setBorder(new LineBorder(new Color(0, 0, 0)));
+		setBackground(Color.WHITE);
+		setLayout(new BorderLayout(20, 5));
+
+		this.setLayout(new BoxLayout( this, BoxLayout.PAGE_AXIS));
+		
+		tabbedPane = setUpTabs(data);
+		buttonContainer = setUpButtons();
+		
+		this.add(tabbedPane);
+		this.add(buttonContainer);
+	}
+	
+	public JTabbedPane setUpTabs(DataHandler data){
+		JTabbedPane result = new JTabbedPane();
+
+		JPanel resultsDetailContainer = setUpResultContainer(data);
+		JPanel histogramDetailContainer = setUpHistogramDetailContainer(data);
+		JPanel empiricDetailContainer = setUpEmpiricDetailContainer(data);
+		
+		result.add("Ergebnisse", resultsDetailContainer);
+		result.add("Histogramm", histogramDetailContainer);
+		result.add("Empirische Verteilungsfunktion", empiricDetailContainer);
+		return result;
+	}
+	
+	private JPanel setUpResultContainer(DataHandler data) {
+		
+		//Linke Seite: Ergebnisse
+		JPanel resultOverviewPanel = new JPanel();
+		
+		resultOverviewPanel.setLayout(new BoxLayout(resultOverviewPanel, BoxLayout.PAGE_AXIS));
+		
+	    JLabel resultHeaderLabel, middleLabel1, medianLabel1, quantileLabel1, absoluteLabel1, standardLabel1,
+		varianceLabel1, giniLabel1, middleLabel2, medianLabel2, quantileLabel2, absoluteLabel2, varianceLabel2,
+		standardLabel2, giniLabel2, middleLabel3, medianLabel3, quantileLabel3, absoluteLabel3, varianceLabel3,
+		standardLabel3, giniLabel3;
+		
+		
+		//Rechte Seite: Graph Preview
+		JPanel graphPreviewPanel = new JPanel();
+		graphPreviewPanel.setLayout(new BoxLayout(graphPreviewPanel, BoxLayout.PAGE_AXIS));
+		HistogramPanel histogramPreview = GraphFactory.createHistogram(MainFrame.getDataHandler(), 0, 0, 100, 100, 100, 100);
+		EmpiricDistributionPanel empiricPreview = GraphFactory.createEmpiricDistribution(MainFrame.getDataHandler(),0,0,100,100,00,100);
+		graphPreviewPanel.add(histogramPreview);
+		graphPreviewPanel.add(empiricPreview);
+		
+		//Hauptpanel: Container für links und rechts
+		JPanel result = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		result.setPreferredSize(new Dimension(200, 500));
+		result.add(resultOverviewPanel);
+		result.add(graphPreviewPanel);
+		
+		return result;
+	}
+	
+	private HistogramPanel setUpHistogramDetailContainer(DataHandler data) {
+		HistogramPanel result = GraphFactory.createHistogram(data, 25, 25, 775, 484, 725, 434);
+		
+		return result;
+	}
+	
+	private JPanel setUpEmpiricDetailContainer(DataHandler data) {
+		JPanel result = new JPanel();
+		
+		return result;
+	}	
+
+	private JPanel setUpButtons(){
+		FlowLayout buttonLayout = new FlowLayout(FlowLayout.CENTER, 75, 10);
+		JPanel result = new JPanel(buttonLayout);
+		changeValueButton = new JButton("Werte \u00E4ndern");
+		changeValueButton.addActionListener(changeValueAction);
+		result.add(changeValueButton);
+
+		newCalculationButton = new JButton("Neue Berechnung");
+		newCalculationButton.addActionListener(newCalculationAction);
+		result.add(newCalculationButton);
+
+		return result;
+	}
+
+	private ActionListener newCalculationAction = new ActionListener()
 	{
-		return this;
-	}
+		public void actionPerformed(ActionEvent actionEvent)
+		{
+			String dialogString = InputDialog.startNewDialog();
+			if (dialogString.equals("Ja"))
+			{
+				MainFrame.getDataHandler().getList().clear();
+				MainFrame.getDataHandler().initialize();
+				InputPanel.initialize();
+				MainFrame.switchToInputPanel();
+			}
+		}
+	};
 
-	/**
-	 * 
-	 * @param median
-	 */
-	public void setMedian(float median)
+	
+	private ActionListener changeValueAction = new ActionListener()
 	{
-		medianLabel3.setText("" + median);
-	}
-
-	/**
-	 * 
-	 * @param middle
-	 */
-	public void setMiddle(float middle)
-	{
-		middleLabel3.setText("" + middle);
-	}
-
-	/**
-	 * 
-	 * @param variance
-	 */
-	public void setVariance(float variance)
-	{
-		varianceLabel3.setText("" + variance);
-	}
-
-	/**
-	 * 
-	 * @param deviation
-	 */
-	public void setAbsoluteDeviation(float deviation)
-	{
-		absoluteLabel3.setText("" + deviation);
-	}
-
-	/**
-	 * 
-	 * @param deviation
-	 */
-	public void setStandardDeviation(float deviation)
-	{
-		standardLabel3.setText("" + deviation);
-	}
-
-	/**
-	 * 
-	 * @param gini
-	 */
-	public void setGini(float gini)
-	{
-		giniLabel3.setText("" + gini);
-	}
-
-	/*
-	 * private ActionListener newCalculationAction = new ActionListener() {
-	 * public void actionPerformed(ActionEvent actionEvent) { // TODO: Action
-	 * bei Button "Neue Berechnung": Input-Panel komplett // neu aufrufen
-	 * MainFrame.switchToInputPanel(true); } };
-	 * 
-	 * private ActionListener changeValueAction = new ActionListener() { public
-	 * void actionPerformed(ActionEvent actionEvent) { // TODO: Action bei
-	 * Button "Werte ändern": Input-Panel mit // bestehenden Daten aufrufen
-	 * MainFrame.switchToInputPanel(false); } };
-	 */
+		public void actionPerformed(ActionEvent actionEvent)
+		{
+			MainFrame.switchToInputPanel();
+		}
+	};
 }
-
-/*
- * changeValueButton = new JButton("Werte \u00E4ndern");
- * changeValueButton.addActionListener(changeValueAction);
- * buttonContainer.add(changeValueButton);
- * 
- * newCalculationButton = new JButton("Neue Berechnung");
- * newCalculationButton.addActionListener(newCalculationAction);
- * buttonContainer.add(newCalculationButton);
- */

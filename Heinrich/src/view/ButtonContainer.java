@@ -69,14 +69,12 @@ public class ButtonContainer extends JPanel
 			String dialogString = InputDialog.startNewDialog();
 			if (dialogString.equals("Ja"))
 			{
-				DataHandler.getList().clear();
-				DataHandler.initialize();
+				MainFrame.getDataHandler().getList().clear();
+				MainFrame.getDataHandler().initialize();
 				index = 0;
-				InputPanel.resetFields();
-				InputPanel.resetTable();
+				InputPanel.initialize();
 				MainFrame.switchToInputPanel();
 			}
-			calculateButton.setEnabled(false);
 		}
 	};
 
@@ -88,6 +86,7 @@ public class ButtonContainer extends JPanel
 		}
 	};
 
+	
 	private ActionListener lastClassAction = new ActionListener()
 	{
 		public void actionPerformed(ActionEvent actionEvent)
@@ -178,7 +177,7 @@ public class ButtonContainer extends JPanel
 			}
 			int absoluteOccurence = Integer.parseInt(InputPanel.getQuantityField());
 
-			DataHandler.receiveData(new StatisticClassValue(lowerValue, lowerClampType),
+			MainFrame.getDataHandler().receiveData(new StatisticClassValue(lowerValue, lowerClampType),
 					new StatisticClassValue(upperValue, upperClampType), absoluteOccurence, index);
 			InputPanel.updateTable();
 			InputPanel.resetFields();
@@ -204,4 +203,5 @@ public class ButtonContainer extends JPanel
 			return false;
 		}
 	}
+	
 }

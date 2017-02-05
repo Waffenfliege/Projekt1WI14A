@@ -148,7 +148,7 @@ public class InputDialog extends JDialog
 							if (isValid(zInputField.getText()))
 							{
 								try {
-									setOutputPanelData(Float.parseFloat(zInputField.getText()));
+									calculateResultsPostZ(Float.parseFloat(zInputField.getText()));
 								} catch (Exception e) {
 									e.printStackTrace();
 								}
@@ -227,40 +227,16 @@ public class InputDialog extends JDialog
 		}
 	}
 	
-	private void setOutputPanelData(float z) throws Exception{
-		float relativeOccurences[]; 
-		float classMiddles[]; 
-		float absoluteOccurence;
-		float median;
-		float arithmeticMiddle;
-		Quantile[] quantiles;
-		float meanAbsoluteDeviation;
-		float variance;
-		float standardDeviation;
-		
-		relativeOccurences = LogicHandler.getRelativeOccurences(DataHandler.getList(), DataHandler.getSampleSize());
-		classMiddles = LogicHandler.getClassMiddles(DataHandler.getList());
-		
-		for (int i = 0; i < DataHandler.getList().size(); i++)
-		{
-			absoluteOccurence = DataHandler.getElement(i).getAbsoluteOccurences();
-		}
+	public static void calculateResultsPostZ(float z) throws IllegalArgumentException, Exception{
 
-		median = LogicHandler.getMedian(DataHandler.getList(), classMiddles, relativeOccurences);
-		arithmeticMiddle = LogicHandler.getArithmeticMiddle(classMiddles, relativeOccurences);
-
-		quantiles = LogicHandler.getQuantiles(DataHandler.getList(), classMiddles, relativeOccurences);
-
-	
-		meanAbsoluteDeviation = LogicHandler.getMeanAbsoluteDeviation(DataHandler.getList(), classMiddles,
-				relativeOccurences, z);
-
-		variance = LogicHandler.getVariance(DataHandler.getList(), classMiddles, arithmeticMiddle,
-				DataHandler.getSampleSize());
-
-		standardDeviation = LogicHandler.getStandardDeviation(variance);
-		
-		
+		MainFrame.getDataHandler().getResults().setQuantiles(LogicHandler.getQuantiles(MainFrame.getDataHandler().getList(), MainFrame.getDataHandler().getResults().getClassMiddles(), MainFrame.getDataHandler().getResults().getRelativeOccurences()));
+		MainFrame.getDataHandler().getResults().setMeanAbsoluteDeviation(LogicHandler.getMeanAbsoluteDeviation(MainFrame.getDataHandler().getList(),MainFrame.getDataHandler().getResults().getClassMiddles(),
+				MainFrame.getDataHandler().getResults().getRelativeOccurences(), z));
+		MainFrame.getDataHandler().getResults().setVariance(LogicHandler.getVariance(MainFrame.getDataHandler().getList(), MainFrame.getDataHandler().getResults().getClassMiddles(), MainFrame.getDataHandler().getResults().getArithmeticMiddle(),
+				MainFrame.getDataHandler().getSampleSize()));
+		MainFrame.getDataHandler().getResults().setStandardDeviation(LogicHandler.getStandardDeviation(MainFrame.getDataHandler().getResults().getVariance()));
 	}
+	
+
 
 }

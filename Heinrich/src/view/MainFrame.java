@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import data.DataHandler;
+import logic.LogicHandler;
 
 @SuppressWarnings("serial")
 /**
@@ -20,11 +21,11 @@ public class MainFrame extends JFrame
 	private static JPanel contentPanel;
 	private static InputPanel inputPanel;
 	private static OutputPanel outputPanel;
-
+	private static DataHandler data;
 	/**
 	 * Launch the application.
 	 */
-	public static void startFrame()
+	public void startFrame()
 	{
 		EventQueue.invokeLater(new Runnable()
 		{
@@ -32,8 +33,7 @@ public class MainFrame extends JFrame
 			{
 				try
 				{
-					MainFrame frame = new MainFrame();
-					frame.setVisible(true);
+					setVisible(true);
 				} catch (Exception e)
 				{
 					e.printStackTrace();
@@ -48,6 +48,7 @@ public class MainFrame extends JFrame
 	public MainFrame()
 	{
 		super();
+		data = new DataHandler();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(400, 200, 800, 600);
 		setTitle("Statistik-Projekt 2017");
@@ -55,8 +56,7 @@ public class MainFrame extends JFrame
 
 		inputPanel = new InputPanel();
 		outputPanel = new OutputPanel();
-		// TODO: OutputFrame in OutputPanel umformen & anpassen
-
+		
 		contentPanel = new JPanel();
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPanel.setLayout(new BorderLayout(0, 0));
@@ -69,13 +69,13 @@ public class MainFrame extends JFrame
 	 * Change the current shown contentPanel of the MainFrame to the given
 	 * JPanel Object.
 	 * 
-	 * @param content
+	 * @param panelToShow
 	 *            JPanel Object that shall be shown in the MainFrame
 	 */
-	public static void switchPanel(JPanel content)
+	private static void switchPanel(JPanel panelToShow)
 	{
 		contentPanel.removeAll();
-		contentPanel.add(content);
+		contentPanel.add(panelToShow);
 		contentPanel.revalidate();
 		contentPanel.repaint();
 		// TODO: Prüfen, ob switchPane() in der Form funktioniert
@@ -89,6 +89,7 @@ public class MainFrame extends JFrame
 	 */
 	public static void switchToOutputPanel()
 	{
+		outputPanel.setData(data);
 		switchPanel(outputPanel);
 	}
 
@@ -124,5 +125,9 @@ public class MainFrame extends JFrame
 	public static OutputPanel getOutputPanel()
 	{
 		return outputPanel;
+	}
+	
+	public static DataHandler getDataHandler(){
+		return data;
 	}
 }

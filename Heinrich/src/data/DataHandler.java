@@ -8,13 +8,29 @@ public class DataHandler
 {
 	private final static int MAX_CLASS_COUNT = 20;
 	private static ArrayList<StatisticClass> classes;
+	private static ResultSet results;
 
 	public DataHandler()
 	{
 		classes = new ArrayList<StatisticClass>();
+		results = new ResultSet(20);
+	}
+	
+	
+
+	public ResultSet getResults() {
+		return results;
 	}
 
-	public static void initialize()
+
+
+	public void setResults(ResultSet results) {
+		DataHandler.results = results;
+	}
+
+
+
+	public void initialize()
 	{
 		classes = new ArrayList<StatisticClass>();
 	}
@@ -23,7 +39,7 @@ public class DataHandler
 	 * 
 	 * @return ArrayList of all statistic classes.
 	 */
-	public static ArrayList<StatisticClass> getList()
+	public ArrayList<StatisticClass> getList()
 	{
 		return classes;
 	}
@@ -34,7 +50,7 @@ public class DataHandler
 	 *            number specifying the element in the ArrayList.
 	 * @return Specific element of the statistic class ArrayList.
 	 */
-	public static StatisticClass getElement(int index)
+	public StatisticClass getElement(int index)
 	{
 		return classes.get(index);
 	}
@@ -51,7 +67,7 @@ public class DataHandler
 	 * @param absoluteOccurence
 	 *            absolute occurrence of data points in this statistical class.
 	 */
-	private static void updateListItem(int index, StatisticClassValue lowerValue, StatisticClassValue upperValue,
+	private void updateListItem(int index, StatisticClassValue lowerValue, StatisticClassValue upperValue,
 			int absoluteOccurence)
 	{
 		classes.get(index).setLowerValue(lowerValue);
@@ -74,7 +90,7 @@ public class DataHandler
 	 *             is reached.
 	 */
 
-	private static void putListItem(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence)
+	private void putListItem(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence)
 	{
 		classes.add(new StatisticClass(lowerValue, upperValue, absoluteOccurence));
 	}
@@ -82,7 +98,7 @@ public class DataHandler
 	/**
 	 * @return absolute sample size over all statistical classes
 	 */
-	public static int getSampleSize()
+	public int getSampleSize()
 	{
 		int sampleSize = 0;
 		int classCount = classes.size();
@@ -93,12 +109,12 @@ public class DataHandler
 		return sampleSize;
 	}
 
-	public static int getClassesSize()
+	public int getClassCount()
 	{
 		return classes.size();
 	}
 
-	public static void receiveData(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence,
+	public void receiveData(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence,
 			int currentViewIndex) throws IllegalOverlapException, Exception
 	{
 		// are we handling a newly entered class or were data just changed?
@@ -117,7 +133,7 @@ public class DataHandler
 		}
 	}
 
-	private static void checkClassCreation(StatisticClassValue lowerValue, StatisticClassValue upperValue,
+	private void checkClassCreation(StatisticClassValue lowerValue, StatisticClassValue upperValue,
 			int absoluteOccurence) throws IllegalOverlapException, Exception
 	{
 		// no classes existing yet
@@ -153,7 +169,7 @@ public class DataHandler
 		}
 	}
 
-	private static void checkClassChange(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence,
+	private void checkClassChange(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence,
 			int currentViewIndex) throws IllegalOverlapException
 	{
 		checkForOverlap(lowerValue, upperValue);
@@ -173,7 +189,7 @@ public class DataHandler
 	 *            view.
 	 * @return True if the given index of the view is equal to the array size.
 	 */
-	private static boolean isNewClass(int currentViewIndex)
+	private boolean isNewClass(int currentViewIndex)
 	{
 		try
 		{
@@ -194,7 +210,7 @@ public class DataHandler
 	 * @return True if class limit is reached. False if class limit is not
 	 *         reached.
 	 */
-	private static boolean isClassLimitReached()
+	private boolean isClassLimitReached()
 	{
 		if (classes.size() < MAX_CLASS_COUNT)
 		{
@@ -205,7 +221,7 @@ public class DataHandler
 		}
 	}
 
-	private static void checkForOverlap(StatisticClassValue lowerValue, StatisticClassValue upperValue)
+	private void checkForOverlap(StatisticClassValue lowerValue, StatisticClassValue upperValue)
 			throws IllegalOverlapException
 	{
 		ArrayList<Integer> result = new ArrayList<Integer>();
