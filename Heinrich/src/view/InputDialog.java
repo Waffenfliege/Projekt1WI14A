@@ -44,12 +44,10 @@ public class InputDialog extends JDialog
 			if (chosenCommand.equals("OK"))
 			{
 				dialog.dispose();
-				System.out.println(zInputField.getText());
 				return zInputField.getText();
 			} else
 			{
 				dialog.dispose();
-				System.out.println(chosenCommand);
 				return chosenCommand;
 			}
 		} catch (Exception e)
@@ -79,7 +77,6 @@ public class InputDialog extends JDialog
 	public InputDialog(boolean input)
 	{
 		super();
-		// input = false;
 		if (input)
 		{
 			setTitle("Eingabemaske Variable z");
@@ -123,21 +120,15 @@ public class InputDialog extends JDialog
 				JPanel buttonPane = new JPanel();
 				getContentPane().add(buttonPane, BorderLayout.SOUTH);
 				buttonPane.setLayout(new FlowLayout(FlowLayout.CENTER, 25, 20));
-				/*{
-					JButton withoutZButton = new JButton("Ohne z fortfahren");
-					withoutZButton.setActionCommand("Ohne z fortfahren");
-					withoutZButton.addActionListener(new ActionListener()
-					{
-						public void actionPerformed(ActionEvent actionEvent)
-						{
-							//setOutputPanelData(null);
-							chosenCommand = "Ohne";
-							dispose();
-						}
-					});
-					buttonPane.add(withoutZButton);
-					getRootPane().setDefaultButton(withoutZButton);
-				}*/
+				/*
+				 * { JButton withoutZButton = new JButton("Ohne z fortfahren");
+				 * withoutZButton.setActionCommand("Ohne z fortfahren");
+				 * withoutZButton.addActionListener(new ActionListener() {
+				 * public void actionPerformed(ActionEvent actionEvent) {
+				 * //setOutputPanelData(null); chosenCommand = "Ohne";
+				 * dispose(); } }); buttonPane.add(withoutZButton);
+				 * getRootPane().setDefaultButton(withoutZButton); }
+				 */
 				{
 					JButton withZButton = new JButton("Weiter");
 					withZButton.setActionCommand("Weiter");
@@ -147,9 +138,11 @@ public class InputDialog extends JDialog
 						{
 							if (isValid(zInputField.getText()))
 							{
-								try {
+								try
+								{
 									calculateResultsPostZ(Float.parseFloat(zInputField.getText()));
-								} catch (Exception e) {
+								} catch (Exception e)
+								{
 									e.printStackTrace();
 								}
 								chosenCommand = "OK";
@@ -226,17 +219,23 @@ public class InputDialog extends JDialog
 			return false;
 		}
 	}
-	
-	public static void calculateResultsPostZ(float z) throws IllegalArgumentException, Exception{
 
-		MainFrame.getDataHandler().getResults().setQuantiles(LogicHandler.getQuantiles(MainFrame.getDataHandler().getList(), MainFrame.getDataHandler().getResults().getClassMiddles(), MainFrame.getDataHandler().getResults().getRelativeOccurences()));
-		MainFrame.getDataHandler().getResults().setMeanAbsoluteDeviation(LogicHandler.getMeanAbsoluteDeviation(MainFrame.getDataHandler().getList(),MainFrame.getDataHandler().getResults().getClassMiddles(),
-				MainFrame.getDataHandler().getResults().getRelativeOccurences(), z));
-		MainFrame.getDataHandler().getResults().setVariance(LogicHandler.getVariance(MainFrame.getDataHandler().getList(), MainFrame.getDataHandler().getResults().getClassMiddles(), MainFrame.getDataHandler().getResults().getArithmeticMiddle(),
-				MainFrame.getDataHandler().getSampleSize()));
-		MainFrame.getDataHandler().getResults().setStandardDeviation(LogicHandler.getStandardDeviation(MainFrame.getDataHandler().getResults().getVariance()));
+	public static void calculateResultsPostZ(float z) throws IllegalArgumentException, Exception
+	{
+
+		MainFrame.getDataHandler().getResults()
+				.setQuantiles(LogicHandler.getQuantiles(MainFrame.getDataHandler().getList(),
+						MainFrame.getDataHandler().getResults().getClassMiddles(),
+						MainFrame.getDataHandler().getResults().getRelativeOccurences()));
+		MainFrame.getDataHandler().getResults()
+				.setMeanAbsoluteDeviation(LogicHandler.getMeanAbsoluteDeviation(MainFrame.getDataHandler().getList(),
+						MainFrame.getDataHandler().getResults().getClassMiddles(),
+						MainFrame.getDataHandler().getResults().getRelativeOccurences(), z));
+		MainFrame.getDataHandler().getResults().setVariance(LogicHandler.getVariance(MainFrame.getDataHandler().getList(),
+				MainFrame.getDataHandler().getResults().getClassMiddles(),
+				MainFrame.getDataHandler().getResults().getArithmeticMiddle(), MainFrame.getDataHandler().getSampleSize()));
+		MainFrame.getDataHandler().getResults()
+				.setStandardDeviation(LogicHandler.getStandardDeviation(MainFrame.getDataHandler().getResults().getVariance()));
 	}
-	
-
 
 }
