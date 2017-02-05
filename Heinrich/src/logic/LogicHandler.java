@@ -316,56 +316,72 @@ public class LogicHandler
 	/**
 	 * 
 	 * @author Robert
-	 */	
-	public static float getGiniCoefficient(float[] classMiddles, float[] relativeOccurences, float classMiddlesAdded){ //Nach Fachkonzept her, wir von ordnung von kleinster klassenmitte zur größten ausgegangen
-		float size = classMiddles.length+1;//Da die erste Zeile voller nuller ist
-		float[][] giniTable = new float[6][size];
-		float classMiddlesAddUp;
-		float lorenz;
+	 */
+	public static float getGiniCoefficient(float[] classMiddles, float[] relativeOccurences, float classMiddlesAdded)
+	{ // Nach Fachkonzept her, wir von ordnung von kleinster klassenmitte zur
+		// größten ausgegangen
+		float size = classMiddles.length + 1;// Da die erste Zeile voller nuller
+												// ist
+		float[][] giniTable = new float[6][(int) size];
+		float classMiddlesAddUp = 0;
+		float lorenz = 0;
 		float giniCoefficient;
-		
-		for (i=0, i<6, i++){ //Die erste Zeile der Tabelle beinhaltet immer ausschließlich nuller
+
+		for (int i = 0; i < 6; i++)
+		{ // Die erste Zeile der Tabelle beinhaltet immer ausschließlich nuller
 			giniTable[i][0] = 0;
 		}
-		for (i=1, i<size, i++){ //Die erste Spalte wird durchnummerriert -> m
+		for (int i = 1; i < size; i++)
+		{ // Die erste Spalte wird durchnummerriert -> m
 			giniTable[0][i] = i;
 		}
-		for (i=1, i<size, i++){ //Die zweite Spalte wird mit den Aufaddierten relativen Häufigkeiten gefüllt ->u (von m)
-			giniTable[1][i] = relativeOccurences[i-1]+giniTable[i-1];
+		for (int i = 1; i < size; i++)
+		{ // Die zweite Spalte wird mit den Aufaddierten relativen Häufigkeiten
+			// gefüllt ->u (von m)
+			giniTable[1][i] = relativeOccurences[i - 1] + giniTable[1][i - 1];
 		}
-		for (i=1, i<size, i++){ //Die dritte Spalte wird mit den Aufaddierten relativen Klassenmitten gefüllt -> v (von m)
-			classMiddlesAddUp = classMiddles[i-1]+classMiddlesAddUp;
-			giniTable[2][i] = classMiddlesAddUp/classMiddlesAdded;
+		for (int i = 1; i < size; i++)
+		{ // Die dritte Spalte wird mit den Aufaddierten relativen Klassenmitten
+			// gefüllt -> v (von m)
+			classMiddlesAddUp = classMiddles[i - 1] + classMiddlesAddUp;
+			giniTable[2][i] = classMiddlesAddUp / classMiddlesAdded;
 		}
-		for (i=1, i<size, i++){ // -> u (m) - u (m-1)
-			giniTable[3][i] = giniTable[1][i]-giniTable[1][i-1];
+		for (int i = 1; i < size; i++)
+		{ // -> u (m) - u (m-1)
+			giniTable[3][i] = giniTable[1][i] - giniTable[1][i - 1];
 		}
-		for (i=1, i<size, i++){ // -> v (m) + v (m-1)
-			giniTable[4][i] = giniTable[2][i]+giniTable[2][i-1];
+		for (int i = 1; i < size; i++)
+		{ // -> v (m) + v (m-1)
+			giniTable[4][i] = giniTable[2][i] + giniTable[2][i - 1];
 		}
-		for (i=1, i<size, i++){ // -> (u (m) - u (m-1))*(v (m) + v (m-1))
-			giniTable[5][i] = giniTable[3][i]*giniTable[4][i];
+		for (int i = 1; i < size; i++)
+		{ // -> (u (m) - u (m-1))*(v (m) + v (m-1))
+			giniTable[5][i] = giniTable[3][i] * giniTable[4][i];
 		}
-		for (i=1, i<size, i++){ 
-			lorenz = giniTable[5][i]+lorenz;
+		for (int i = 1; i < size; i++)
+		{
+			lorenz = giniTable[5][i] + lorenz;
 		}
-		
+
 		giniCoefficient = 1 - lorenz;
-		
+
 		return giniCoefficient;
 	}
-	
+
 	/**
 	 * 
 	 * @author Robert
-	 */	
-	public static float getClassMiddlesAdded(float[] classMiddles){
-		float classMiddlesAdded;
-		
-		for (i = 0; i<classMiddles.length(); i++){ 
-			classMiddlesAdded = classesMiddles[i]+classMiddlesAdded;
+	 */
+	public static float getClassMiddlesAdded(float[] classMiddles)
+	{
+		float classMiddlesAdded = 0;
+
+		for (int i = 0; i < classMiddles.length; i++)
+		{
+			classMiddlesAdded = classMiddles[i] + classMiddlesAdded;
 		}
-		return classMiddlesAdded; //Gibt die Klassenmitten + vorherige Klassenmitten aus. 
+		return classMiddlesAdded; // Gibt die Klassenmitten + vorherige
+									// Klassenmitten aus.
 	}
 
 	public static float getHistogramElementHeight()
