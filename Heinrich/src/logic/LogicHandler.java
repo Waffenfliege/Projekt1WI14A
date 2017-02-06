@@ -317,9 +317,8 @@ public class LogicHandler
 	 * 
 	 * @author Robert
 	 */
-	public static float getGiniCoefficient(float[] classMiddles, float[] relativeOccurences, float classMiddlesAdded)
-	{ // Nach Fachkonzept her, wir von ordnung von kleinster klassenmitte zur
-		// größten ausgegangen
+	public static float getGiniCoefficient(float[][] orderedClassMiddles, float[] classMiddles, float classMiddlesAdded)
+	{
 		float size = classMiddles.length + 1;// Da die erste Zeile voller nuller
 												// ist
 		float[][] giniTable = new float[6][(int) size];
@@ -338,12 +337,12 @@ public class LogicHandler
 		for (int i = 1; i < size; i++)
 		{ // Die zweite Spalte wird mit den Aufaddierten relativen Häufigkeiten
 			// gefüllt ->u (von m)
-			giniTable[1][i] = relativeOccurences[i - 1] + giniTable[1][i - 1];
+			giniTable[1][i] = orderedClassMiddles[i - 1][1] + giniTable[1][i - 1];
 		}
 		for (int i = 1; i < size; i++)
 		{ // Die dritte Spalte wird mit den Aufaddierten relativen Klassenmitten
 			// gefüllt -> v (von m)
-			classMiddlesAddUp = classMiddles[i - 1] + classMiddlesAddUp;
+			classMiddlesAddUp = orderedClassMiddles[i - 1][0] + classMiddlesAddUp;
 			giniTable[2][i] = classMiddlesAddUp / classMiddlesAdded;
 		}
 		for (int i = 1; i < size; i++)
@@ -382,6 +381,66 @@ public class LogicHandler
 		}
 		return classMiddlesAdded; // Gibt die Klassenmitten + vorherige
 									// Klassenmitten aus.
+	}
+
+	/**
+	 * 
+	 * @author Robert
+	 */
+	public static float[][] getOrderedClassMiddles(float[] classMiddles, float[] relativeOccurences)
+	{ // Reihenfolge 123 der Klassenmitten ist gleich wie von den H�ufigkeiten
+		// (davon wird ausgegangen)
+		float[][] orderedClassMiddles = new float[classMiddles.length][2];
+		int counter = 0;
+		float minValue = classMiddles[0];
+		float minValueOccurence = relativeOccurences[0];
+		float maxValue = getHighestClassMiddle(classMiddles); // h�chster Wert
+																// der
+																// classMiddles
+		// Suche minimalen wert, store in float[i = 0][0], i+1, suche minimalen
+		// wert usw, bis counter bei length-1 ist
+
+		while (counter < classMiddles.length)
+		{
+			for (int i = 1; i < classMiddles.length; i++)
+			{
+				if (classMiddles[i] < minValue && classMiddles[i] > orderedClassMiddles[i - 1][0]) // Problem
+																									// wenn
+																									// orderedClassMiddles
+																									// noch
+																									// keinen
+																									// Wert
+																									// hat?
+				{
+					minValue = classMiddles[i];
+					minValueOccurence = relativeOccurences[i];
+				}
+			}
+			orderedClassMiddles[counter][0] = minValue;
+			orderedClassMiddles[counter][1] = minValueOccurence;
+			minValue = maxValue + 1;
+			counter++;
+		}
+
+		return orderedClassMiddles;
+	}
+
+	/**
+	 * 
+	 * @author Robert
+	 */
+	public static float getHighestClassMiddle(float[] classMiddles)
+	{
+		float maxValue = classMiddles[0];
+
+		for (int i = 1; i < classMiddles.length; i++)
+		{
+			if (classMiddles[i] > maxValue)
+			{
+				maxValue = classMiddles[i];
+			}
+		}
+		return maxValue;
 	}
 
 	public static float getHistogramElementHeight()
