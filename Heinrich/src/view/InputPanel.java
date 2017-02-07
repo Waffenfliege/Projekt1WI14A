@@ -59,9 +59,7 @@ public class InputPanel extends JPanel
 
 	private static int index;
 
-	static JButton lastClassButton;
-	static JButton calculateButton;
-	static JButton nextClassButton;
+	private static JButton lastClassButton, calculateButton, nextClassButton;
 
 	/**
 	 * Creating the panel with all its components.
