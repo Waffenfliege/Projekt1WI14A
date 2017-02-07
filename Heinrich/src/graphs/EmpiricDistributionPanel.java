@@ -40,7 +40,7 @@ public class EmpiricDistributionPanel extends JPanel{
 	}
 	
 	@Override
-	public void paintComponent(Graphics g){
+	public void paintComponent(Graphics  g){
 		super.paintComponent(g);
 		//Filled Rects
 		g.setColor(chartBackgroundColor);
