@@ -56,6 +56,7 @@ public class DataHandler
 		
 		return result;
 	}
+	
 	/**
 	 * 
 	 * @return ArrayList of all statistic classes.
@@ -110,7 +111,6 @@ public class DataHandler
 	 *             Throws exception if the maximum number of statistical classes
 	 *             is reached.
 	 */
-
 	private void putListItem(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence)
 	{
 		classes.add(new StatisticClass(lowerValue, upperValue, absoluteOccurence));
@@ -129,33 +129,37 @@ public class DataHandler
 		}
 		return sampleSize;
 	}
-
+	
+	//TODO Comments
 	public int getClassCount()
 	{
 		return classes.size();
 	}
-
+	
+	//TODO Comments
 	public void receiveData(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence,
-			int currentViewIndex) throws IllegalOverlapException, Exception
+			int currentViewIndex) throws IllegalOverlapException, IllegalBorderException, Exception
 	{
-		
+		checkBorderOrder(lowerValue, upperValue);
 		// are we handling a newly entered class or were data just changed?
 		// new class
 		if (isNewClass(currentViewIndex))
 		{
+			
 			checkClassCreation(lowerValue, upperValue, absoluteOccurence);
 			InputPanel.setTableValue(lowerValue, upperValue, absoluteOccurence, currentViewIndex);
 
 		}
 
-		// data were just changed
+		// data was just changed
 		else
 		{
 			checkClassChange(lowerValue, upperValue, absoluteOccurence, currentViewIndex);
 		}
 		
 	}
-
+	
+	//TODO Comments
 	private void checkClassCreation(StatisticClassValue lowerValue, StatisticClassValue upperValue,
 			int absoluteOccurence) throws IllegalOverlapException, Exception
 	{
@@ -165,7 +169,6 @@ public class DataHandler
 			if (classes.size() == 0)
 			{
 				putListItem(lowerValue, upperValue, absoluteOccurence);
-
 			}
 
 			// classes already existing
@@ -191,7 +194,8 @@ public class DataHandler
 			putListItem(lowerValue, upperValue, absoluteOccurence);
 		}
 	}
-
+	
+	//TODO Comments
 	private void checkClassChange(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence,
 			int currentViewIndex) throws IllegalOverlapException
 	{
@@ -243,7 +247,8 @@ public class DataHandler
 			return true;
 		}
 	}
-
+	
+	//TODO Comments
 	private void checkForOverlap(int currentViewIndex, StatisticClassValue lowerValue, StatisticClassValue upperValue)
 			throws IllegalOverlapException
 	{
@@ -341,7 +346,17 @@ public class DataHandler
 		}
 
 	}
-
+	
+	//TODO Comments
+	private void checkBorderOrder(StatisticClassValue lowerValue, StatisticClassValue upperValue)
+		throws IllegalBorderException
+	{
+		if(!(upperValue.value > lowerValue.value))
+		{
+			throw new IllegalBorderException("Die untere Klassengrenze ist größer oder gleich der oberen Grenze.");
+		}
+	}
+	
 	// Vorgehen:
 	// Anschließend prüfen, ob bereits Klassen existieren.
 	// Wenn bereits Klassen existieren muss geprüft werden
