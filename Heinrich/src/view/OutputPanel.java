@@ -124,7 +124,7 @@ public class OutputPanel extends JPanel
 
 		for (int i = 0; i < data.getResults().getQuantiles().length; i++)
 		{
-			quantileString += "<p>" + data.getResults().getQuantiles()[i].getValue() + "</p>";
+			quantileString += "<p>" + String.format("%.3f", data.getResults().getQuantiles()[i].getValue()) + "</p>";
 		}
 		quantileString += "</body></html>";
 
@@ -182,7 +182,7 @@ public class OutputPanel extends JPanel
 		middleLabel2.setIcon(new ImageIcon(OutputPanel.class.getResource("/view/Mittel.png")));
 		resultLayout.setConstraints(middleLabel2, formulaConstraints);
 		resultSetPanel.add(middleLabel2);
-		JLabel middleLabel3 = new JLabel("" + data.getResults().getArithmeticMiddle());
+		JLabel middleLabel3 = new JLabel(String.format("%.3f", data.getResults().getArithmeticMiddle()));
 		middleLabel3.setVerticalAlignment(SwingConstants.BOTTOM);
 		middleLabel3.setFont(NORMAL);
 		resultLayout.setConstraints(middleLabel3, valueConstraints);
@@ -199,7 +199,7 @@ public class OutputPanel extends JPanel
 		medianLabel2.setIcon(new ImageIcon(OutputPanel.class.getResource("/view/Median.png")));
 		resultLayout.setConstraints(medianLabel2, formulaConstraints);
 		resultSetPanel.add(medianLabel2);
-		JLabel medianLabel3 = new JLabel("" + data.getResults().getMedian());
+		JLabel medianLabel3 = new JLabel(String.format("%.3f", data.getResults().getMedian()));
 		medianLabel3.setVerticalAlignment(SwingConstants.BOTTOM);
 		medianLabel3.setFont(NORMAL);
 		resultLayout.setConstraints(medianLabel3, valueConstraints);
@@ -233,7 +233,7 @@ public class OutputPanel extends JPanel
 		absoluteLabel2.setIcon(new ImageIcon(OutputPanel.class.getResource("/view/absolute.png")));
 		resultLayout.setConstraints(absoluteLabel2, formulaConstraints);
 		resultSetPanel.add(absoluteLabel2);
-		JLabel absoluteLabel3 = new JLabel("" + data.getResults().getMeanAbsoluteDeviation());
+		JLabel absoluteLabel3 = new JLabel(String.format("%.3f", data.getResults().getMeanAbsoluteDeviation()));
 		absoluteLabel3.setVerticalAlignment(SwingConstants.BOTTOM);
 		absoluteLabel3.setFont(NORMAL);
 		resultLayout.setConstraints(absoluteLabel3, valueConstraints);
@@ -250,7 +250,7 @@ public class OutputPanel extends JPanel
 		varianceLabel2.setIcon(new ImageIcon(OutputPanel.class.getResource("/view/variance.png")));
 		resultLayout.setConstraints(varianceLabel2, formulaConstraints);
 		resultSetPanel.add(varianceLabel2);
-		JLabel varianceLabel3 = new JLabel("" + data.getResults().getVariance());
+		JLabel varianceLabel3 = new JLabel(String.format("%.3f", data.getResults().getVariance()));
 		varianceLabel3.setVerticalAlignment(SwingConstants.BOTTOM);
 		varianceLabel3.setFont(NORMAL);
 		resultLayout.setConstraints(varianceLabel3, valueConstraints);
@@ -267,7 +267,7 @@ public class OutputPanel extends JPanel
 		standardLabel2.setIcon(new ImageIcon(OutputPanel.class.getResource("/view/standard.png")));
 		resultLayout.setConstraints(standardLabel2, formulaConstraints);
 		resultSetPanel.add(standardLabel2);
-		JLabel standardLabel3 = new JLabel("" + data.getResults().getStandardDeviation());
+		JLabel standardLabel3 = new JLabel(String.format("%.3f", data.getResults().getStandardDeviation()));
 		standardLabel3.setVerticalAlignment(SwingConstants.BOTTOM);
 		standardLabel3.setFont(NORMAL);
 		resultLayout.setConstraints(standardLabel3, valueConstraints);
@@ -317,15 +317,18 @@ public class OutputPanel extends JPanel
 	 * @return the JPanel histogramContainer
 	 * @see GraphFactory
 	 */
-	private JPanel setUpHistogramContainer(DataHandler data, int width, int height, int chartWidth, int chartHeight, boolean isDetailed)
+	private JPanel setUpHistogramContainer(DataHandler data, int width, int height, int chartWidth, int chartHeight,
+			boolean isDetailed)
 	{
 		JPanel histogramContainer = new JPanel();
 		HistogramPanel histogramPanel;
-		if(!isDetailed){
+		if (!isDetailed)
+		{
 			histogramPanel = GraphFactory.createHistogram(data, 10, 15, width, height, chartWidth, chartHeight, isDetailed);
 		}
-	
-		else{
+
+		else
+		{
 			histogramPanel = GraphFactory.createHistogram(data, 50, 50, width, height, chartWidth, chartHeight, isDetailed);
 		}
 		histogramContainer.setLayout(new BorderLayout(0, 0));
@@ -345,21 +348,22 @@ public class OutputPanel extends JPanel
 	 * @return the JPanel empiricContainer
 	 * @see GraphFactory
 	 */
-	private JPanel setUpEmpiricContainer(DataHandler data, int width, int height, int chartWidth, int chartHeight, boolean isDetailed)
+	private JPanel setUpEmpiricContainer(DataHandler data, int width, int height, int chartWidth, int chartHeight,
+			boolean isDetailed)
 	{
 		JPanel empiricContainer = new JPanel();
 		EmpiricDistributionPanel empiricPanel;
-		if(!isDetailed)
+		if (!isDetailed)
 		{
-			empiricPanel = GraphFactory.createEmpiricDistribution(data, 10, 15, width, height, chartWidth,
-					chartHeight, isDetailed);
+			empiricPanel = GraphFactory.createEmpiricDistribution(data, 10, 15, width, height, chartWidth, chartHeight,
+					isDetailed);
 		}
-		
-		else{
-			empiricPanel = GraphFactory.createEmpiricDistribution(data, 50, 50, width, height, chartWidth,
-					chartHeight, isDetailed);
+
+		else
+		{
+			empiricPanel = GraphFactory.createEmpiricDistribution(data, 50, 50, width, height, chartWidth, chartHeight,
+					isDetailed);
 		}
-	
 
 		empiricContainer.setLayout(new BorderLayout(0, 0));
 		empiricContainer.add(setUpHeaderPanel("Empirische Verteilung"), BorderLayout.NORTH);
