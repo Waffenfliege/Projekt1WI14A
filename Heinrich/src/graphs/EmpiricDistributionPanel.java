@@ -56,7 +56,7 @@ public class EmpiricDistributionPanel extends JPanel{
 			//TODO
 			int x = origin.getPosX()+positions.get(i).getPosX();
 			int y = origin.getPosY()+positions.get(i).getPosY();
-			int xTarget = origin.getPosX()+lines.get(i).getLength();
+			int xTarget = origin.getPosX()+positions.get(i).getPosX()+lines.get(i).getLength();
 			int yTarget  = origin.getPosY()+positions.get(i).getPosY();
 			g2.drawLine(x, y, xTarget, yTarget);
 		}
@@ -97,9 +97,9 @@ public class EmpiricDistributionPanel extends JPanel{
 			g2.setStroke(new BasicStroke(3));
 			for(int i=0; i<lines.size();i++){
 				int x = origin.getPosX()+positions.get(i).getPosX()+lines.get(i).getLength();
-				int y = origin.getPosY()+ positions.get(i).getPosY()-12;
+				int y = origin.getPosY()+ chartHeight -12;
 				int xTarget =  origin.getPosX()+positions.get(i).getPosX()+lines.get(i).getLength();
-				int yTarget  =origin.getPosY()+positions.get(i).getPosY()+12;
+				int yTarget  =origin.getPosY()+chartHeight+12;
 				g2.drawLine(x, y, xTarget, yTarget);
 			}
 			
@@ -132,6 +132,11 @@ public class EmpiricDistributionPanel extends JPanel{
 				int x = origin.getPosX()+positions.get(i).getPosX()+lines.get(i).getLength()/2-stringWidth/2;
 				int y = origin.getPosY()+positions.get(i).getPosY()-20;
 				
+				System.out.println("Y: " + y);
+				if(y<60){
+					y = 75;
+				}
+			
 				g2.setColor(Color.WHITE);
 				g2.setFont(new Font("Calibri", Font.BOLD, 16));
 				g2.drawString("K " + (i+1), x, y);
@@ -163,7 +168,7 @@ public class EmpiricDistributionPanel extends JPanel{
 			//Y-AXIS- Regular Labels
 			markerStep = chartHeight/11;
 			for(int i=1; i<11;i++){
-				String labelString = String.format("%.2f", GraphDataHandler.getMaxHeight(MainFrame.getDataHandler().getList(), MainFrame.getDataHandler().getSampleSize())/10 *i);
+				String labelString = String.format("%.2f", GraphFactory.getMaxHeight(MainFrame.getDataHandler().getList(), MainFrame.getDataHandler().getSampleSize())/10 *i);
 				int x = origin.getPosX()-35;
 				int y = origin.getPosY()+chartHeight-markerStep*i;
 				g2.setColor(Color.BLACK);

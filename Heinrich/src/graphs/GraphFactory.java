@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 
 import data.DataHandler;
 import data.ResultSet;
+import data.StatisticClass;
+import logic.LogicHandler;
 
 
 public class GraphFactory {
@@ -42,13 +44,11 @@ public class GraphFactory {
 		graphMaxWidth = (int)(chartWidth*GRAPH_BUFFER_FACTOR);
 		graphMaxHeight = (int)(chartHeight*GRAPH_BUFFER_FACTOR);
 		
-		ArrayList<HistogramTupel> histogramData = GraphDataHandler.generateHistogramData(data);
-		int totalDataWidth = GraphDataHandler.getTotalWidth(data.getList());
-		float maxDataHeight = GraphDataHandler.getMaxHeight(data.getList(), data.getSampleSize());
-		int classCount = data.getClassCount();
+		ArrayList<HistogramTupel> histogramData = generateHistogramData(data);
+		int totalDataWidth = getTotalWidth(data.getList());
+		float maxDataHeight = getMaxHeight(data.getList(), data.getSampleSize());
 		ArrayList<Rectangle> rectangles = setUpRectangles(histogramData, totalDataWidth, maxDataHeight);
 		ArrayList<Vector2D> positions= setUpRectanglePositions(rectangles, chartHeight);
-		//Vector2D origin = new Vector2D(positionX, positionY);
 		Vector2D origin = new Vector2D(positionX, panelHeight-chartHeight-positionY);
 		HistogramPanel result = new HistogramPanel(rectangles, positions, origin, BORDER_COLOR, panelWidth, panelHeight, chartWidth, chartHeight, isDetailed);
 		
@@ -96,11 +96,10 @@ public class GraphFactory {
 		graphMaxWidth = (int)(chartWidth*GRAPH_BUFFER_FACTOR);
 		graphMaxHeight = (int)(chartHeight*GRAPH_BUFFER_FACTOR);
 		
-		ArrayList<EmpiricTupel> empiricGraphData = GraphDataHandler.generateEmpiricData(data);
-		int totalDataWidth = GraphDataHandler.getTotalWidth(data.getList());
+		ArrayList<EmpiricTupel> empiricGraphData =generateEmpiricData(data);
+		int totalDataWidth = getTotalWidth(data.getList());
 		ArrayList<EmpiricLine> lines = setUpLines(empiricGraphData, totalDataWidth);
 		ArrayList<Vector2D> positions= setUpLinePositions(lines, empiricGraphData, chartHeight);
-		//Vector2D origin = new Vector2D(positionX, positionY);
 		Vector2D origin = new Vector2D(positionX, panelHeight-chartHeight-positionY);
 		EmpiricDistributionPanel result = new EmpiricDistributionPanel(lines, positions, origin, BORDER_COLOR, panelWidth, panelHeight, chartWidth, chartHeight, isDetailed);
 		
@@ -135,6 +134,52 @@ public class GraphFactory {
 			Vector2D currentVector = new Vector2D(positionX, positionY);
 			
 			results.add(currentVector);
+		}
+		
+		return results;
+	}
+	
+	public static int getTotalWidth(ArrayList<StatisticClass> classes){
+		int result = 0;
+		
+		for(int i=0; i<classes.size(); i++){
+			result+=classes.get(i).getUpperValue().value-classes.get(i).getLowerValue().value;
+		}
+		
+		return result;
+	}
+
+	public static float getMaxHeight(ArrayList<StatisticClass> classes, int sampleSize) {
+		float value = 0;
+		float heights[] = LogicHandler.getRelativeOccurences(classes, sampleSize);
+		for(int i=0; i<classes.size(); i++){
+			if(heights[i]>value){
+				value = heights[i];
+			}
+		}
+		return value;
+	}
+
+	public static ArrayList<HistogramTupel> generateHistogramData(DataHandler data) {
+		ArrayList<HistogramTupel> results = new ArrayList<HistogramTupel>();
+		
+		for(int i=0;i<data.getList().size();i++){
+			HistogramTupel currentTupel = new HistogramTupel(data.getResults().getRelativeOccurences()[i], data.getList().get(i).getUpperValue().value-data.getList().get(i).getLowerValue().value);
+			results.add(currentTupel);
+		}
+		
+		return results;
+	}
+
+	public static ArrayList<EmpiricTupel> generateEmpiricData(DataHandler data)
+	{
+		ArrayList<EmpiricTupel> results = new ArrayList<EmpiricTupel>();
+		
+		float currentQuote = 0.0f;
+		for(int i=0;i<data.getList().size();i++){
+			currentQuote += data.getResults().getRelativeOccurences()[i];
+			EmpiricTupel currentTupel = new EmpiricTupel(currentQuote, data.getList().get(i).getUpperValue().value-data.getList().get(i).getLowerValue().value);
+			results.add(currentTupel);
 		}
 		
 		return results;

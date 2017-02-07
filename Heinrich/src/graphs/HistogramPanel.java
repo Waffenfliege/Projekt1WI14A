@@ -164,7 +164,7 @@ public class HistogramPanel extends JPanel{
 			//Y-AXIS- Regular Labels
 			markerStep = chartHeight/11;
 			for(int i=1; i<11;i++){
-				String labelString = String.format("%.2f", GraphDataHandler.getMaxHeight(MainFrame.getDataHandler().getList(), MainFrame.getDataHandler().getSampleSize())/10 *i);
+				String labelString = String.format("%.2f", GraphFactory.getMaxHeight(MainFrame.getDataHandler().getList(), MainFrame.getDataHandler().getSampleSize())/10 *i);
 				int x = origin.getPosX()-35;
 				int y = origin.getPosY()+chartHeight-markerStep*i;
 				g2.setColor(Color.BLACK);

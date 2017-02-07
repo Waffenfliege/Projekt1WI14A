@@ -71,7 +71,7 @@ public class OutputPanel extends JPanel
 		setLayout(new BorderLayout(20, 5));
 
 		tabbedPane = setUpTabs(data);
-		buttonContainer = setUpButtons(); // OK
+		buttonContainer = setUpButtons(); 
 
 		add(tabbedPane, BorderLayout.CENTER);
 		add(buttonContainer, BorderLayout.SOUTH);
