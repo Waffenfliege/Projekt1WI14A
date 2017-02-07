@@ -177,6 +177,7 @@ public class InputPanel extends JPanel
 		quantityField.setFont(new Font("Calibri", Font.PLAIN, 26));
 		quantityInputPanel.add(quantityField);
 		quantityField.setColumns(5);
+		quantityField.addActionListener(nextClassAction);
 
 		quantitySumLabel = new JLabel(" n = 0");
 		quantitySumLabel.setFont(new Font("Calibri", Font.PLAIN, 26));
@@ -189,7 +190,7 @@ public class InputPanel extends JPanel
 		
 		buttonContainer = new JPanel();
 		buttonContainer.setBorder(null);
-		buttonContainer.setBackground(Color.WHITE);
+		buttonContainer.setBackground(Color.WHITE);d
 		buttonContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 25, 15));
 
 	
