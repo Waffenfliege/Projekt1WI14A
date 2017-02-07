@@ -244,6 +244,7 @@ public class InputPanel extends JPanel
 
 		table.setFont(new Font("Calibri", Font.PLAIN, 12));
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		table.addMouseListener(tableClick);
 		tableScrollPane = new JScrollPane(table);
 		tableScrollPane.setBorder(null);
 		tableScrollPane.setBackground(Color.WHITE);
@@ -400,7 +401,14 @@ public class InputPanel extends JPanel
 			rows[i][2] = null;
 			rows[i][3] = null;
 		}
-		table.setModel(new DefaultTableModel(rows, TABLE_HEADER));
+		table.setModel(new DefaultTableModel(rows, TABLE_HEADER)
+		{
+			@Override
+			public boolean isCellEditable(int row, int column)
+			{
+				return false;
+			}
+		});
 
 		table.getColumnModel().getColumn(0).setResizable(false);
 		table.getColumnModel().getColumn(0).setPreferredWidth(20);
@@ -414,7 +422,8 @@ public class InputPanel extends JPanel
 		table.getColumnModel().getColumn(3).setResizable(false);
 		table.getColumnModel().getColumn(3).setPreferredWidth(60);
 		table.getColumnModel().getColumn(3).setMaxWidth(80);
-		table.setEnabled(false);
+
+		table.setEnabled(true);
 	}
 
 	private MouseListener borderClick = new MouseListener()
@@ -474,18 +483,17 @@ public class InputPanel extends JPanel
 				{
 					index--;
 					classLabel.setText("Klasse " + (index + 1) + " definieren");
+					table.setRowSelectionInterval(index, index);
 				}
 				updateInputFields(index);
 			} catch (IllegalBorderException e)
 			{
 				classErrorLabel.setText("Grenzen sind falsch!");
 				classErrorLabel.setVisible(true);
-				// e.printStackTrace();
 			} catch (IllegalOverlapException e)
 			{
 				classErrorLabel.setText("Klassen \u00DCberschneiden sich!");
 				classErrorLabel.setVisible(true);
-				// e.printStackTrace();
 			} catch (Exception e)
 			{
 				e.printStackTrace();
@@ -518,18 +526,17 @@ public class InputPanel extends JPanel
 					} finally
 					{
 						classLabel.setText("Klasse " + (index + 1) + " definieren");
+						table.setRowSelectionInterval(index, index);
 					}
 				}
 			} catch (IllegalBorderException e)
 			{
 				classErrorLabel.setText("Grenzen sind falsch!");
 				classErrorLabel.setVisible(true);
-				// e.printStackTrace();
 			} catch (IllegalOverlapException e)
 			{
 				classErrorLabel.setText("Klassen \u00fcberschneiden sich!");
 				classErrorLabel.setVisible(true);
-				// e.printStackTrace();
 			} catch (Exception e)
 			{
 				e.printStackTrace();
@@ -548,6 +555,46 @@ public class InputPanel extends JPanel
 		}
 	};
 
+	private MouseListener tableClick = new MouseListener()
+	{
+		public void mouseClicked(MouseEvent mouseEvent)
+		{
+			if (mouseEvent.getClickCount() == 2)
+			{
+				JTable target = (JTable) mouseEvent.getSource();
+				int row = target.getSelectedRow();
+				if (target.getSelectedColumn() == 0)
+				{
+					try
+					{
+						updateInputFields(row);
+						index = row;
+						classLabel.setText("Klasse " + (index + 1) + " definieren");
+						table.setRowSelectionInterval(index, index);
+					} catch (IndexOutOfBoundsException e)
+					{
+					}
+				}
+			}
+		}
+
+		public void mouseEntered(MouseEvent mouseEvent)
+		{
+		}
+
+		public void mouseExited(MouseEvent mouseEvent)
+		{
+		}
+
+		public void mouseReleased(MouseEvent mouseEvent)
+		{
+		}
+
+		public void mousePressed(MouseEvent mouseEvent)
+		{
+		}
+	};
+
 	/**
 	 * Update the textFields in the InputPanel according to the Data of the
 	 * given index.
@@ -563,6 +610,10 @@ public class InputPanel extends JPanel
 	}
 
 	/**
+	 * Compare Classes
+	 * 
+	 * If nothing has changed, do nothing. If something has changed, change or
+	 * add a new Class
 	 * 
 	 * @throws IllegalOverlapException
 	 * @throws Exception
@@ -573,9 +624,6 @@ public class InputPanel extends JPanel
 		if (isValid(InputPanel.getLeftClassBorderField()) && isValid(InputPanel.getRightClassBorderField())
 				&& isValid(InputPanel.getQuantityField()))
 		{
-
-			// compare Classes. If nothing has changed, do nothing. If something
-			// has changed, change or add a new Class
 			float lowerValue = Float.parseFloat(InputPanel.getLeftClassBorderField());
 			float upperValue = Float.parseFloat(InputPanel.getRightClassBorderField());
 			ClampType lowerClampType;
@@ -584,22 +632,19 @@ public class InputPanel extends JPanel
 			if (InputPanel.getLeftClamp().equals(" ( "))
 			{
 				lowerClampType = ClampType.INCLUSIVE;
-
 			} else
 			{
 				lowerClampType = ClampType.EXCLUSIVE;
-
 			}
 
 			if (InputPanel.getRightClamp().equals(" ) "))
 			{
 				upperClampType = ClampType.INCLUSIVE;
-
 			} else
 			{
 				upperClampType = ClampType.EXCLUSIVE;
-
 			}
+
 			int absoluteOccurence = Integer.parseInt(InputPanel.getQuantityField());
 
 			MainFrame.getDataHandler().receiveData(new StatisticClassValue(lowerValue, lowerClampType),
@@ -634,14 +679,10 @@ public class InputPanel extends JPanel
 	 */
 	public static void initialize()
 	{
-		// index
 		index = 0;
 		resetFields();
 		resetTable();
 		calculateButton.setEnabled(false);
-		// Tabellen
-		// Felder
-
 	}
 
 	/**
