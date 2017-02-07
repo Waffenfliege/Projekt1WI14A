@@ -55,12 +55,12 @@ public class GraphFactory {
 		return result;
 	}
 	
-	private static ArrayList<Rectangle> setUpRectangles(ArrayList<HistogramTupel> data, int totalDataWidth, float maxDataHeight){
+	private static ArrayList<Rectangle> setUpRectangles(ArrayList<HistogramTupel> histoGramData, int totalDataWidth, float maxDataHeight){
 		ArrayList<Rectangle> results = new ArrayList<Rectangle>();
 		
-		for(int i=0; i<data.size();i++){
-			float currentWidth = graphMaxWidth * data.get(i).getWidth()/totalDataWidth;
-			float currentHeight = graphMaxHeight*data.get(i).getHeight()/maxDataHeight;
+		for(int i=0; i<histoGramData.size();i++){
+			float currentWidth = graphMaxWidth * histoGramData.get(i).getWidth()/totalDataWidth;
+			float currentHeight = graphMaxHeight*histoGramData.get(i).getHeight()/maxDataHeight;
 
 			Rectangle currentRect = new Rectangle((int)currentWidth, (int)currentHeight, BAR_COLOR);
 			results.add(currentRect);
@@ -98,10 +98,8 @@ public class GraphFactory {
 		
 		ArrayList<EmpiricTupel> empiricGraphData = GraphDataHandler.generateEmpiricData(data);
 		int totalDataWidth = GraphDataHandler.getTotalWidth(data.getList());
-		float maxDataHeight = GraphDataHandler.getMaxHeight(data.getList(), data.getSampleSize());
-		int classCount = data.getClassCount();
-		ArrayList<EmpiricLine> lines = setUpLines(empiricGraphData, totalDataWidth, maxDataHeight);
-		ArrayList<Vector2D> positions= setUpLinePositions(lines, chartHeight);
+		ArrayList<EmpiricLine> lines = setUpLines(empiricGraphData, totalDataWidth);
+		ArrayList<Vector2D> positions= setUpLinePositions(lines, empiricGraphData, chartHeight);
 		//Vector2D origin = new Vector2D(positionX, positionY);
 		Vector2D origin = new Vector2D(positionX, panelHeight-chartHeight-positionY);
 		EmpiricDistributionPanel result = new EmpiricDistributionPanel(lines, positions, origin, BORDER_COLOR, panelWidth, panelHeight, chartWidth, chartHeight, isDetailed);
@@ -109,16 +107,36 @@ public class GraphFactory {
 		return result;
 	}
 
-	private static ArrayList<Vector2D> setUpLinePositions(ArrayList<EmpiricLine> rectangles, int chartHeight)
-	{
-		// TODO Auto-generated method stub
-		return null;
+	private static ArrayList<EmpiricLine> setUpLines(ArrayList<EmpiricTupel> empiricGraphData, int totalDataWidth){
+		ArrayList<EmpiricLine> results = new ArrayList<EmpiricLine>();
+	
+		for(int i=0; i<empiricGraphData.size();i++){
+			float currentWidth = graphMaxWidth * empiricGraphData.get(i).getWidth()/totalDataWidth;
+	
+			EmpiricLine currentLine = new EmpiricLine((int)currentWidth, BAR_COLOR);
+			results.add(currentLine);
+		}
+	
+		return results;
 	}
-
-	private static ArrayList<EmpiricLine> setUpLines(ArrayList<EmpiricTupel> empiricGraphData, int totalDataWidth,
-			float maxDataHeight)
+	
+	private static ArrayList<Vector2D> setUpLinePositions(ArrayList<EmpiricLine> lines, ArrayList<EmpiricTupel> quotas, int chartHeight)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Vector2D> results = new ArrayList<Vector2D>();
+		
+		for(int i=0; i<lines.size(); i++){
+			
+			int positionX = 0;
+			for(int j=0; j<i; j++){
+				positionX += lines.get(j).getLength();
+			}
+			
+			int positionY = (int)(chartHeight-chartHeight*quotas.get(i).getSummedQuote()); 
+			Vector2D currentVector = new Vector2D(positionX, positionY);
+			
+			results.add(currentVector);
+		}
+		
+		return results;
 	}
 }

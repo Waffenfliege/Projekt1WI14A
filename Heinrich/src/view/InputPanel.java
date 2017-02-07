@@ -462,7 +462,10 @@ private ActionListener nextClassAction = new ActionListener()
 					classLabel.setText("Klasse " + (index+1) +" definieren");
 				}
 			}
-		} catch (IllegalOverlapException e)
+		}catch(IllegalBorderException e){
+			e.printStackTrace();
+		}
+		catch (IllegalOverlapException e)
 		{
 			e.printStackTrace();
 		} catch (Exception e)

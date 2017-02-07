@@ -45,8 +45,16 @@ public class GraphDataHandler {
 
 	public static ArrayList<EmpiricTupel> generateEmpiricData(DataHandler data)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<EmpiricTupel> results = new ArrayList<EmpiricTupel>();
+		
+		float currentQuote = 0.0f;
+		for(int i=0;i<data.getList().size();i++){
+			currentQuote += data.getResults().getRelativeOccurences()[i];
+			EmpiricTupel currentTupel = new EmpiricTupel(currentQuote, data.getList().get(i).getUpperValue().value-data.getList().get(i).getLowerValue().value);
+			results.add(currentTupel);
+		}
+		
+		return results;
 	}
 
 }

@@ -46,22 +46,33 @@ public class EmpiricDistributionPanel extends JPanel{
 		g.setColor(chartBackgroundColor);
 		g.fillRect(origin.getPosX(), origin.getPosY()+1, chartWidth, chartHeight);
 		
+		Graphics2D g2 = (Graphics2D)g;
+		
 		//Lines
 		for(int i=0; i<lines.size();i++){
 			
-			g.setColor(lines.get(i).getColor()); 
+			g2.setStroke(new BasicStroke(3));
+			g2.setColor(lines.get(i).getColor()); 
 			//TODO
-		/*	int x = positions.get(i).getPosX();
-			int y = positions.get(i).getPosY();
-			int width = rectangles.get(i).getWidth();
-			int height  = rectangles.get(i).getHeight();
-			g.fillRect(x+origin.getPosX(), y+origin.getPosY(), width, height);*/
+			int x = origin.getPosX()+positions.get(i).getPosX();
+			int y = origin.getPosY()+positions.get(i).getPosY();
+			int xTarget = origin.getPosX()+lines.get(i).getLength();
+			int yTarget  = origin.getPosY()+positions.get(i).getPosY();
+			g2.drawLine(x, y, xTarget, yTarget);
 		}
 		
 		//Dots
+		g2.setStroke(new BasicStroke(3));
+		for(int i=0; i<lines.size();i++){	
+			g2.setColor(labelColor); 
+
+			int x = origin.getPosX()+positions.get(i).getPosX()-4;
+			int y = origin.getPosY()+positions.get(i).getPosY()-4;
+			g2.drawOval(x, y, 8, 8);
+		}
 		
 		//X-AXIS - LINES
-		Graphics2D g2 = (Graphics2D)g;
+		
 		g2.setStroke(new BasicStroke(3));
 		g2.setColor(labelColor);
 		
@@ -84,11 +95,11 @@ public class EmpiricDistributionPanel extends JPanel{
 			
 			//X-AXIS Markers
 			g2.setStroke(new BasicStroke(3));
-			for(int i=0; i<rectangles.size();i++){
-				int x = origin.getPosX()+positions.get(i).getPosX()+rectangles.get(i).getWidth();
-				int y = origin.getPosY()+ positions.get(i).getPosY()+rectangles.get(i).getHeight()-12;
-				int xTarget =  origin.getPosX()+positions.get(i).getPosX()+rectangles.get(i).getWidth();
-				int yTarget  =origin.getPosY()+positions.get(i).getPosY()+rectangles.get(i).getHeight()+12;
+			for(int i=0; i<lines.size();i++){
+				int x = origin.getPosX()+positions.get(i).getPosX()+lines.get(i).getLength();
+				int y = origin.getPosY()+ positions.get(i).getPosY()-12;
+				int xTarget =  origin.getPosX()+positions.get(i).getPosX()+lines.get(i).getLength();
+				int yTarget  =origin.getPosY()+positions.get(i).getPosY()+12;
 				g2.drawLine(x, y, xTarget, yTarget);
 			}
 			
@@ -103,29 +114,24 @@ public class EmpiricDistributionPanel extends JPanel{
 				g2.drawLine(x, y, xTarget, yTarget);
 			}
 			
-			//Y-AXIS Column Markers
+			/*	//Y-AXIS Column Markers
 			g2.setStroke(new BasicStroke(3));
-			for(int i=0; i<rectangles.size();i++){
+			for(int i=0; i<lines.size();i++){
 				int x = origin.getPosX()-12;
 				int y = origin.getPosY()+positions.get(i).getPosY();
 				int xTarget =  origin.getPosX()+12;
 				int yTarget =  origin.getPosY()+ positions.get(i).getPosY();
 				g2.drawLine(x, y, xTarget, yTarget);
-			}
+			}*/
 			
 			//########################## LABELS ###########################
-			//Column LABELS
-			for(int i=0; i<rectangles.size();i++){
+			//Line LABELS
+			for(int i=0; i<lines.size();i++){
 				String labelString = "K " + (i+1);
 				int stringWidth = g2.getFontMetrics().stringWidth(labelString);
-				int x = origin.getPosX()+positions.get(i).getPosX()+rectangles.get(i).getWidth()/2-stringWidth/2;
-				int y = origin.getPosY()+positions.get(i).getPosY()+rectangles.get(i).getHeight()/2;
+				int x = origin.getPosX()+positions.get(i).getPosX()+lines.get(i).getLength()/2-stringWidth/2;
+				int y = origin.getPosY()+positions.get(i).getPosY()-20;
 				
-				System.out.println("Y: " + y);
-				if(	rectangles.get(i).getHeight()<30){
-					y = origin.getPosY()+positions.get(i).getPosY() - 20;
-				}
-
 				g2.setColor(Color.WHITE);
 				g2.setFont(new Font("Calibri", Font.BOLD, 16));
 				g2.drawString("K " + (i+1), x, y);
