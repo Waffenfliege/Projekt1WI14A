@@ -36,21 +36,21 @@ public class GraphFactory {
 	 * @param verticalPadding
 	 * @return
 	 */
-	public static HistogramPanel createHistogram(DataHandler data, int positionX, int positionY, int panelWidth, int panelHeight, int chartWidth, int chartHeight) {
+	public static HistogramPanel createHistogram(DataHandler data, int positionX, int positionY, int panelWidth, int panelHeight, int chartWidth, int chartHeight, boolean isDetailed) {
 
 		
 		graphMaxWidth = (int)(chartWidth*GRAPH_BUFFER_FACTOR);
 		graphMaxHeight = (int)(chartHeight*GRAPH_BUFFER_FACTOR);
 		
-		ArrayList<HistogramTupel> histogramData = HistogramDataHandler.generateHistogramData(data);
-		int totalDataWidth = HistogramDataHandler.getTotalWidth(data.getList());
-		float maxDataHeight = HistogramDataHandler.getMaxHeight(data.getList(), data.getSampleSize());
+		ArrayList<HistogramTupel> histogramData = GraphDataHandler.generateHistogramData(data);
+		int totalDataWidth = GraphDataHandler.getTotalWidth(data.getList());
+		float maxDataHeight = GraphDataHandler.getMaxHeight(data.getList(), data.getSampleSize());
 		int classCount = data.getClassCount();
 		ArrayList<Rectangle> rectangles = setUpRectangles(histogramData, totalDataWidth, maxDataHeight);
-		ArrayList<Vector2D> positions= setUpPositions(rectangles, chartHeight);
+		ArrayList<Vector2D> positions= setUpRectanglePositions(rectangles, chartHeight);
 		//Vector2D origin = new Vector2D(positionX, positionY);
 		Vector2D origin = new Vector2D(positionX, panelHeight-chartHeight-positionY);
-		HistogramPanel result = new HistogramPanel(rectangles, positions, origin, BORDER_COLOR, panelWidth, panelHeight, chartWidth, chartHeight);
+		HistogramPanel result = new HistogramPanel(rectangles, positions, origin, BORDER_COLOR, panelWidth, panelHeight, chartWidth, chartHeight, isDetailed);
 		
 		return result;
 	}
@@ -70,7 +70,7 @@ public class GraphFactory {
 		
 	}
 	
-	private static ArrayList<Vector2D> setUpPositions(ArrayList<Rectangle> rectangles, int height){
+	private static ArrayList<Vector2D> setUpRectanglePositions(ArrayList<Rectangle> rectangles, int height){
 		ArrayList<Vector2D> results = new ArrayList<Vector2D>();
 		
 		for(int i=0; i<rectangles.size(); i++){
@@ -90,22 +90,35 @@ public class GraphFactory {
 	
 	}
 
-	public static EmpiricDistributionPanel createEmpiricDistribution(DataHandler data, int positionX, int positionY, int panelWidth, int panelHeight, int chartWidth, int chartHeight) {
+	public static EmpiricDistributionPanel createEmpiricDistribution(DataHandler data, int positionX, int positionY, int panelWidth, int panelHeight, int chartWidth, int chartHeight, boolean isDetailed) {
 
 		
 		graphMaxWidth = (int)(chartWidth*GRAPH_BUFFER_FACTOR);
 		graphMaxHeight = (int)(chartHeight*GRAPH_BUFFER_FACTOR);
 		
-		ArrayList<HistogramTupel> histogramData = HistogramDataHandler.generateHistogramData(data);
-		int totalDataWidth = HistogramDataHandler.getTotalWidth(data.getList());
-		float maxDataHeight = HistogramDataHandler.getMaxHeight(data.getList(), data.getSampleSize());
+		ArrayList<EmpiricTupel> empiricGraphData = GraphDataHandler.generateEmpiricData(data);
+		int totalDataWidth = GraphDataHandler.getTotalWidth(data.getList());
+		float maxDataHeight = GraphDataHandler.getMaxHeight(data.getList(), data.getSampleSize());
 		int classCount = data.getClassCount();
-		ArrayList<Rectangle> rectangles = setUpRectangles(histogramData, totalDataWidth, maxDataHeight);
-		ArrayList<Vector2D> positions= setUpPositions(rectangles, chartHeight);
+		ArrayList<EmpiricLine> lines = setUpLines(empiricGraphData, totalDataWidth, maxDataHeight);
+		ArrayList<Vector2D> positions= setUpLinePositions(lines, chartHeight);
 		//Vector2D origin = new Vector2D(positionX, positionY);
 		Vector2D origin = new Vector2D(positionX, panelHeight-chartHeight-positionY);
-		EmpiricDistributionPanel result = new EmpiricDistributionPanel(rectangles, positions, origin, BORDER_COLOR, panelWidth, panelHeight, chartWidth, chartHeight);
+		EmpiricDistributionPanel result = new EmpiricDistributionPanel(lines, positions, origin, BORDER_COLOR, panelWidth, panelHeight, chartWidth, chartHeight, isDetailed);
 		
 		return result;
+	}
+
+	private static ArrayList<Vector2D> setUpLinePositions(ArrayList<EmpiricLine> rectangles, int chartHeight)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private static ArrayList<EmpiricLine> setUpLines(ArrayList<EmpiricTupel> empiricGraphData, int totalDataWidth,
+			float maxDataHeight)
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
