@@ -190,7 +190,7 @@ public class InputPanel extends JPanel
 		
 		buttonContainer = new JPanel();
 		buttonContainer.setBorder(null);
-		buttonContainer.setBackground(Color.WHITE);d
+		buttonContainer.setBackground(Color.WHITE);
 		buttonContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 25, 15));
 
 	

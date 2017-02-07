@@ -36,7 +36,7 @@ public class GraphFactory {
 	 * @param verticalPadding
 	 * @return
 	 */
-	public static HistogramPanel createHistogram(DataHandler data, int positionX, int positionY, int panelWidth, int panelHeight, int chartWidth, int chartHeight) {
+	public static HistogramPanel createHistogram(DataHandler data, int positionX, int positionY, int panelWidth, int panelHeight, int chartWidth, int chartHeight, boolean isDetailed) {
 
 		
 		graphMaxWidth = (int)(chartWidth*GRAPH_BUFFER_FACTOR);
@@ -50,7 +50,7 @@ public class GraphFactory {
 		ArrayList<Vector2D> positions= setUpPositions(rectangles, chartHeight);
 		//Vector2D origin = new Vector2D(positionX, positionY);
 		Vector2D origin = new Vector2D(positionX, panelHeight-chartHeight-positionY);
-		HistogramPanel result = new HistogramPanel(rectangles, positions, origin, BORDER_COLOR, panelWidth, panelHeight, chartWidth, chartHeight);
+		HistogramPanel result = new HistogramPanel(rectangles, positions, origin, BORDER_COLOR, panelWidth, panelHeight, chartWidth, chartHeight, isDetailed);
 		
 		return result;
 	}
