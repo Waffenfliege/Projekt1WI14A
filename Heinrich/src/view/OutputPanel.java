@@ -92,7 +92,7 @@ public class OutputPanel extends JPanel
 
 		JPanel overviewContainer = setUpOverviewContainer(data);
 		JPanel histogramContainer = setUpHistogramContainer(data, 775, 465, 675, 365, true);
-		JPanel empiricContainer = setUpEmpiricContainer(data, 775, 484, 725, 434);
+		JPanel empiricContainer = setUpEmpiricContainer(data, 775, 484, 725, 434, true);
 
 		tabbedPane.add("\u00DCbersicht", overviewContainer);
 		tabbedPane.add("Histogramm", histogramContainer);
@@ -116,7 +116,7 @@ public class OutputPanel extends JPanel
 		JPanel resultContainer = new JPanel();
 		JPanel diagramContainer = new JPanel();
 		JPanel histogramContainer = setUpHistogramContainer(data, 383, 220, 363, 180, false);
-		JPanel empiricContainer = setUpEmpiricContainer(data, 383, 220, 363, 180);
+		JPanel empiricContainer = setUpEmpiricContainer(data, 383, 220, 363, 180, false);
 		JPanel resultHeaderPanel = setUpHeaderPanel("Ergebnisse");
 		JPanel resultSetPanel = new JPanel();
 		GridBagLayout resultLayout = new GridBagLayout();
@@ -345,11 +345,11 @@ public class OutputPanel extends JPanel
 	 * @return the JPanel empiricContainer
 	 * @see GraphFactory
 	 */
-	private JPanel setUpEmpiricContainer(DataHandler data, int width, int height, int chartWidth, int chartHeight)
+	private JPanel setUpEmpiricContainer(DataHandler data, int width, int height, int chartWidth, int chartHeight, boolean isDetailed)
 	{
 		JPanel empiricContainer = new JPanel();
 		EmpiricDistributionPanel empiricPanel = GraphFactory.createEmpiricDistribution(data, 10, 15, width, height, chartWidth,
-				chartHeight);
+				chartHeight, isDetailed);
 
 		empiricContainer.setLayout(new BorderLayout(0, 0));
 		empiricContainer.add(setUpHeaderPanel("Empirische Verteilung"), BorderLayout.NORTH);

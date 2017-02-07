@@ -6,9 +6,9 @@ import data.DataHandler;
 import data.StatisticClass;
 import logic.LogicHandler;
 
-public class HistogramDataHandler {
+public class GraphDataHandler {
 	
-	public HistogramDataHandler(){
+	public GraphDataHandler(){
 	}
 	
 	public static int getTotalWidth(ArrayList<StatisticClass> classes){
@@ -41,6 +41,12 @@ public class HistogramDataHandler {
 		}
 		
 		return results;
+	}
+
+	public static ArrayList<EmpiricTupel> generateEmpiricData(DataHandler data)
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
