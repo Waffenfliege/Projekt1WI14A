@@ -283,7 +283,7 @@ public class OutputPanel extends JPanel
 		JPanel histogramContainer = setUpHistogramContainer(data, 775, 484, 725, 434);
 		JPanel empiricContainer = setUpEmpiricContainer(data, 775, 484, 725, 434);
 
-		tabbedPane.add("Übersicht", overviewContainer);
+		tabbedPane.add("\u00DCbersicht", overviewContainer);
 		tabbedPane.add("Histogramm", histogramContainer);
 		tabbedPane.add("Empirische Verteilung", empiricContainer);
 		return tabbedPane;
@@ -299,8 +299,8 @@ public class OutputPanel extends JPanel
 		JPanel overviewContainer = new JPanel();
 		JPanel resultContainer = new JPanel();
 		JPanel diagramContainer = new JPanel();
-		JPanel histogramContainer = setUpHistogramContainer(data, 375, 200, 375, 200);
-		JPanel empiricContainer = setUpEmpiricContainer(data, 375, 200, 375, 200);
+		JPanel histogramContainer = setUpHistogramContainer(data, 383, 200, 375, 190);
+		JPanel empiricContainer = setUpEmpiricContainer(data, 383, 200, 375, 190);
 		JPanel resultHeaderPanel = setUpHeaderPanel("Ergebnisse");
 		JPanel resultSetPanel = new JPanel();
 		GridBagLayout resultLayout = new GridBagLayout();
@@ -308,14 +308,9 @@ public class OutputPanel extends JPanel
 
 		for (int i = 0; i < data.getResults().getQuantiles().length; i++)
 		{
-			if (i != (data.getResults().getQuantiles().length - 1))
-			{
-				quantileString += data.getResults().getQuantiles()[i].getValue() + "<br>";
-			} else
-			{
-				quantileString += data.getResults().getQuantiles()[i].getValue() + "</body></html>";
-			}
+			quantileString += "<p>" + data.getResults().getQuantiles()[i].getValue() + "</p>";
 		}
+		quantileString += "</body></html>";
 
 		GridBagConstraints titleConstraints = new GridBagConstraints();
 		titleConstraints.fill = GridBagConstraints.HORIZONTAL;
@@ -362,6 +357,7 @@ public class OutputPanel extends JPanel
 
 		JLabel middleLabel1 = new JLabel("Mittelwert");
 		middleLabel1.setVerticalAlignment(SwingConstants.TOP);
+		middleLabel1.setFont(NORMAL);
 		resultLayout.setConstraints(middleLabel1, titleConstraints);
 		resultSetPanel.add(middleLabel1);
 		JLabel middleLabel2 = new JLabel("");
@@ -371,12 +367,14 @@ public class OutputPanel extends JPanel
 		resultLayout.setConstraints(middleLabel2, formulaConstraints);
 		resultSetPanel.add(middleLabel2);
 		JLabel middleLabel3 = new JLabel("" + data.getResults().getArithmeticMiddle());
-		middleLabel3.setVerticalAlignment(SwingConstants.TOP);
+		middleLabel3.setVerticalAlignment(SwingConstants.BOTTOM);
+		middleLabel3.setFont(NORMAL);
 		resultLayout.setConstraints(middleLabel3, valueConstraints);
 		resultSetPanel.add(middleLabel3);
 
 		JLabel medianLabel1 = new JLabel("Median");
 		medianLabel1.setVerticalAlignment(SwingConstants.TOP);
+		medianLabel1.setFont(NORMAL);
 		resultLayout.setConstraints(medianLabel1, titleConstraints);
 		resultSetPanel.add(medianLabel1);
 		JLabel medianLabel2 = new JLabel("");
@@ -386,7 +384,8 @@ public class OutputPanel extends JPanel
 		resultLayout.setConstraints(medianLabel2, formulaConstraints);
 		resultSetPanel.add(medianLabel2);
 		JLabel medianLabel3 = new JLabel("" + data.getResults().getMedian());
-		medianLabel3.setVerticalAlignment(SwingConstants.TOP);
+		medianLabel3.setVerticalAlignment(SwingConstants.BOTTOM);
+		medianLabel3.setFont(NORMAL);
 		resultLayout.setConstraints(medianLabel3, valueConstraints);
 		resultSetPanel.add(medianLabel3);
 
@@ -394,19 +393,22 @@ public class OutputPanel extends JPanel
 		quantileLabel1.setVerticalAlignment(SwingConstants.TOP);
 		resultLayout.setConstraints(quantileLabel1, titleQuantileConstraints);
 		resultSetPanel.add(quantileLabel1);
+		quantileLabel1.setFont(NORMAL);
 		JLabel quantileLabel2 = new JLabel("");
-		quantileLabel2.setVerticalAlignment(SwingConstants.TOP);
+		quantileLabel2.setVerticalAlignment(SwingConstants.CENTER);
 		quantileLabel2.setPreferredSize(new Dimension(100, 145));
 		quantileLabel2.setIcon(new ImageIcon(OutputPanel.class.getResource("/view/Quantile.png")));
 		resultLayout.setConstraints(quantileLabel2, formulaQuantileConstraints);
 		resultSetPanel.add(quantileLabel2);
 		JLabel quantileLabel3 = new JLabel(quantileString);
-		quantileLabel3.setVerticalAlignment(SwingConstants.TOP);
+		quantileLabel3.setVerticalAlignment(SwingConstants.CENTER);
+		quantileLabel3.setFont(NORMAL);
 		resultLayout.setConstraints(quantileLabel3, valueQuantileConstraints);
 		resultSetPanel.add(quantileLabel3);
 
 		JLabel absoluteLabel1 = new JLabel("Absolute Abweichung");
 		absoluteLabel1.setVerticalAlignment(SwingConstants.TOP);
+		absoluteLabel1.setFont(NORMAL);
 		resultLayout.setConstraints(absoluteLabel1, titleConstraints);
 		resultSetPanel.add(absoluteLabel1);
 		JLabel absoluteLabel2 = new JLabel("");
@@ -416,12 +418,14 @@ public class OutputPanel extends JPanel
 		resultLayout.setConstraints(absoluteLabel2, formulaConstraints);
 		resultSetPanel.add(absoluteLabel2);
 		JLabel absoluteLabel3 = new JLabel("" + data.getResults().getMeanAbsoluteDeviation());
-		absoluteLabel3.setVerticalAlignment(SwingConstants.TOP);
+		absoluteLabel3.setVerticalAlignment(SwingConstants.BOTTOM);
+		absoluteLabel3.setFont(NORMAL);
 		resultLayout.setConstraints(absoluteLabel3, valueConstraints);
 		resultSetPanel.add(absoluteLabel3);
 
 		JLabel varianceLabel1 = new JLabel("Varianz");
 		varianceLabel1.setVerticalAlignment(SwingConstants.TOP);
+		varianceLabel1.setFont(NORMAL);
 		resultLayout.setConstraints(varianceLabel1, titleConstraints);
 		resultSetPanel.add(varianceLabel1);
 		JLabel varianceLabel2 = new JLabel("");
@@ -431,12 +435,14 @@ public class OutputPanel extends JPanel
 		resultLayout.setConstraints(varianceLabel2, formulaConstraints);
 		resultSetPanel.add(varianceLabel2);
 		JLabel varianceLabel3 = new JLabel("" + data.getResults().getVariance());
-		varianceLabel3.setVerticalAlignment(SwingConstants.TOP);
+		varianceLabel3.setVerticalAlignment(SwingConstants.BOTTOM);
+		varianceLabel3.setFont(NORMAL);
 		resultLayout.setConstraints(varianceLabel3, valueConstraints);
 		resultSetPanel.add(varianceLabel3);
 
 		JLabel standardLabel1 = new JLabel("Standardabweichung");
 		standardLabel1.setVerticalAlignment(SwingConstants.TOP);
+		standardLabel1.setFont(NORMAL);
 		resultLayout.setConstraints(standardLabel1, titleConstraints);
 		resultSetPanel.add(standardLabel1);
 		JLabel standardLabel2 = new JLabel("");
@@ -446,12 +452,14 @@ public class OutputPanel extends JPanel
 		resultLayout.setConstraints(standardLabel2, formulaConstraints);
 		resultSetPanel.add(standardLabel2);
 		JLabel standardLabel3 = new JLabel("" + data.getResults().getStandardDeviation());
-		standardLabel3.setVerticalAlignment(SwingConstants.TOP);
+		standardLabel3.setVerticalAlignment(SwingConstants.BOTTOM);
+		standardLabel3.setFont(NORMAL);
 		resultLayout.setConstraints(standardLabel3, valueConstraints);
 		resultSetPanel.add(standardLabel3);
 
 		JLabel giniLabel1 = new JLabel("Gini-Koeffizient");
 		giniLabel1.setVerticalAlignment(SwingConstants.TOP);
+		giniLabel1.setFont(NORMAL);
 		resultLayout.setConstraints(giniLabel1, titleConstraints);
 		resultSetPanel.add(giniLabel1);
 		JLabel giniLabel2 = new JLabel("");
@@ -461,11 +469,13 @@ public class OutputPanel extends JPanel
 		resultLayout.setConstraints(giniLabel2, formulaConstraints);
 		resultSetPanel.add(giniLabel2);
 		JLabel giniLabel3 = new JLabel("[Gini]");
-		giniLabel3.setVerticalAlignment(SwingConstants.TOP);
+		giniLabel3.setVerticalAlignment(SwingConstants.BOTTOM);
+		giniLabel3.setFont(NORMAL);
 		resultLayout.setConstraints(giniLabel3, valueConstraints);
 		resultSetPanel.add(giniLabel3);
 
 		resultContainer.setLayout(new BorderLayout(0, 0));
+		resultSetPanel.setBackground(Color.WHITE);
 		resultContainer.add(resultHeaderPanel, BorderLayout.NORTH);
 		resultContainer.add(resultSetPanel, BorderLayout.CENTER);
 
@@ -578,7 +588,6 @@ public class OutputPanel extends JPanel
 		headerLabel.setForeground(Color.WHITE);
 		headerLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		headerLabel.setFont(NORMAL);
-		// headerLabel.setPreferredSize(new Dimension(100, 20));
 		headerPanel.add(headerLabel);
 
 		return headerPanel;
