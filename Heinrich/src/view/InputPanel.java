@@ -62,20 +62,20 @@ public class InputPanel extends JPanel
 	private static JTable table;
 	private final static Color RED = new Color(175, 22, 20);
 	private final static String[] TABLE_HEADER = { "j", "K(j)", "h(Kj)", "r(Kj)" };
-	
+
 	private static int index;
-	
+
 	static JButton lastClassButton;
 	static JButton calculateButton;
 	static JButton nextClassButton;
-	
+
 	/**
 	 * Creating the panel with all its components.
 	 */
 	public InputPanel()
 	{
 		super();
-		
+
 		index = 0;
 		setBorder(new LineBorder(new Color(0, 0, 0)));
 		setBackground(Color.WHITE);
@@ -186,15 +186,14 @@ public class InputPanel extends JPanel
 		inputPanel.setLayout(new GridLayout(2, 1, 10, 0));
 		inputPanel.add(classPanel);
 		inputPanel.add(quantityPanel);
-		
-		//#######################
-		
+
+		// #######################
+
 		buttonContainer = new JPanel();
 		buttonContainer.setBorder(null);
 		buttonContainer.setBackground(Color.WHITE);
 		buttonContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 25, 15));
 
-	
 		lastClassButton = new JButton("Vorherige Klasse");
 		lastClassButton.addActionListener(lastClassAction);
 		buttonContainer.add(lastClassButton);
@@ -207,11 +206,11 @@ public class InputPanel extends JPanel
 		nextClassButton = new JButton("N\u00E4chste Klasse");
 		nextClassButton.addActionListener(nextClassAction);
 		buttonContainer.add(nextClassButton);
-		
+
 		inputContainer.add(buttonContainer, BorderLayout.SOUTH);
 
-		//#######################
-		
+		// #######################
+
 		tableContainer = new JPanel();
 		tableContainer.setPreferredSize(new Dimension(250, 100));
 		tableContainer.setMaximumSize(new Dimension(400, 500));
@@ -233,20 +232,6 @@ public class InputPanel extends JPanel
 		table.setIntercellSpacing(new Dimension(2, 2));
 
 		resetTable();
-
-		table.getColumnModel().getColumn(0).setResizable(false);
-		table.getColumnModel().getColumn(0).setPreferredWidth(20);
-		table.getColumnModel().getColumn(0).setMaxWidth(30);
-		table.getColumnModel().getColumn(1).setResizable(false);
-		table.getColumnModel().getColumn(1).setPreferredWidth(70);
-		table.getColumnModel().getColumn(1).setMaxWidth(75);
-		table.getColumnModel().getColumn(2).setResizable(false);
-		table.getColumnModel().getColumn(2).setPreferredWidth(40);
-		table.getColumnModel().getColumn(2).setMaxWidth(50);
-		table.getColumnModel().getColumn(3).setResizable(false);
-		table.getColumnModel().getColumn(3).setPreferredWidth(80);
-		table.getColumnModel().getColumn(3).setMaxWidth(80);
-		table.setEnabled(false);
 
 		table.setFont(new Font("Arial", Font.PLAIN, 12));
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -365,9 +350,8 @@ public class InputPanel extends JPanel
 	{
 		for (int i = 0; i < MainFrame.getDataHandler().getClassCount(); i++)
 		{
-			table.getModel().setValueAt(
-					String.valueOf(LogicHandler.getRelativeOccurences(MainFrame.getDataHandler().getList(), MainFrame.getDataHandler().getSampleSize())[i]),
-					i, 3);
+			table.getModel().setValueAt(String.valueOf(LogicHandler.getRelativeOccurences(MainFrame.getDataHandler().getList(),
+					MainFrame.getDataHandler().getSampleSize())[i]), i, 3);
 		}
 	}
 
@@ -415,173 +399,205 @@ public class InputPanel extends JPanel
 			rows[i][3] = null;
 		}
 		table.setModel(new DefaultTableModel(rows, TABLE_HEADER));
+
+		table.getColumnModel().getColumn(0).setResizable(false);
+		table.getColumnModel().getColumn(0).setPreferredWidth(20);
+		table.getColumnModel().getColumn(0).setMaxWidth(30);
+		table.getColumnModel().getColumn(1).setResizable(false);
+		table.getColumnModel().getColumn(1).setPreferredWidth(70);
+		table.getColumnModel().getColumn(1).setMaxWidth(100);
+		table.getColumnModel().getColumn(2).setResizable(false);
+		table.getColumnModel().getColumn(2).setPreferredWidth(40);
+		table.getColumnModel().getColumn(2).setMaxWidth(60);
+		table.getColumnModel().getColumn(3).setResizable(false);
+		table.getColumnModel().getColumn(3).setPreferredWidth(60);
+		table.getColumnModel().getColumn(3).setMaxWidth(80);
+		table.setEnabled(false);
 	}
 
+	private ActionListener lastClassAction = new ActionListener()
+	{
+		public void actionPerformed(ActionEvent actionEvent)
+		{
+			try
+			{
+				processInputMasks();
+				if (index > 0)
+				{
+					index--;
+					classLabel.setText("Klasse " + (index + 1) + " definieren");
+				}
+				updateInputFields(index);
+			} catch (IllegalOverlapException e)
+			{
+				e.printStackTrace();
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+			revalidate();
+			repaint();
+		}
+	};
 
-private ActionListener lastClassAction = new ActionListener()
-{
-	public void actionPerformed(ActionEvent actionEvent)
+	private ActionListener nextClassAction = new ActionListener()
+	{
+		public void actionPerformed(ActionEvent actionEvent)
+		{
+			try
+			{
+				processInputMasks();
+				quantitySumLabel.setText(" n = " + MainFrame.getDataHandler().getSampleSize());
+				if (index < MainFrame.getDataHandler().getList().size())
+				{
+					index++;
+					try
+					{
+						updateInputFields(index);
+					} catch (IndexOutOfBoundsException e)
+					{
+						leftClassBorderField.setText("");
+						rightClassBorderField.setText("");
+						quantityField.setText("");
+					} finally
+					{
+						classLabel.setText("Klasse " + (index + 1) + " definieren");
+					}
+				}
+			} catch (IllegalBorderException e)
+			{
+				e.printStackTrace();
+			} catch (IllegalOverlapException e)
+			{
+				e.printStackTrace();
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+			MainFrame.getInputPanel().revalidate();
+			MainFrame.getInputPanel().repaint();
+		}
+	};
+
+	private ActionListener calculateAction = new ActionListener()
+	{
+		public void actionPerformed(ActionEvent actionEvent)
+		{
+			calculateResultsPreZ();
+			ZDialog zDialog = new ZDialog();
+		}
+	};
+
+	private void updateInputFields(int index)
+	{
+		leftClassBorderField.setText(String.valueOf(MainFrame.getDataHandler().getElement(index).getLowerValue().value));
+		rightClassBorderField.setText(String.valueOf(MainFrame.getDataHandler().getElement(index).getUpperValue().value));
+		quantityField.setText(String.valueOf(MainFrame.getDataHandler().getElement(index).getAbsoluteOccurences()));
+	}
+
+	private void processInputMasks() throws IllegalOverlapException, Exception
+	{
+
+		if (isValid(InputPanel.getLeftClassBorderField()) && isValid(InputPanel.getRightClassBorderField())
+				&& isValid(InputPanel.getQuantityField()))
+		{
+
+			// compare Classes. If nothing has changed, do nothing. If something
+			// has changed, change or add a new Class
+			float lowerValue = Float.parseFloat(InputPanel.getLeftClassBorderField());
+			float upperValue = Float.parseFloat(InputPanel.getRightClassBorderField());
+			ClampType lowerClampType;
+			ClampType upperClampType;
+
+			if (InputPanel.getLeftClamp().equals(" ( "))
+			{
+				lowerClampType = ClampType.INCLUSIVE;
+
+			} else
+			{
+				lowerClampType = ClampType.EXCLUSIVE;
+
+			}
+
+			if (InputPanel.getRightClamp().equals(" ) "))
+			{
+				upperClampType = ClampType.INCLUSIVE;
+
+			} else
+			{
+				upperClampType = ClampType.EXCLUSIVE;
+
+			}
+			int absoluteOccurence = Integer.parseInt(InputPanel.getQuantityField());
+
+			MainFrame.getDataHandler().receiveData(new StatisticClassValue(lowerValue, lowerClampType),
+					new StatisticClassValue(upperValue, upperClampType), absoluteOccurence, index);
+			updateTable();
+			resetFields();
+			calculateButton.setEnabled(true);
+		}
+	}
+
+	/**
+	 * Validates numbers in Input Fields
+	 * 
+	 * @param input
+	 *            String from Input Fields
+	 * @return true if input is a valid number
+	 */
+	private boolean isValid(String input)
 	{
 		try
 		{
-			processInputMasks();
-			if(index>0){
-				index--;
-				classLabel.setText("Klasse " + (index+1) +" definieren");
-			}
-			updateInputFields(index);
-		} catch (IllegalOverlapException e)
+			Double.parseDouble(input);
+			return true;
+		} catch (NumberFormatException e)
 		{
-			e.printStackTrace();
-		} catch (Exception e)
-		{
-			e.printStackTrace();
+			return false;
 		}
-		revalidate();
-		repaint();
 	}
-};
 
-private ActionListener nextClassAction = new ActionListener()
-{
-	public void actionPerformed(ActionEvent actionEvent)
+	public static void initialize()
 	{
-		try
-		{
-			processInputMasks();
-			quantitySumLabel.setText(" n = " + MainFrame.getDataHandler().getSampleSize());
-			if(index<MainFrame.getDataHandler().getList().size()){
-				index++;
-				try{
-					updateInputFields(index);
-				}
-				catch(IndexOutOfBoundsException e){
-					leftClassBorderField.setText("");
-					rightClassBorderField.setText("");
-					quantityField.setText("");
-				}	finally{
-					classLabel.setText("Klasse " + (index+1) +" definieren");
-				}
-			}
-		}catch(IllegalBorderException e){
-			e.printStackTrace();
-		}
-		catch (IllegalOverlapException e)
-		{
-			e.printStackTrace();
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		MainFrame.getInputPanel().revalidate();
-		MainFrame.getInputPanel().repaint();
-	}
-};
-
-private ActionListener calculateAction = new ActionListener()
-{
-	public void actionPerformed(ActionEvent actionEvent)
-	{
-		calculateResultsPreZ();
-		ZDialog zDialog = new ZDialog();
-	}
-};
-
-private void updateInputFields(int index){
-	leftClassBorderField.setText(String.valueOf(MainFrame.getDataHandler().getElement(index).getLowerValue().value));
-	rightClassBorderField.setText(String.valueOf(MainFrame.getDataHandler().getElement(index).getUpperValue().value));
-	quantityField.setText(String.valueOf(MainFrame.getDataHandler().getElement(index).getAbsoluteOccurences()));
-}
-
-private void processInputMasks() throws IllegalOverlapException, Exception
-{
-	
-	if (isValid(InputPanel.getLeftClassBorderField()) && isValid(InputPanel.getRightClassBorderField())
-			&& isValid(InputPanel.getQuantityField()))
-	{
-		
-		//compare Classes. If nothing has changed, do nothing. If something has changed, change or add a new Class
-		float lowerValue = Float.parseFloat(InputPanel.getLeftClassBorderField());
-		float upperValue = Float.parseFloat(InputPanel.getRightClassBorderField());
-		ClampType lowerClampType;
-		ClampType upperClampType;
-
-		if (InputPanel.getLeftClamp().equals(" ( "))
-		{
-			lowerClampType = ClampType.INCLUSIVE;
-
-		} else
-		{
-			lowerClampType = ClampType.EXCLUSIVE;
-
-		}
-
-		if (InputPanel.getRightClamp().equals(" ) "))
-		{
-			upperClampType = ClampType.INCLUSIVE;
-
-		} else
-		{
-			upperClampType = ClampType.EXCLUSIVE;
-
-		}
-		int absoluteOccurence = Integer.parseInt(InputPanel.getQuantityField());
-
-		MainFrame.getDataHandler().receiveData(new StatisticClassValue(lowerValue, lowerClampType),
-				new StatisticClassValue(upperValue, upperClampType), absoluteOccurence, index);
-		updateTable();
+		// index
+		index = 0;
 		resetFields();
-		calculateButton.setEnabled(true);
-	}
-}
+		resetTable();
+		calculateButton.setEnabled(false);
+		// Tabellen
+		// Felder
 
-/**
- * Validates numbers in Input Fields
- * 
- * @param input
- *            String from Input Fields
- * @return true if input is a valid number
- */
-private boolean isValid(String input)
-{
-	try
+	}
+
+	public static void calculateResultsPreZ()
 	{
-		Double.parseDouble(input);
-		return true;
-	} catch (NumberFormatException e)
-	{
-		return false;
-	}
-}
+		try
+		{
+			MainFrame.getDataHandler().getResults().setRelativeOccurences(LogicHandler
+					.getRelativeOccurences(MainFrame.getDataHandler().getList(), MainFrame.getDataHandler().getSampleSize()));
+			MainFrame.getDataHandler().getResults()
+					.setClassMiddles(LogicHandler.getClassMiddles(MainFrame.getDataHandler().getList()));
 
-public static void initialize(){
-	//index
-	index = 0;
-	resetFields();
-	resetTable();
-	calculateButton.setEnabled(false);
-	//Tabellen
-	//Felder
-	
-}
+			for (int i = 0; i < MainFrame.getDataHandler().getList().size(); i++)
+			{
+				MainFrame.getDataHandler().getResults()
+						.setAbsoluteOccurences(MainFrame.getDataHandler().getElement(i).getAbsoluteOccurences());
+			}
 
-public static void calculateResultsPreZ() {
-	try{
-	MainFrame.getDataHandler().getResults().setRelativeOccurences(LogicHandler.getRelativeOccurences(MainFrame.getDataHandler().getList(), MainFrame.getDataHandler().getSampleSize()));
-	MainFrame.getDataHandler().getResults().setClassMiddles(LogicHandler.getClassMiddles(MainFrame.getDataHandler().getList()));
-	
-	for (int i = 0; i < MainFrame.getDataHandler().getList().size(); i++)
-	{
-		MainFrame.getDataHandler().getResults().setAbsoluteOccurences(MainFrame.getDataHandler().getElement(i).getAbsoluteOccurences());
+			MainFrame.getDataHandler().getResults()
+					.setMedian(LogicHandler.getMedian(MainFrame.getDataHandler().getList(),
+							MainFrame.getDataHandler().getResults().getClassMiddles(),
+							MainFrame.getDataHandler().getResults().getRelativeOccurences()));
+			MainFrame.getDataHandler().getResults().setArithmeticMiddle(
+					LogicHandler.getArithmeticMiddle(MainFrame.getDataHandler().getResults().getClassMiddles(),
+							MainFrame.getDataHandler().getResults().getRelativeOccurences()));
+		} catch (IllegalArgumentException e)
+		{
+			e.printStackTrace();
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
-
-	MainFrame.getDataHandler().getResults().setMedian(LogicHandler.getMedian(MainFrame.getDataHandler().getList(), MainFrame.getDataHandler().getResults().getClassMiddles(), MainFrame.getDataHandler().getResults().getRelativeOccurences()));
-	MainFrame.getDataHandler().getResults().setArithmeticMiddle(LogicHandler.getArithmeticMiddle(MainFrame.getDataHandler().getResults().getClassMiddles(), MainFrame.getDataHandler().getResults().getRelativeOccurences()));
-	}catch(IllegalArgumentException e){
-		e.printStackTrace();
-	}catch(Exception e){
-		e.printStackTrace();
-	}
-}
 
 }
