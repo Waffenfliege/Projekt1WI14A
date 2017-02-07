@@ -96,7 +96,7 @@ public class InputPanel extends JPanel
 		classPanel.setAlignmentY(Component.TOP_ALIGNMENT);
 		classPanel.setLayout(new BorderLayout(0, 0));
 
-		classLabel = new JLabel("Klasse K definieren");
+		classLabel = new JLabel("Klasse 1 definieren");
 		classLabel.setForeground(Color.WHITE);
 		classLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		classLabel.setFont(new Font("Calibri", Font.BOLD, 16));
@@ -423,7 +423,11 @@ private ActionListener lastClassAction = new ActionListener()
 		try
 		{
 			processInputMasks();
-			index--;
+			if(index>0){
+				index--;
+				classLabel.setText("Klasse " + (index+1) +" definieren");
+			}
+			updateInputFields(index);
 		} catch (IllegalOverlapException e)
 		{
 			e.printStackTrace();
@@ -431,8 +435,8 @@ private ActionListener lastClassAction = new ActionListener()
 		{
 			e.printStackTrace();
 		}
-		MainFrame.getInputPanel().revalidate();
-		MainFrame.getInputPanel().repaint();
+		revalidate();
+		repaint();
 	}
 };
 
@@ -443,9 +447,20 @@ private ActionListener nextClassAction = new ActionListener()
 		try
 		{
 			processInputMasks();
-			index++;
-			updateInputFields(index);
 			quantitySumLabel.setText(" n = " + MainFrame.getDataHandler().getSampleSize());
+			if(index<MainFrame.getDataHandler().getList().size()){
+				index++;
+				try{
+					updateInputFields(index);
+				}
+				catch(IndexOutOfBoundsException e){
+					leftClassBorderField.setText("");
+					rightClassBorderField.setText("");
+					quantityField.setText("");
+				}	finally{
+					classLabel.setText("Klasse " + (index+1) +" definieren");
+				}
+			}
 		} catch (IllegalOverlapException e)
 		{
 			e.printStackTrace();
@@ -462,17 +477,6 @@ private ActionListener calculateAction = new ActionListener()
 {
 	public void actionPerformed(ActionEvent actionEvent)
 	{
-		try
-		{
-			processInputMasks();
-		} catch (IllegalOverlapException e)
-		{
-			e.printStackTrace();
-		} catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-
 		calculateResultsPreZ();
 		ZDialog zDialog = new ZDialog();
 	}
@@ -481,14 +485,17 @@ private ActionListener calculateAction = new ActionListener()
 private void updateInputFields(int index){
 	leftClassBorderField.setText(String.valueOf(MainFrame.getDataHandler().getElement(index).getLowerValue().value));
 	rightClassBorderField.setText(String.valueOf(MainFrame.getDataHandler().getElement(index).getUpperValue().value));
-	quantityField.setText(String.valueOf(MainFrame.getDataHandler().getSampleSize()));
+	quantityField.setText(String.valueOf(MainFrame.getDataHandler().getElement(index).getAbsoluteOccurences()));
 }
 
 private void processInputMasks() throws IllegalOverlapException, Exception
 {
+	
 	if (isValid(InputPanel.getLeftClassBorderField()) && isValid(InputPanel.getRightClassBorderField())
 			&& isValid(InputPanel.getQuantityField()))
 	{
+		
+		//compare Classes. If nothing has changed, do nothing. If something has changed, change or add a new Class
 		float lowerValue = Float.parseFloat(InputPanel.getLeftClassBorderField());
 		float upperValue = Float.parseFloat(InputPanel.getRightClassBorderField());
 		ClampType lowerClampType;
@@ -517,8 +524,8 @@ private void processInputMasks() throws IllegalOverlapException, Exception
 
 		MainFrame.getDataHandler().receiveData(new StatisticClassValue(lowerValue, lowerClampType),
 				new StatisticClassValue(upperValue, upperClampType), absoluteOccurence, index);
-		InputPanel.updateTable();
-		InputPanel.resetFields();
+		updateTable();
+		resetFields();
 		calculateButton.setEnabled(true);
 	}
 }

@@ -138,6 +138,7 @@ public class DataHandler
 	public void receiveData(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence,
 			int currentViewIndex) throws IllegalOverlapException, Exception
 	{
+		
 		// are we handling a newly entered class or were data just changed?
 		// new class
 		if (isNewClass(currentViewIndex))
@@ -152,6 +153,7 @@ public class DataHandler
 		{
 			checkClassChange(lowerValue, upperValue, absoluteOccurence, currentViewIndex);
 		}
+		
 	}
 
 	private void checkClassCreation(StatisticClassValue lowerValue, StatisticClassValue upperValue,
@@ -179,7 +181,7 @@ public class DataHandler
 				// class limit not reached
 				else
 				{
-					checkForOverlap(lowerValue, upperValue);
+					checkForOverlap(-1, lowerValue, upperValue);
 
 					putListItem(lowerValue, upperValue, absoluteOccurence);
 				}
@@ -193,7 +195,7 @@ public class DataHandler
 	private void checkClassChange(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence,
 			int currentViewIndex) throws IllegalOverlapException
 	{
-		checkForOverlap(lowerValue, upperValue);
+		checkForOverlap(currentViewIndex, lowerValue, upperValue);
 
 		updateListItem(currentViewIndex, lowerValue, upperValue, absoluteOccurence);
 
@@ -242,41 +244,102 @@ public class DataHandler
 		}
 	}
 
-	private void checkForOverlap(StatisticClassValue lowerValue, StatisticClassValue upperValue)
+	private void checkForOverlap(int currentViewIndex, StatisticClassValue lowerValue, StatisticClassValue upperValue)
 			throws IllegalOverlapException
 	{
 		ArrayList<Integer> result = new ArrayList<Integer>();
+	
+		//New class Creation 
+		if(currentViewIndex==-1){
+			for (int i = 0; i < classes.size(); i++)
+			{
+				if (classes.get(i).getUpperValue().value <= lowerValue.value)
+				{
+					if (classes.get(i).getUpperValue().clamp == ClampType.INCLUSIVE && lowerValue.clamp == ClampType.INCLUSIVE)
+					{
+						result.add(i);
+					} else
+					{
+						continue;
+					}
+				} else if (classes.get(i).getLowerValue().value >= upperValue.value)
+				{
+					if (classes.get(i).getLowerValue().clamp == ClampType.INCLUSIVE && upperValue.clamp == ClampType.INCLUSIVE)
+					{
+						result.add(i);
+					} else
+					{
+						continue;
+					}
+				} else
+				{
+					result.add(i);
+				}
+			}
 
-		for (int i = 0; i < classes.size(); i++)
-		{
-			if (classes.get(i).getUpperValue().value <= lowerValue.value)
+		
+		}
+		
+		//Class change - exclude current class from set of classes to test
+		else{
+			for (int i = 0; i < currentViewIndex; i++)
 			{
-				if (classes.get(i).getUpperValue().clamp == ClampType.INCLUSIVE && lowerValue.clamp == ClampType.INCLUSIVE)
+				if (classes.get(i).getUpperValue().value <= lowerValue.value)
 				{
-					result.add(i);
+					if (classes.get(i).getUpperValue().clamp == ClampType.INCLUSIVE && lowerValue.clamp == ClampType.INCLUSIVE)
+					{
+						result.add(i);
+					} else
+					{
+						continue;
+					}
+				} else if (classes.get(i).getLowerValue().value >= upperValue.value)
+				{
+					if (classes.get(i).getLowerValue().clamp == ClampType.INCLUSIVE && upperValue.clamp == ClampType.INCLUSIVE)
+					{
+						result.add(i);
+					} else
+					{
+						continue;
+					}
 				} else
 				{
-					continue;
-				}
-			} else if (classes.get(i).getLowerValue().value >= upperValue.value)
-			{
-				if (classes.get(i).getLowerValue().clamp == ClampType.INCLUSIVE && upperValue.clamp == ClampType.INCLUSIVE)
-				{
 					result.add(i);
+				}
+			}
+			
+			for (int i = currentViewIndex+1; i < classes.size(); i++)
+			{
+				if (classes.get(i).getUpperValue().value <= lowerValue.value)
+				{
+					if (classes.get(i).getUpperValue().clamp == ClampType.INCLUSIVE && lowerValue.clamp == ClampType.INCLUSIVE)
+					{
+						result.add(i);
+					} else
+					{
+						continue;
+					}
+				} else if (classes.get(i).getLowerValue().value >= upperValue.value)
+				{
+					if (classes.get(i).getLowerValue().clamp == ClampType.INCLUSIVE && upperValue.clamp == ClampType.INCLUSIVE)
+					{
+						result.add(i);
+					} else
+					{
+						continue;
+					}
 				} else
 				{
-					continue;
+					result.add(i);
 				}
-			} else
-			{
-				result.add(i);
 			}
 		}
-
+		
 		if (result.size() > 0)
 		{
 			throw new IllegalOverlapException("Klassen überschneiden sich.", result);
 		}
+
 	}
 
 	// Vorgehen:
