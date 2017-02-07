@@ -2,65 +2,59 @@ package view;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
-import java.awt.BorderLayout;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import java.awt.FlowLayout;
-
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Component;
-import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.Insets;
 import java.awt.Cursor;
-import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.GridLayout;
 
 import data.ClampType;
-import data.DataHandler;
 import data.IllegalBorderException;
 import data.IllegalOverlapException;
 import data.StatisticClassValue;
 import logic.LogicHandler;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
-import javax.swing.UIManager;
-import java.awt.GridLayout;
-import javax.swing.border.EmptyBorder;
-
 /**
+ * Manages the InputPanel and its components.
  * 
- * @author Jan Sauerland
+ * Used to type in the class values and show the data already typed in.
+ * 
+ * @author Jan Sauerland, Lukas Moser, Mathias Engmann.
  *
  */
 @SuppressWarnings("serial")
 public class InputPanel extends JPanel
 {
-	private static JTextField leftClassBorderField;
-	private static JTextField rightClassBorderField;
-	private static JTextField quantityField;
-	private JPanel inputContainer, inputPanel, classPanel, classInputPanel, quantityPanel, quantityInputPanel;
+	private static JTextField leftClassBorderField, rightClassBorderField, quantityField;
+	private JPanel inputContainer, inputPanel, classPanel, classHeaderPanel, classInputPanel, quantityPanel,
+			quantityHeaderPanel, quantityInputPanel, buttonContainer;
 	private static JPanel tableContainer;
-	private JLabel classLabel;
-	private static JLabel leftClassBorderLabel;
-	private JLabel classSeparatorLabel;
-	private static JLabel rightClassBorderLabel;
-	private JLabel quantityLabel;
-	private JLabel smallQuantityLabel;
-	private JLabel quantitySumLabel;
+	private JLabel classLabel, classErrorLabel, classSeparatorLabel, quantityLabel, smallQuantityLabel, quantitySumLabel;
+	private static JLabel leftClassBorderLabel, rightClassBorderLabel;
 	private JScrollPane tableScrollPane;
-	private JPanel buttonContainer;
 	private static JTable table;
+
 	private final static Color RED = new Color(175, 22, 20);
+	private final static Font NORMAL = new Font("Calibri", Font.BOLD, 16);
+	private final static Font BIG = new Font("Calibri", Font.PLAIN, 26);
 	private final static String[] TABLE_HEADER = { "j", "K(j)", "h(Kj)", "r(Kj)" };
 
 	private static int index;
@@ -93,19 +87,23 @@ public class InputPanel extends JPanel
 		inputContainer.add(inputPanel, BorderLayout.CENTER);
 
 		classPanel = new JPanel();
-		classPanel.setBackground(RED);
+		classPanel.setBackground(Color.WHITE);
 		classPanel.setAlignmentY(Component.TOP_ALIGNMENT);
 		classPanel.setLayout(new BorderLayout(0, 0));
 
+		classHeaderPanel = new JPanel();
+		classHeaderPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		classHeaderPanel.setBackground(RED);
+
 		classLabel = new JLabel("Klasse 1 definieren");
 		classLabel.setForeground(Color.WHITE);
-		classLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		classLabel.setFont(new Font("Calibri", Font.BOLD, 16));
+		classLabel.setFont(NORMAL);
 		classLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		classPanel.add(classLabel, BorderLayout.NORTH);
+		classHeaderPanel.add(classLabel);
+
+		classPanel.add(classHeaderPanel, BorderLayout.NORTH);
 
 		classInputPanel = new JPanel();
-		// kann man das mit dem FlowLayout unten zusammenfassen?
 		FlowLayout flowLayout = (FlowLayout) classInputPanel.getLayout();
 		flowLayout.setHgap(10);
 		flowLayout.setVgap(40);
@@ -119,24 +117,24 @@ public class InputPanel extends JPanel
 		leftClassBorderLabel.setVerticalAlignment(SwingConstants.TOP);
 		leftClassBorderLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		leftClassBorderLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		leftClassBorderLabel.setFont(new Font("Calibri", Font.PLAIN, 26));
+		leftClassBorderLabel.setFont(BIG);
 		leftClassBorderLabel.addMouseListener(borderClick);
 		classInputPanel.add(leftClassBorderLabel);
 
 		leftClassBorderField = new JTextField();
 		leftClassBorderField.setMargin(new Insets(10, 5, 10, 5));
-		leftClassBorderField.setFont(new Font("Calibri", Font.PLAIN, 26));
+		leftClassBorderField.setFont(BIG);
 		leftClassBorderField.setSize(new Dimension(100, 60));
 		classInputPanel.add(leftClassBorderField);
 		leftClassBorderField.setColumns(5);
 
 		classSeparatorLabel = new JLabel(" , ");
-		classSeparatorLabel.setFont(new Font("Calibri", Font.PLAIN, 26));
+		classSeparatorLabel.setFont(BIG);
 		classInputPanel.add(classSeparatorLabel);
 
 		rightClassBorderField = new JTextField();
 		rightClassBorderField.setMargin(new Insets(10, 5, 10, 5));
-		rightClassBorderField.setFont(new Font("Calibri", Font.PLAIN, 26));
+		rightClassBorderField.setFont(BIG);
 		classInputPanel.add(rightClassBorderField);
 		rightClassBorderField.setColumns(5);
 
@@ -145,7 +143,7 @@ public class InputPanel extends JPanel
 		rightClassBorderLabel.setVerticalAlignment(SwingConstants.TOP);
 		rightClassBorderLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		rightClassBorderLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		rightClassBorderLabel.setFont(new Font("Calibri", Font.PLAIN, 26));
+		rightClassBorderLabel.setFont(BIG);
 		rightClassBorderLabel.addMouseListener(borderClick);
 		classInputPanel.add(rightClassBorderLabel);
 
@@ -154,12 +152,16 @@ public class InputPanel extends JPanel
 		quantityPanel.setBackground(RED);
 		quantityPanel.setLayout(new BorderLayout(0, 0));
 
+		quantityHeaderPanel = new JPanel();
+		quantityHeaderPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		quantityHeaderPanel.setBackground(RED);
+
 		quantityLabel = new JLabel("Absolute H\u00E4ufigkeit h");
 		quantityLabel.setForeground(Color.WHITE);
-		quantityLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		quantityLabel.setFont(new Font("Calibri", Font.BOLD, 16));
+		quantityLabel.setFont(NORMAL);
 		quantityLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		quantityPanel.add(quantityLabel, BorderLayout.NORTH);
+		quantityHeaderPanel.add(quantityLabel);
+		quantityPanel.add(quantityHeaderPanel, BorderLayout.NORTH);
 
 		quantityInputPanel = new JPanel();
 		FlowLayout flowLayout_1 = (FlowLayout) quantityInputPanel.getLayout();
@@ -170,18 +172,27 @@ public class InputPanel extends JPanel
 		quantityPanel.add(quantityInputPanel, BorderLayout.CENTER);
 
 		smallQuantityLabel = new JLabel("h (K)  = ");
-		smallQuantityLabel.setFont(new Font("Calibri", Font.PLAIN, 26));
+		smallQuantityLabel.setFont(BIG);
 		quantityInputPanel.add(smallQuantityLabel);
 
 		quantityField = new JTextField();
 		quantityField.setMargin(new Insets(10, 5, 10, 5));
-		quantityField.setFont(new Font("Calibri", Font.PLAIN, 26));
+		quantityField.setFont(BIG);
 		quantityInputPanel.add(quantityField);
 		quantityField.setColumns(5);
 		quantityField.addActionListener(nextClassAction);
 
+		classErrorLabel = new JLabel("");
+		classErrorLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		classErrorLabel.setBackground(Color.WHITE);
+		classErrorLabel.setForeground(RED);
+		classErrorLabel.setFont(NORMAL);
+		classErrorLabel.setVisible(false);
+		classErrorLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		classPanel.add(classErrorLabel, BorderLayout.SOUTH);
+
 		quantitySumLabel = new JLabel(" n = 0");
-		quantitySumLabel.setFont(new Font("Calibri", Font.PLAIN, 26));
+		quantitySumLabel.setFont(BIG);
 		quantityInputPanel.add(quantitySumLabel);
 		inputPanel.setLayout(new GridLayout(2, 1, 10, 0));
 		inputPanel.add(classPanel);
@@ -233,7 +244,7 @@ public class InputPanel extends JPanel
 
 		resetTable();
 
-		table.setFont(new Font("Arial", Font.PLAIN, 12));
+		table.setFont(new Font("Calibri", Font.PLAIN, 12));
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		tableScrollPane = new JScrollPane(table);
 		tableScrollPane.setBorder(null);
@@ -242,54 +253,8 @@ public class InputPanel extends JPanel
 		tableContainer.add(tableScrollPane);
 	}
 
-	private MouseListener borderClick = new MouseListener()
-	{
-		public void mouseClicked(MouseEvent mouseEvent)
-		{
-			// TODO: Action bei Klick auf linke Klammer
-			JLabel clamp = (JLabel) mouseEvent.getComponent();
-			String text = clamp.getText();
-			if (text.equals(" ( "))
-			{
-				leftClassBorderLabel.setText(" [ ");
-				rightClassBorderLabel.setText(" ) ");
-			} else if (text.equals(" [ "))
-			{
-				leftClassBorderLabel.setText(" ( ");
-				rightClassBorderLabel.setText(" ] ");
-			} else if (text.equals(" ) "))
-			{
-				leftClassBorderLabel.setText(" ( ");
-				rightClassBorderLabel.setText(" ] ");
-			} else if (text.equals(" ] "))
-			{
-				leftClassBorderLabel.setText(" [ ");
-				rightClassBorderLabel.setText(" ) ");
-			} else
-			{
-				System.out.println("Fehler bei Klammer!");
-			}
-		}
-
-		public void mouseEntered(MouseEvent mouseEvent)
-		{
-		}
-
-		public void mouseExited(MouseEvent mouseEvent)
-		{
-		}
-
-		public void mouseReleased(MouseEvent mouseEvent)
-		{
-		}
-
-		public void mousePressed(MouseEvent mouseEvent)
-		{
-		}
-	};
-
 	/**
-	 * Returns the InputPanel.
+	 * Return the InputPanel.
 	 * 
 	 * @return the InputPanel
 	 */
@@ -298,6 +263,13 @@ public class InputPanel extends JPanel
 		return this;
 	}
 
+	/**
+	 * 
+	 * @param lowerValue
+	 * @param upperValue
+	 * @param quantity
+	 * @param index
+	 */
 	public static void setTableValue(StatisticClassValue lowerValue, StatisticClassValue upperValue, int quantity, int index)
 	{
 		String lowerClamp = "";
@@ -356,32 +328,60 @@ public class InputPanel extends JPanel
 		}
 	}
 
+	/**
+	 * Return the leftClassBorderField component.
+	 * 
+	 * @return the leftClassBorderField component
+	 */
 	public static String getLeftClassBorderField()
 	{
 		return leftClassBorderField.getText();
 	}
 
+	/**
+	 * Return the rightClassBorderField component.
+	 * 
+	 * @return the rightClassBorderField component
+	 */
 	public static String getRightClassBorderField()
 	{
 		return rightClassBorderField.getText();
 	}
 
+	/**
+	 * Return the quantityField component.
+	 * 
+	 * @return the quantitiyField component
+	 */
 	public static String getQuantityField()
 	{
 		return quantityField.getText();
 
 	}
 
+	/**
+	 * Return the text of the leftClassBorderLabel
+	 * 
+	 * @return the text of the leftClassBorderLabel
+	 */
 	public static String getLeftClamp()
 	{
 		return leftClassBorderLabel.getText();
 	}
 
+	/**
+	 * Return the text of the rightClassBorderLabel
+	 * 
+	 * @return the text of the rightClassBorderLabel
+	 */
 	public static String getRightClamp()
 	{
 		return rightClassBorderLabel.getText();
 	}
 
+	/**
+	 * Reset the textFields in the InputPanel.
+	 */
 	public static void resetFields()
 	{
 		leftClassBorderField.setText("");
@@ -389,6 +389,9 @@ public class InputPanel extends JPanel
 		quantityField.setText("");
 	}
 
+	/**
+	 * Reset the Table in the InputPanel
+	 */
 	public static void resetTable()
 	{
 		String rows[][] = new String[20][4];
@@ -416,10 +419,56 @@ public class InputPanel extends JPanel
 		table.setEnabled(false);
 	}
 
+	private MouseListener borderClick = new MouseListener()
+	{
+		public void mouseClicked(MouseEvent mouseEvent)
+		{
+			JLabel clamp = (JLabel) mouseEvent.getComponent();
+			String text = clamp.getText();
+			if (text.equals(" ( "))
+			{
+				leftClassBorderLabel.setText(" [ ");
+				rightClassBorderLabel.setText(" ) ");
+			} else if (text.equals(" [ "))
+			{
+				leftClassBorderLabel.setText(" ( ");
+				rightClassBorderLabel.setText(" ] ");
+			} else if (text.equals(" ) "))
+			{
+				leftClassBorderLabel.setText(" ( ");
+				rightClassBorderLabel.setText(" ] ");
+			} else if (text.equals(" ] "))
+			{
+				leftClassBorderLabel.setText(" [ ");
+				rightClassBorderLabel.setText(" ) ");
+			} else
+			{
+				System.out.println("Fehler bei Klammer!");
+			}
+		}
+
+		public void mouseEntered(MouseEvent mouseEvent)
+		{
+		}
+
+		public void mouseExited(MouseEvent mouseEvent)
+		{
+		}
+
+		public void mouseReleased(MouseEvent mouseEvent)
+		{
+		}
+
+		public void mousePressed(MouseEvent mouseEvent)
+		{
+		}
+	};
+
 	private ActionListener lastClassAction = new ActionListener()
 	{
 		public void actionPerformed(ActionEvent actionEvent)
 		{
+			classErrorLabel.setVisible(false);
 			try
 			{
 				processInputMasks();
@@ -429,9 +478,16 @@ public class InputPanel extends JPanel
 					classLabel.setText("Klasse " + (index + 1) + " definieren");
 				}
 				updateInputFields(index);
+			} catch (IllegalBorderException e)
+			{
+				classErrorLabel.setText("Grenzen sind falsch!");
+				classErrorLabel.setVisible(true);
+				// e.printStackTrace();
 			} catch (IllegalOverlapException e)
 			{
-				e.printStackTrace();
+				classErrorLabel.setText("Klassen \u00DCberschneiden sich!");
+				classErrorLabel.setVisible(true);
+				// e.printStackTrace();
 			} catch (Exception e)
 			{
 				e.printStackTrace();
@@ -445,6 +501,7 @@ public class InputPanel extends JPanel
 	{
 		public void actionPerformed(ActionEvent actionEvent)
 		{
+			classErrorLabel.setVisible(false);
 			try
 			{
 				processInputMasks();
@@ -467,10 +524,14 @@ public class InputPanel extends JPanel
 				}
 			} catch (IllegalBorderException e)
 			{
-				e.printStackTrace();
+				classErrorLabel.setText("Grenzen sind falsch!");
+				classErrorLabel.setVisible(true);
+				// e.printStackTrace();
 			} catch (IllegalOverlapException e)
 			{
-				e.printStackTrace();
+				classErrorLabel.setText("Klassen \u00fcberschneiden sich!");
+				classErrorLabel.setVisible(true);
+				// e.printStackTrace();
 			} catch (Exception e)
 			{
 				e.printStackTrace();
@@ -485,10 +546,17 @@ public class InputPanel extends JPanel
 		public void actionPerformed(ActionEvent actionEvent)
 		{
 			calculateResultsPreZ();
-			ZDialog zDialog = new ZDialog();
+			new ZDialog();
 		}
 	};
 
+	/**
+	 * Update the textFields in the InputPanel according to the Data of the
+	 * given index.
+	 * 
+	 * @param index
+	 *            the index of the entry to show
+	 */
 	private void updateInputFields(int index)
 	{
 		leftClassBorderField.setText(String.valueOf(MainFrame.getDataHandler().getElement(index).getLowerValue().value));
@@ -496,6 +564,11 @@ public class InputPanel extends JPanel
 		quantityField.setText(String.valueOf(MainFrame.getDataHandler().getElement(index).getAbsoluteOccurences()));
 	}
 
+	/**
+	 * 
+	 * @throws IllegalOverlapException
+	 * @throws Exception
+	 */
 	private void processInputMasks() throws IllegalOverlapException, Exception
 	{
 
@@ -558,6 +631,9 @@ public class InputPanel extends JPanel
 		}
 	}
 
+	/**
+	 * Initialize the InputPanel.
+	 */
 	public static void initialize()
 	{
 		// index
@@ -570,6 +646,9 @@ public class InputPanel extends JPanel
 
 	}
 
+	/**
+	 * 
+	 */
 	public static void calculateResultsPreZ()
 	{
 		try
