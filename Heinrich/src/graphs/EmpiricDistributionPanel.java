@@ -146,7 +146,7 @@ public class EmpiricDistributionPanel extends JPanel{
 			//Y-AXIS - Label
 			g2.setColor(Color.BLACK);
 			g2.setFont(new Font("Calibri", Font.BOLD, 16));
-			g2.drawString("r(H) ", origin.getPosX()-35, origin.getPosY()+10);
+			g2.drawString("R(H) ", origin.getPosX()-35, origin.getPosY()+10);
 			
 			//X-AXIS- Regular Labels
 			markerStep = chartWidth/11;
