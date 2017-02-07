@@ -350,8 +350,9 @@ public class InputPanel extends JPanel
 	{
 		for (int i = 0; i < MainFrame.getDataHandler().getClassCount(); i++)
 		{
-			table.getModel().setValueAt(String.valueOf(LogicHandler.getRelativeOccurences(MainFrame.getDataHandler().getList(),
-					MainFrame.getDataHandler().getSampleSize())[i]), i, 3);
+			table.getModel()
+					.setValueAt(String.format("%.3f", LogicHandler.getRelativeOccurences(MainFrame.getDataHandler().getList(),
+							MainFrame.getDataHandler().getSampleSize())[i]), i, 3);
 		}
 	}
 
