@@ -47,8 +47,8 @@ public class InputPanel extends JPanel
 	private JPanel inputContainer, inputPanel, classPanel, classHeaderPanel, classInputPanel, quantityPanel,
 			quantityHeaderPanel, quantityInputPanel, buttonContainer;
 	private static JPanel tableContainer;
-	private JLabel classLabel, classErrorLabel, classSeparatorLabel, quantityLabel, smallQuantityLabel, quantitySumLabel;
-	private static JLabel leftClassBorderLabel, rightClassBorderLabel;
+	private JLabel classErrorLabel, classSeparatorLabel, quantityLabel, smallQuantityLabel, quantitySumLabel;
+	private static JLabel leftClassBorderLabel, rightClassBorderLabel, classLabel;
 	private JScrollPane tableScrollPane;
 	private static JTable table;
 
@@ -250,6 +250,8 @@ public class InputPanel extends JPanel
 		tableScrollPane.setBackground(Color.WHITE);
 		tableScrollPane.setPreferredSize(new Dimension(152, 200));
 		tableContainer.add(tableScrollPane);
+		
+		leftClassBorderField.requestFocus();
 	}
 
 	/**
@@ -484,6 +486,7 @@ public class InputPanel extends JPanel
 					index--;
 					classLabel.setText("Klasse " + (index + 1) + " definieren");
 					table.setRowSelectionInterval(index, index);
+					leftClassBorderField.requestFocus();
 				}
 				updateInputFields(index);
 			} catch (IllegalBorderException e)
@@ -527,6 +530,7 @@ public class InputPanel extends JPanel
 					{
 						classLabel.setText("Klasse " + (index + 1) + " definieren");
 						table.setRowSelectionInterval(index, index);
+						leftClassBorderField.requestFocus();
 					}
 				}
 			} catch (IllegalBorderException e)
@@ -571,6 +575,7 @@ public class InputPanel extends JPanel
 						index = row;
 						classLabel.setText("Klasse " + (index + 1) + " definieren");
 						table.setRowSelectionInterval(index, index);
+						leftClassBorderField.requestFocus();
 					} catch (IndexOutOfBoundsException e)
 					{
 					}
@@ -680,9 +685,11 @@ public class InputPanel extends JPanel
 	public static void initialize()
 	{
 		index = 0;
+		classLabel.setText("Klasse " + (index + 1) + " definieren");
 		resetFields();
 		resetTable();
 		calculateButton.setEnabled(false);
+		leftClassBorderField.requestFocus();
 	}
 
 	/**

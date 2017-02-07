@@ -42,16 +42,14 @@ public class ZDialog extends JDialog
 		
 		setTitle("Eingabemaske Variable z");
 		setResizable(false);
-		setMinimumSize(new Dimension(400, 300));
-		setMaximumSize(new Dimension(400, 300));
 		setModal(true);
-		setBounds(100, 100, 400, 300);
+		setBounds(500, 300, 300, 200);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new GridLayout(2, 1, 0, 0));
 		
-		zHeaderLabel = new JLabel("Variable z festlegen:");
+		zHeaderLabel = new JLabel("Variable z (absolute Abweichung) festlegen:");
 		zHeaderLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		contentPanel.add(zHeaderLabel);
 		

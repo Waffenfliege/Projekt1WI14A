@@ -38,10 +38,8 @@ public class InitializeDialog extends JDialog
 
 		setTitle("Neue Berechnung");
 		setResizable(false);
-		setMinimumSize(new Dimension(300, 200));
-		setMaximumSize(new Dimension(300, 200));
 		setModal(true);
-		setBounds(100, 100, 300, 200);
+		setBounds(500, 300, 300, 150);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -62,8 +60,8 @@ public class InitializeDialog extends JDialog
 			{
 				MainFrame.getDataHandler().getList().clear();
 				MainFrame.getDataHandler().initialize();
-				InputPanel.initialize();
 				MainFrame.switchToInputPanel();
+				InputPanel.initialize();
 				dispose();
 			}
 		});

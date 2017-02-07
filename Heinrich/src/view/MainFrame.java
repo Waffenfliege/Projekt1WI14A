@@ -22,6 +22,7 @@ public class MainFrame extends JFrame
 	private static InputPanel inputPanel;
 	private static OutputPanel outputPanel;
 	private static DataHandler data;
+
 	/**
 	 * Launch the application.
 	 */
@@ -56,13 +57,13 @@ public class MainFrame extends JFrame
 
 		inputPanel = new InputPanel();
 		outputPanel = new OutputPanel();
-		
+
 		contentPanel = new JPanel();
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPanel.setLayout(new BorderLayout(0, 0));
 
 		setContentPane(contentPanel);
-		switchPanel(inputPanel.get());
+		switchToInputPanel();
 	}
 
 	/**
@@ -78,7 +79,6 @@ public class MainFrame extends JFrame
 		contentPanel.add(panelToShow);
 		contentPanel.revalidate();
 		contentPanel.repaint();
-		// TODO: Prüfen, ob switchPane() in der Form funktioniert
 	}
 
 	/**
@@ -118,16 +118,22 @@ public class MainFrame extends JFrame
 	}
 
 	/**
-	 * Return the inputPanel.
+	 * Return the outputPanel.
 	 * 
-	 * @return the inputPanel
+	 * @return the outputPanel
 	 */
 	public static OutputPanel getOutputPanel()
 	{
 		return outputPanel;
 	}
-	
-	public static DataHandler getDataHandler(){
+
+	/**
+	 * Return the dataHandler.
+	 * 
+	 * @return the dataHandler
+	 */
+	public static DataHandler getDataHandler()
+	{
 		return data;
 	}
 }
