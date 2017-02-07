@@ -588,14 +588,7 @@ public class OutputPanel extends JPanel
 	{
 		public void actionPerformed(ActionEvent actionEvent)
 		{
-			String dialogString = InputDialog.startNewDialog();
-			if (dialogString.equals("Ja"))
-			{
-				MainFrame.getDataHandler().getList().clear();
-				MainFrame.getDataHandler().initialize();
-				InputPanel.initialize();
-				MainFrame.switchToInputPanel();
-			}
+			InitializeDialog dialog = new InitializeDialog();
 		}
 	};
 

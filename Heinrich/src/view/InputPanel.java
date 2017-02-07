@@ -247,7 +247,7 @@ public class InputPanel extends JPanel
 		table.setEnabled(false);
 
 		table.setFont(new Font("Arial", Font.PLAIN, 12));
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		tableScrollPane = new JScrollPane(table);
 		tableScrollPane.setBorder(null);
 		tableScrollPane.setBackground(Color.WHITE);
@@ -444,6 +444,8 @@ private ActionListener nextClassAction = new ActionListener()
 		{
 			processInputMasks();
 			index++;
+			updateInputFields(index);
+			quantitySumLabel.setText(" n = " + MainFrame.getDataHandler().getSampleSize());
 		} catch (IllegalOverlapException e)
 		{
 			e.printStackTrace();
@@ -472,9 +474,15 @@ private ActionListener calculateAction = new ActionListener()
 		}
 
 		calculateResultsPreZ();
-		InputDialog.startZDialog();
+		ZDialog zDialog = new ZDialog();
 	}
 };
+
+private void updateInputFields(int index){
+	leftClassBorderField.setText(String.valueOf(MainFrame.getDataHandler().getElement(index).getLowerValue().value));
+	rightClassBorderField.setText(String.valueOf(MainFrame.getDataHandler().getElement(index).getUpperValue().value));
+	quantityField.setText(String.valueOf(MainFrame.getDataHandler().getSampleSize()));
+}
 
 private void processInputMasks() throws IllegalOverlapException, Exception
 {

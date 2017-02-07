@@ -35,6 +35,27 @@ public class DataHandler
 		classes = new ArrayList<StatisticClass>();
 	}
 
+	public float getLowestValue(){
+		float result = classes.get(0).getLowerValue().value;
+		for(int i=1; i<classes.size(); i++){
+			if(classes.get(i).getLowerValue().value<result){
+				result = classes.get(i).getLowerValue().value;
+			}
+		}
+		
+		return result;
+	}
+	
+	public float getHighestValue(){
+		float result = classes.get(0).getUpperValue().value;
+		for(int i=1; i<classes.size(); i++){
+			if(classes.get(i).getUpperValue().value>result){
+				result = classes.get(i).getUpperValue().value;
+			}
+		}
+		
+		return result;
+	}
 	/**
 	 * 
 	 * @return ArrayList of all statistic classes.
