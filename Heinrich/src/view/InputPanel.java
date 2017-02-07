@@ -23,6 +23,7 @@ import javax.swing.table.DefaultTableModel;
 
 import data.ClampType;
 import data.DataHandler;
+import data.IllegalBorderException;
 import data.IllegalOverlapException;
 import data.StatisticClassValue;
 import logic.LogicHandler;
