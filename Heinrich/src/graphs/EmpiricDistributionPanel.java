@@ -105,7 +105,7 @@ public class EmpiricDistributionPanel extends JPanel{
 			
 			//Y-AXIS Regular Markers
 			g2.setStroke(new BasicStroke(1));
-			markerStep = chartHeight/11;
+			markerStep = chartHeight/11 ;
 			for(int i=1; i<11;i++){
 				int x = origin.getPosX()-6;
 				int y = origin.getPosY()+markerStep*i;
