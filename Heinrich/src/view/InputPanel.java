@@ -45,7 +45,8 @@ public class InputPanel extends JPanel
 {
 	private static JTextField leftClassBorderField, rightClassBorderField, quantityField;
 	private JPanel inputContainer, inputPanel, classPanel, classHeaderPanel, classInputPanel, quantityPanel,
-			quantityHeaderPanel, quantityInputPanel, buttonContainer;
+			quantityHeaderPanel, quantityInputPanel, buttonContainer, leftButtonContainer, centerButtonContainer,
+			rightButtonContainer;
 	private static JPanel tableContainer;
 	private JLabel classErrorLabel, classSeparatorLabel, quantityLabel, smallQuantityLabel, quantitySumLabel;
 	private static JLabel leftClassBorderLabel, rightClassBorderLabel, classLabel;
@@ -59,7 +60,7 @@ public class InputPanel extends JPanel
 
 	private static int index;
 
-	private static JButton lastClassButton, calculateButton, nextClassButton;
+	private static JButton lastClassButton, calculateButton, nextClassButton, resetInputButton, deleteDataButton;
 
 	/**
 	 * Creating the panel with all its components.
@@ -76,8 +77,8 @@ public class InputPanel extends JPanel
 		inputContainer = new JPanel();
 		inputContainer.setBorder(new EmptyBorder(5, 0, 5, 5));
 		inputContainer.setBackground(Color.WHITE);
-		add(inputContainer, BorderLayout.CENTER);
 		inputContainer.setLayout(new BorderLayout(0, 0));
+		add(inputContainer, BorderLayout.CENTER);
 
 		inputPanel = new JPanel();
 		inputPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -123,8 +124,9 @@ public class InputPanel extends JPanel
 		leftClassBorderField.setMargin(new Insets(10, 5, 10, 5));
 		leftClassBorderField.setFont(BIG);
 		leftClassBorderField.setSize(new Dimension(100, 60));
-		classInputPanel.add(leftClassBorderField);
+		leftClassBorderField.setHorizontalAlignment(JTextField.CENTER);
 		leftClassBorderField.setColumns(5);
+		classInputPanel.add(leftClassBorderField);
 
 		classSeparatorLabel = new JLabel(" , ");
 		classSeparatorLabel.setFont(BIG);
@@ -133,8 +135,9 @@ public class InputPanel extends JPanel
 		rightClassBorderField = new JTextField();
 		rightClassBorderField.setMargin(new Insets(10, 5, 10, 5));
 		rightClassBorderField.setFont(BIG);
-		classInputPanel.add(rightClassBorderField);
+		rightClassBorderField.setHorizontalAlignment(JTextField.CENTER);
 		rightClassBorderField.setColumns(5);
+		classInputPanel.add(rightClassBorderField);
 
 		rightClassBorderLabel = new JLabel(" ] ");
 		rightClassBorderLabel.setVerticalTextPosition(SwingConstants.TOP);
@@ -176,9 +179,10 @@ public class InputPanel extends JPanel
 		quantityField = new JTextField();
 		quantityField.setMargin(new Insets(10, 5, 10, 5));
 		quantityField.setFont(BIG);
-		quantityInputPanel.add(quantityField);
 		quantityField.setColumns(5);
+		quantityField.setHorizontalAlignment(JTextField.CENTER);
 		quantityField.addActionListener(nextClassAction);
+		quantityInputPanel.add(quantityField);
 
 		classErrorLabel = new JLabel("");
 		classErrorLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -201,20 +205,49 @@ public class InputPanel extends JPanel
 		buttonContainer = new JPanel();
 		buttonContainer.setBorder(null);
 		buttonContainer.setBackground(Color.WHITE);
-		buttonContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 25, 15));
+		buttonContainer.setLayout(new BorderLayout(0, 0));
+
+		leftButtonContainer = new JPanel();
+		leftButtonContainer.setLayout(new GridLayout(2, 1, 0, 10));
+		centerButtonContainer = new JPanel();
+		centerButtonContainer.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 25));
+		rightButtonContainer = new JPanel();
+		rightButtonContainer.setLayout(new GridLayout(2, 1, 0, 10));
+
+		deleteDataButton = new JButton("Neue Berechnung");
+		deleteDataButton.addActionListener(deleteAction);
+		deleteDataButton.setFont(NORMAL);
 
 		lastClassButton = new JButton("Vorherige Klasse");
 		lastClassButton.addActionListener(lastClassAction);
-		buttonContainer.add(lastClassButton);
+		lastClassButton.setFont(NORMAL);
+
+		resetInputButton = new JButton("X");
+		resetInputButton.addActionListener(resetAction);
+		resetInputButton.setMaximumSize(new Dimension(50, 50));
+		resetInputButton.setForeground(RED);
+		resetInputButton.setFont(BIG);
 
 		calculateButton = new JButton("Berechnen");
 		calculateButton.addActionListener(calculateAction);
-		buttonContainer.add(calculateButton);
+		calculateButton.setFont(NORMAL);
 		calculateButton.setEnabled(false);
 
 		nextClassButton = new JButton("N\u00E4chste Klasse");
 		nextClassButton.addActionListener(nextClassAction);
-		buttonContainer.add(nextClassButton);
+		nextClassButton.setFont(NORMAL);
+
+		leftButtonContainer.add(lastClassButton);
+		leftButtonContainer.add(deleteDataButton);
+
+		centerButtonContainer.add(resetInputButton);
+
+		rightButtonContainer.add(nextClassButton);
+		rightButtonContainer.add(calculateButton);
+
+		buttonContainer.add(leftButtonContainer, BorderLayout.WEST);
+		buttonContainer.add(centerButtonContainer, BorderLayout.CENTER);
+		buttonContainer.add(rightButtonContainer, BorderLayout.EAST);
 
 		inputContainer.add(buttonContainer, BorderLayout.SOUTH);
 
@@ -226,8 +259,8 @@ public class InputPanel extends JPanel
 		tableContainer.setMinimumSize(new Dimension(250, 100));
 		tableContainer.setBorder(new EmptyBorder(5, 5, 5, 0));
 		tableContainer.setBackground(Color.WHITE);
-		add(tableContainer, BorderLayout.WEST);
 		tableContainer.setLayout(new BorderLayout(5, 5));
+		add(tableContainer, BorderLayout.WEST);
 
 		table = new JTable()
 		{
@@ -250,7 +283,7 @@ public class InputPanel extends JPanel
 		tableScrollPane.setBackground(Color.WHITE);
 		tableScrollPane.setPreferredSize(new Dimension(152, 200));
 		tableContainer.add(tableScrollPane);
-		
+
 		leftClassBorderField.requestFocus();
 	}
 
@@ -545,8 +578,8 @@ public class InputPanel extends JPanel
 			{
 				e.printStackTrace();
 			}
-			MainFrame.getInputPanel().revalidate();
-			MainFrame.getInputPanel().repaint();
+			revalidate();
+			repaint();
 		}
 	};
 
@@ -556,6 +589,27 @@ public class InputPanel extends JPanel
 		{
 			calculateResultsPreZ();
 			new ZDialog();
+		}
+	};
+
+	private ActionListener deleteAction = new ActionListener()
+	{
+		public void actionPerformed(ActionEvent actionEvent)
+		{
+			new InitializeDialog();
+		}
+	};
+
+	private ActionListener resetAction = new ActionListener()
+	{
+		public void actionPerformed(ActionEvent actionEvent)
+		{
+			leftClassBorderField.setText("");
+			rightClassBorderField.setText("");
+			quantityField.setText("");
+			leftClassBorderField.requestFocus();
+			revalidate();
+			repaint();
 		}
 	};
 
