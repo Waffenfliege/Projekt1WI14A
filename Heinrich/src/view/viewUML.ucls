@@ -47,39 +47,55 @@
     </display>  
   </class>  
   <dependency id="6">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="5"/>  
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="2"/>  
   </dependency>  
   <dependency id="7">    
     <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="1"/>  
   </dependency>  
   <dependency id="8">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="4"/>  
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="5"/>  
   </dependency>  
-  <dependency id="9">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="2"/>  
-  </dependency>  
-  <association id="10">    
+  <association id="9">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="11" name="outputPanel"/>      
-      <multiplicity id="12" minimum="0" maximum="1"/>    
+      <attribute id="10" name="inputPanel">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="11" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
+    <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <dependency id="13">    
+  <dependency id="12">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="1"/>  
   </dependency>  
-  <association id="14">    
+  <dependency id="13">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="14">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="15">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <association id="16">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="15" name="inputPanel"/>      
-      <multiplicity id="16" minimum="0" maximum="1"/>    
+      <attribute id="17" name="outputPanel">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="18" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
+    <end type="TARGET" refId="3" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
