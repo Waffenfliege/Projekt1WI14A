@@ -48,7 +48,8 @@ public class InputPanel extends JPanel
 			quantityHeaderPanel, quantityInputPanel, buttonContainer, leftButtonContainer, centerButtonContainer,
 			rightButtonContainer;
 	private static JPanel tableContainer;
-	private JLabel classErrorLabel, classSeparatorLabel, quantityLabel, smallQuantityLabel, quantitySumLabel;
+	private JLabel classErrorLabel, classSeparatorLabel, quantityLabel, smallQuantityLabel;
+	private static JLabel quantitySumLabel;
 	private static JLabel leftClassBorderLabel, rightClassBorderLabel, classLabel;
 	private JScrollPane tableScrollPane;
 	private static JTable table;
@@ -608,6 +609,7 @@ public class InputPanel extends JPanel
 			rightClassBorderField.setText("");
 			quantityField.setText("");
 			leftClassBorderField.requestFocus();
+			MainFrame.getDataHandler().deleteClass(index);
 			revalidate();
 			repaint();
 		}
@@ -740,6 +742,7 @@ public class InputPanel extends JPanel
 	{
 		index = 0;
 		classLabel.setText("Klasse " + (index + 1) + " definieren");
+		quantitySumLabel.setText(" n = 0");
 		resetFields();
 		resetTable();
 		calculateButton.setEnabled(false);
