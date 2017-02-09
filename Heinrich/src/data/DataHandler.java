@@ -286,9 +286,16 @@ public class DataHandler
 		}
 		
 		//Class change - exclude current class from set of classes to test
+		//Happens for classes to be changed
 		else{
+			//All classes below changed index
 			for (int i = 0; i < currentViewIndex; i++)
 			{
+				//TODO kleiner und gleich muss getrennt behandelt werden! unterscheidung fehler. 
+				//Gleiche klammern bei gleichen Werten. Klammern egal wenn obergrenze der bestehenden 
+				//Klasse kleiner als untergrenze der neuen Klasse. Da ist die Frage ob da ein Abstand 
+				//bestehen darf oder das ein anderer Fehler ist.  
+				
 				if (classes.get(i).getUpperValue().value <= lowerValue.value)
 				{
 					if (classes.get(i).getUpperValue().clamp == ClampType.INCLUSIVE && lowerValue.clamp == ClampType.INCLUSIVE)
@@ -313,6 +320,7 @@ public class DataHandler
 				}
 			}
 			
+			//All classes above changed index
 			for (int i = currentViewIndex+1; i < classes.size(); i++)
 			{
 				if (classes.get(i).getUpperValue().value <= lowerValue.value)
@@ -356,20 +364,4 @@ public class DataHandler
 			throw new IllegalBorderException("Die untere Klassengrenze ist größer oder gleich der oberen Grenze.");
 		}
 	}
-
-
-
-	public void deleteClass(int index)
-	{
-		classes.remove(index);
-	}
-	
-	// Vorgehen:
-	// Anschließend prüfen, ob bereits Klassen existieren.
-	// Wenn bereits Klassen existieren muss geprüft werden
-	// Ist bereits eine gefüllte Klasse selektiert ?
-	// JA: Gibt es im View andere Werte als in der gespeicherten Klasse?
-	// JA : Weiter mit Prüfung der überlappenden Klassengrenzen
-	// NEIN : Keine Aktion
-	// NEIN: Prüfung überlappender Klassengrenzen, dann DataHandler.put();
 }
