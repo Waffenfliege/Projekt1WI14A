@@ -167,11 +167,10 @@ public class EmpiricDistributionPanel extends JPanel{
 			}
 			
 			//Y-AXIS- Regular Labels
-			markerStep = chartHeight/11;
 			for(int i=1; i<11;i++){
-				String labelString = String.format("%.2f", GraphFactory.getMaxHeight(MainFrame.getDataHandler().getList(), MainFrame.getDataHandler().getSampleSize())/10 *i);
+				String labelString = String.format("%.2f", 1.0f/10*i);
 				int x = origin.getPosX()-35;
-				int y = origin.getPosY()+chartHeight-markerStep*i;
+				int y = origin.getPosY()+chartHeight-chartHeight/11*i;
 				g2.setColor(Color.BLACK);
 				g2.setFont(new Font("Calibri", Font.BOLD, 10));
 				g2.drawString(String.valueOf(labelString), x, y);

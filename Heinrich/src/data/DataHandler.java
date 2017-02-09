@@ -356,6 +356,13 @@ public class DataHandler
 			throw new IllegalBorderException("Die untere Klassengrenze ist größer oder gleich der oberen Grenze.");
 		}
 	}
+
+
+
+	public void deleteClass(int index)
+	{
+		classes.remove(index);
+	}
 	
 	// Vorgehen:
 	// Anschließend prüfen, ob bereits Klassen existieren.

@@ -609,7 +609,6 @@ public class InputPanel extends JPanel
 			rightClassBorderField.setText("");
 			quantityField.setText("");
 			leftClassBorderField.requestFocus();
-			MainFrame.getDataHandler().deleteClass(index );
 			revalidate();
 			repaint();
 		}
