@@ -303,15 +303,8 @@ public class LogicHandler
 	 * 
 	 * @author Robert
 	 */
-	public static float getGiniCoefficient(float[] classMiddles)
+	public static float getGiniCoefficient(float[] classMiddles, float classMiddlesAdded, float[][] orderedClassMiddles)
 	{
-		float classMiddlesAdded= 0;
-		
-		for(int i=0; i<classMiddles.length;i++){
-			classMiddlesAdded+= classMiddles[i];
-		}
-	
-		float[][] orderedClassMiddles; 
 		float size = classMiddles.length + 1;// Da die erste Zeile voller nuller
 												// ist
 		float[][] giniTable = new float[6][(int) size];
@@ -356,9 +349,8 @@ public class LogicHandler
 		}
 
 		giniCoefficient = 1 - lorenz;
-		
-		return -9999.0f;
-//		return giniCoefficient;
+
+		return giniCoefficient;
 	}
 
 	/**
@@ -435,15 +427,5 @@ public class LogicHandler
 			}
 		}
 		return maxValue;
-	}
-
-	public static float getHistogramElementHeight()
-	{
-		return 0;
-	}
-
-	public static float getHistogramElementWidth()
-	{
-		return 0;
 	}
 }
