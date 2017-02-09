@@ -22,9 +22,8 @@ public class GraphFactory {
 	private static int graphMaxWidth;
 	private static int graphMaxHeight;
 	
-	private static final Color BAR_COLOR = Color.RED;
+	private static final Color BAR_COLOR = new Color(175,23, 20);
 	private static final Color BORDER_COLOR = Color.BLACK;
-	private static Vector2D origin;
 
 
 	/**
