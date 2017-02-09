@@ -140,7 +140,14 @@ public class ZDialog extends JDialog
 				MainFrame.getDataHandler().getResults().getArithmeticMiddle(), MainFrame.getDataHandler().getSampleSize()));
 		MainFrame.getDataHandler().getResults()
 				.setStandardDeviation(LogicHandler.getStandardDeviation(MainFrame.getDataHandler().getResults().getVariance()));
-		MainFrame.getDataHandler().getResults().setGini(LogicHandler.getGiniCoefficient(MainFrame.getDataHandler().getResults().getClassMiddles()));
+		float[] classMiddles = LogicHandler.getClassMiddles(MainFrame.getDataHandler().getList());
+		MainFrame.getDataHandler().getResults().setGini(
+														LogicHandler.getGiniCoefficient(
+																classMiddles, 
+																LogicHandler.getClassMiddlesAdded(classMiddles), 
+																LogicHandler.getOrderedClassMiddles(classMiddles, 
+																			LogicHandler.getRelativeOccurences(MainFrame.getDataHandler().getList(), 
+																				MainFrame.getDataHandler().getSampleSize()))));
 	}
 	
 }

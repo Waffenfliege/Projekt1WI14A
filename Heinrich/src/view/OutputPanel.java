@@ -273,7 +273,7 @@ public class OutputPanel extends JPanel
 		resultLayout.setConstraints(standardLabel3, valueConstraints);
 		resultSetPanel.add(standardLabel3);
 
-		JLabel giniLabel1 = new JLabel("Gini-Koeffizient");
+		JLabel giniLabel1 = new JLabel("Gini-Koeffizient" );
 		giniLabel1.setVerticalAlignment(SwingConstants.TOP);
 		giniLabel1.setFont(NORMAL);
 		resultLayout.setConstraints(giniLabel1, titleConstraints);
@@ -284,7 +284,7 @@ public class OutputPanel extends JPanel
 		giniLabel2.setIcon(new ImageIcon(OutputPanel.class.getResource("/view/gini.png")));
 		resultLayout.setConstraints(giniLabel2, formulaConstraints);
 		resultSetPanel.add(giniLabel2);
-		JLabel giniLabel3 = new JLabel("[Gini]");
+		JLabel giniLabel3 = new JLabel(String.format("%,3f",data.getResults().getGini()));
 		giniLabel3.setVerticalAlignment(SwingConstants.BOTTOM);
 		giniLabel3.setFont(NORMAL);
 		resultLayout.setConstraints(giniLabel3, valueConstraints);
