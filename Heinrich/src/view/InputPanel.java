@@ -733,6 +733,10 @@ public class InputPanel extends JPanel
 			return false;
 		}
 	}
+	
+	public void resetFocus(){
+		leftClassBorderField.requestFocus();
+	}
 
 	/**
 	 * Initialize the InputPanel.

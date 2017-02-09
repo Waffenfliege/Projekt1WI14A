@@ -130,7 +130,7 @@ public class GraphFactory {
 				positionX += lines.get(j).getLength();
 			}
 			
-			int positionY = (int)(chartHeight-chartHeight*quotas.get(i).getSummedQuote()); 
+			int positionY = (int)(chartHeight-chartHeight*0.9f*quotas.get(i).getSummedQuote()); 
 			Vector2D currentVector = new Vector2D(positionX, positionY);
 			
 			results.add(currentVector);

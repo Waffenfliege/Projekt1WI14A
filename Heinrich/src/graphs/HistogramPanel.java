@@ -80,11 +80,12 @@ public class HistogramPanel extends JPanel{
 			//########################## MARKERS ###########################
 			//X-AXIS Regular Markers
 			g2.setStroke(new BasicStroke(1));
-			int markerStep = chartWidth/11;
-			for(int i=1; i<11;i++){
-				int x = origin.getPosX()+ markerStep*i;
+			float markerStep = chartWidth*0.9f/10.0f;
+			for(int i=1; i<=10;i++){
+				int x = origin.getPosX()+ (int)(markerStep*i);
+				System.out.println("Marker:"+ x);
 				int y = origin.getPosY()+chartHeight-6;
-				int xTarget =   origin.getPosX()+ markerStep*i;
+				int xTarget =   origin.getPosX()+ (int)(markerStep*i);
 				int yTarget  =origin.getPosY()+chartHeight+6;
 				g2.drawLine(x, y, xTarget, yTarget);
 			}
@@ -93,20 +94,22 @@ public class HistogramPanel extends JPanel{
 			g2.setStroke(new BasicStroke(3));
 			for(int i=0; i<rectangles.size();i++){
 				int x = origin.getPosX()+positions.get(i).getPosX()+rectangles.get(i).getWidth();
+				System.out.println("Rechteck:"+ x);
 				int y = origin.getPosY()+ positions.get(i).getPosY()+rectangles.get(i).getHeight()-12;
 				int xTarget =  origin.getPosX()+positions.get(i).getPosX()+rectangles.get(i).getWidth();
 				int yTarget  =origin.getPosY()+positions.get(i).getPosY()+rectangles.get(i).getHeight()+12;
 				g2.drawLine(x, y, xTarget, yTarget);
 			}
 			
+			
 			//Y-AXIS Regular Markers
 			g2.setStroke(new BasicStroke(1));
-			markerStep = chartHeight/11;
+			markerStep = chartHeight*0.9f/10.0f;
 			for(int i=1; i<11;i++){
 				int x = origin.getPosX()-6;
-				int y = origin.getPosY()+markerStep*i;
+				int y = origin.getPosY()+chartHeight-(int)(markerStep*i);
 				int xTarget =   origin.getPosX()+6;
-				int yTarget = origin.getPosY()+markerStep*i;
+				int yTarget = origin.getPosY()+chartHeight-(int)(markerStep*i);
 				g2.drawLine(x, y, xTarget, yTarget);
 			}
 			
@@ -150,11 +153,12 @@ public class HistogramPanel extends JPanel{
 			g2.drawString("r(H) ", origin.getPosX()-35, origin.getPosY()+10);
 			
 			//X-AXIS- Regular Labels
-			markerStep = chartWidth/11;
-			for(int i=1; i<11;i++){
-				String labelString = String.valueOf(markerStep*i);
+			float markerValueStep = MainFrame.getDataHandler().getHighestValue()/10;
+			markerStep = chartWidth*0.9f/10.0f;
+			for(int i=1; i<=10;i++){
+				String labelString = String.format("%.2f",MainFrame.getDataHandler().getLowestValue()+markerValueStep*i);
 				int stringWidth = g2.getFontMetrics().stringWidth(labelString);
-				int x = origin.getPosX()+ markerStep*i-stringWidth/2;
+				int x = origin.getPosX()+ (int)(markerStep*i)-stringWidth/2;
 				int y = origin.getPosY()+chartHeight+ 15;
 				g2.setColor(Color.BLACK);
 				g2.setFont(new Font("Calibri", Font.BOLD, 10));
@@ -162,11 +166,12 @@ public class HistogramPanel extends JPanel{
 			}
 			
 			//Y-AXIS- Regular Labels
-			markerStep = chartHeight/11;
-			for(int i=1; i<11;i++){
-				String labelString = String.format("%.2f", GraphFactory.getMaxHeight(MainFrame.getDataHandler().getList(), MainFrame.getDataHandler().getSampleSize())/10 *i);
+			markerValueStep = GraphFactory.getMaxHeight(MainFrame.getDataHandler().getList(), MainFrame.getDataHandler().getSampleSize())/10;
+			markerStep = chartHeight*0.9f/10.0f;
+			for(int i=1; i<=10;i++){
+				String labelString = String.format("%.2f", markerValueStep *i);
 				int x = origin.getPosX()-35;
-				int y = origin.getPosY()+chartHeight-markerStep*i;
+				int y = origin.getPosY()+ chartHeight-(int)(markerStep*i)+3;
 				g2.setColor(Color.BLACK);
 				g2.setFont(new Font("Calibri", Font.BOLD, 10));
 				g2.drawString(String.valueOf(labelString), x, y);

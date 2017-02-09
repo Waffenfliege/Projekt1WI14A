@@ -2,6 +2,8 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -64,6 +66,12 @@ public class MainFrame extends JFrame
 
 		setContentPane(contentPanel);
 		switchToInputPanel();
+		
+		this.addWindowListener(new WindowAdapter(){
+			public void windowOpened(WindowEvent e){
+				inputPanel.resetFocus();
+			}
+		});
 	}
 
 	/**
@@ -104,6 +112,7 @@ public class MainFrame extends JFrame
 	 */
 	public static void switchToInputPanel()
 	{
+		
 		switchPanel(inputPanel);
 	}
 
