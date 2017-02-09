@@ -13,6 +13,7 @@ public class ResultSet {
 	float meanAbsoluteDeviation;
 	float variance;
 	float standardDeviation;
+	float gini;
 	
 	int sampleSize;
 	int classCount;
@@ -101,6 +102,16 @@ public class ResultSet {
 
 	public void setStandardDeviation(float standardDeviation) {
 		this.standardDeviation = standardDeviation;
+	}
+
+	public float getGini()
+	{
+		return gini;
+	}
+
+	public void setGini(float gini)
+	{
+		this.gini = gini;
 	}
 
 	public int getSampleSize() {

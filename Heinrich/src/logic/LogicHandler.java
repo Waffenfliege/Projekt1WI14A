@@ -303,22 +303,15 @@ public class LogicHandler
 	 * 
 	 * @author Robert
 	 */
-	public static float getGiniCoefficient()
+	public static float getGiniCoefficient(float[] classMiddles)
 	{
-		// Step 1: Klassenmitte/Wert
-		// https://de.wikipedia.org/wiki/Gini-Koeffizient
-
-		// Step 2: Ordnen der Ergebnissen (von klein nach groß)
-
-		return 0;
-	}
-
-	/**
-	 * 
-	 * @author Robert
-	 */
-	public static float getGiniCoefficient(float[][] orderedClassMiddles, float[] classMiddles, float classMiddlesAdded)
-	{
+		float classMiddlesAdded= 0;
+		
+		for(int i=0; i<classMiddles.length;i++){
+			classMiddlesAdded+= classMiddles[i];
+		}
+	
+		float[][] orderedClassMiddles; 
 		float size = classMiddles.length + 1;// Da die erste Zeile voller nuller
 												// ist
 		float[][] giniTable = new float[6][(int) size];
@@ -363,8 +356,9 @@ public class LogicHandler
 		}
 
 		giniCoefficient = 1 - lorenz;
-
-		return giniCoefficient;
+		
+		return -9999.0f;
+//		return giniCoefficient;
 	}
 
 	/**
