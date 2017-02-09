@@ -48,7 +48,7 @@ public class InputPanel extends JPanel
 			quantityHeaderPanel, quantityInputPanel, buttonContainer, leftButtonContainer, centerButtonContainer,
 			rightButtonContainer;
 	private static JPanel tableContainer;
-	private JLabel classErrorLabel, classSeparatorLabel, quantityLabel, smallQuantityLabel;
+	private JLabel errorLabel, classSeparatorLabel, quantityLabel, smallQuantityLabel;
 	private static JLabel quantitySumLabel;
 	private static JLabel leftClassBorderLabel, rightClassBorderLabel, classLabel;
 	private JScrollPane tableScrollPane;
@@ -151,7 +151,7 @@ public class InputPanel extends JPanel
 
 		quantityPanel = new JPanel();
 		quantityPanel.setBorder(null);
-		quantityPanel.setBackground(RED);
+		quantityPanel.setBackground(Color.WHITE);
 		quantityPanel.setLayout(new BorderLayout(0, 0));
 
 		quantityHeaderPanel = new JPanel();
@@ -185,21 +185,21 @@ public class InputPanel extends JPanel
 		quantityField.addActionListener(nextClassAction);
 		quantityInputPanel.add(quantityField);
 
-		classErrorLabel = new JLabel("");
-		classErrorLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		classErrorLabel.setBackground(Color.WHITE);
-		classErrorLabel.setForeground(RED);
-		classErrorLabel.setFont(NORMAL);
-		classErrorLabel.setVisible(false);
-		classErrorLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		classPanel.add(classErrorLabel, BorderLayout.SOUTH);
-
 		quantitySumLabel = new JLabel(" n = 0");
 		quantitySumLabel.setFont(BIG);
 		quantityInputPanel.add(quantitySumLabel);
 		inputPanel.setLayout(new GridLayout(2, 1, 10, 0));
 		inputPanel.add(classPanel);
 		inputPanel.add(quantityPanel);
+
+		errorLabel = new JLabel("");
+		errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		errorLabel.setBackground(Color.WHITE);
+		errorLabel.setForeground(RED);
+		errorLabel.setFont(NORMAL);
+		errorLabel.setVisible(false);
+		errorLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		quantityPanel.add(errorLabel, BorderLayout.SOUTH);
 
 		// #######################
 
@@ -569,27 +569,29 @@ public class InputPanel extends JPanel
 	{
 		public void actionPerformed(ActionEvent actionEvent)
 		{
-			classErrorLabel.setVisible(false);
+			errorLabel.setVisible(false);
 			try
 			{
-				processInputMasks();
-				if (index > 0)
+				if (processInputMasks())
 				{
-					index--;
-					classLabel.setText("Klasse " + (index + 1) + " definieren");
-					updateTable();
-					table.setRowSelectionInterval(index, index);
-					leftClassBorderField.requestFocus();
+					if (index > 0)
+					{
+						index--;
+						classLabel.setText("Klasse " + (index + 1) + " definieren");
+						updateTable();
+						table.setRowSelectionInterval(index, index);
+						leftClassBorderField.requestFocus();
+					}
+					updateInputFields(index);
 				}
-				updateInputFields(index);
 			} catch (IllegalBorderException e)
 			{
-				classErrorLabel.setText("Grenzen sind falsch!");
-				classErrorLabel.setVisible(true);
+				errorLabel.setText("Grenzen sind falsch!");
+				errorLabel.setVisible(true);
 			} catch (IllegalOverlapException e)
 			{
-				classErrorLabel.setText("Klassen \u00DCberschneiden sich!");
-				classErrorLabel.setVisible(true);
+				errorLabel.setText("Klassen \u00fcberschneiden sich!");
+				errorLabel.setVisible(true);
 			} catch (Exception e)
 			{
 				e.printStackTrace();
@@ -603,38 +605,45 @@ public class InputPanel extends JPanel
 	{
 		public void actionPerformed(ActionEvent actionEvent)
 		{
-			classErrorLabel.setVisible(false);
+			errorLabel.setVisible(false);
 			try
 			{
-				processInputMasks();
-				quantitySumLabel.setText(" n = " + MainFrame.getDataHandler().getSampleSize());
-				if (index < MainFrame.getDataHandler().getList().size())
+				if (processInputMasks())
 				{
-					index++;
-					try
+					quantitySumLabel.setText(" n = " + MainFrame.getDataHandler().getSampleSize());
+					if (index < MainFrame.getDataHandler().getList().size())
 					{
-						updateInputFields(index);
-					} catch (IndexOutOfBoundsException e)
-					{
-						leftClassBorderField.setText("");
-						rightClassBorderField.setText("");
-						quantityField.setText("");
-					} finally
-					{
-						classLabel.setText("Klasse " + (index + 1) + " definieren");
-						updateTable();
-						table.setRowSelectionInterval(index, index);
-						leftClassBorderField.requestFocus();
+						if (index < 19)
+						{
+							index++;
+						}
+						try
+						{
+							updateInputFields(index);
+						} catch (IndexOutOfBoundsException e)
+						{
+							leftClassBorderField.setText("");
+							rightClassBorderField.setText("");
+							quantityField.setText("");
+						} finally
+						{
+
+							classLabel.setText("Klasse " + (index + 1) + " definieren");
+							updateTable();
+							table.setRowSelectionInterval(index, index);
+
+							leftClassBorderField.requestFocus();
+						}
 					}
 				}
 			} catch (IllegalBorderException e)
 			{
-				classErrorLabel.setText("Grenzen sind falsch!");
-				classErrorLabel.setVisible(true);
+				errorLabel.setText("Grenzen sind falsch!");
+				errorLabel.setVisible(true);
 			} catch (IllegalOverlapException e)
 			{
-				classErrorLabel.setText("Klassen \u00fcberschneiden sich!");
-				classErrorLabel.setVisible(true);
+				errorLabel.setText("Klassen \u00fcberschneiden sich!");
+				errorLabel.setVisible(true);
 			} catch (Exception e)
 			{
 				e.printStackTrace();
@@ -648,8 +657,53 @@ public class InputPanel extends JPanel
 	{
 		public void actionPerformed(ActionEvent actionEvent)
 		{
-			calculateResultsPreZ();
-			new ZDialog();
+			errorLabel.setVisible(false);
+			try
+			{
+				if (processInputMasks())
+				{
+					quantitySumLabel.setText(" n = " + MainFrame.getDataHandler().getSampleSize());
+					if (index < MainFrame.getDataHandler().getList().size())
+					{
+						if (index < 19)
+						{
+							index++;
+						}
+						try
+						{
+							updateInputFields(index);
+						} catch (IndexOutOfBoundsException e)
+						{
+							leftClassBorderField.setText("");
+							rightClassBorderField.setText("");
+							quantityField.setText("");
+						} finally
+						{
+							classLabel.setText("Klasse " + (index + 1) + " definieren");
+							updateTable();
+							table.setRowSelectionInterval(index, index);
+							leftClassBorderField.requestFocus();
+						}
+					}
+					calculateResultsPreZ();
+					new ZDialog();
+				}
+			} catch (IllegalBorderException e)
+			{
+				errorLabel.setText("Grenzen sind falsch!");
+				errorLabel.setVisible(true);
+				revalidate();
+				repaint();
+			} catch (IllegalOverlapException e)
+			{
+				errorLabel.setText("Klassen \u00fcberschneiden sich!");
+				errorLabel.setVisible(true);
+				revalidate();
+				repaint();
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+			}
 		}
 	};
 
@@ -738,7 +792,7 @@ public class InputPanel extends JPanel
 	 * @throws IllegalOverlapException
 	 * @throws Exception
 	 */
-	private void processInputMasks() throws IllegalOverlapException, Exception
+	private boolean processInputMasks() throws IllegalOverlapException, Exception
 	{
 
 		if (isValid(InputPanel.getLeftClassBorderField()) && isValid(InputPanel.getRightClassBorderField())
@@ -772,6 +826,21 @@ public class InputPanel extends JPanel
 			updateTable();
 			resetFields();
 			calculateButton.setEnabled(true);
+			return true;
+		} else
+		{
+			if (leftClassBorderField.getText().equals("") && rightClassBorderField.getText().equals("")
+					&& quantityField.getText().equals(""))
+			{
+				return true;
+			} else
+			{
+				errorLabel.setText("Eingaben sind fehlerhaft!");
+				errorLabel.setVisible(true);
+				revalidate();
+				repaint();
+				return false;
+			}
 		}
 	}
 
