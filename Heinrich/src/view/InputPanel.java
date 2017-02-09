@@ -749,18 +749,18 @@ public class InputPanel extends JPanel
 
 			if (InputPanel.getLeftClamp().equals(" ( "))
 			{
-				lowerClampType = ClampType.INCLUSIVE;
+				lowerClampType = ClampType.EXCLUSIVE;
 			} else
 			{
-				lowerClampType = ClampType.EXCLUSIVE;
+				lowerClampType = ClampType.INCLUSIVE;
 			}
 
 			if (InputPanel.getRightClamp().equals(" ) "))
 			{
-				upperClampType = ClampType.INCLUSIVE;
+				upperClampType = ClampType.EXCLUSIVE;
 			} else
 			{
-				upperClampType = ClampType.EXCLUSIVE;
+				upperClampType = ClampType.INCLUSIVE;
 			}
 
 			int absoluteOccurence = Integer.parseInt(InputPanel.getQuantityField());
