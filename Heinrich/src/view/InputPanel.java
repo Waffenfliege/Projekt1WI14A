@@ -308,7 +308,7 @@ public class InputPanel extends JPanel
 	public static void setTableValue(StatisticClassValue lowerValue, StatisticClassValue upperValue, int quantity, int index)
 	{
 		String row[] = getTableRowString(lowerValue, upperValue, quantity, index);
-		
+
 		table.getModel().setValueAt(row[0], index, 0);
 		table.getModel().setValueAt(row[1], index, 1);
 		table.getModel().setValueAt(row[2], index, 2);
@@ -319,19 +319,21 @@ public class InputPanel extends JPanel
 		tableContainer.repaint();
 
 	}
-	
-	public static String[] getTableRowString(StatisticClassValue lowerValue, StatisticClassValue upperValue, int quantity, int index){
+
+	public static String[] getTableRowString(StatisticClassValue lowerValue, StatisticClassValue upperValue, int quantity,
+			int index)
+	{
 		String lowerClamp = "";
 		String upperClamp = "";
 
 		switch (lowerValue.clamp)
 		{
 		case INCLUSIVE:
-			lowerClamp = "(";
+			lowerClamp = "[";
 			break;
 
 		case EXCLUSIVE:
-			lowerClamp = "[";
+			lowerClamp = "(";
 			break;
 
 		default:
@@ -341,11 +343,11 @@ public class InputPanel extends JPanel
 		switch (upperValue.clamp)
 		{
 		case INCLUSIVE:
-			upperClamp = ")";
+			upperClamp = "]";
 			break;
 
 		case EXCLUSIVE:
-			upperClamp = "]";
+			upperClamp = ")";
 			break;
 
 		default:
@@ -353,22 +355,23 @@ public class InputPanel extends JPanel
 		}
 		String row[] = new String[] { String.valueOf(index + 1),
 				lowerClamp + lowerValue.value + ", " + upperValue.value + upperClamp, String.valueOf(quantity), "" };
-		
+
 		return row;
 	}
-	
-	public static String[] getTableRowString(int index){
+
+	public static String[] getTableRowString(int index)
+	{
 		String lowerClamp = "";
 		String upperClamp = "";
 
 		switch (MainFrame.getDataHandler().getElement(index).getLowerValue().clamp)
 		{
 		case INCLUSIVE:
-			lowerClamp = "(";
+			lowerClamp = "[";
 			break;
 
 		case EXCLUSIVE:
-			lowerClamp = "[";
+			lowerClamp = "(";
 			break;
 
 		default:
@@ -378,21 +381,21 @@ public class InputPanel extends JPanel
 		switch (MainFrame.getDataHandler().getElement(index).getUpperValue().clamp)
 		{
 		case INCLUSIVE:
-			upperClamp = ")";
+			upperClamp = "]";
 			break;
 
 		case EXCLUSIVE:
-			upperClamp = "]";
+			upperClamp = ")";
 			break;
 
 		default:
 			break;
 		}
 		String row[] = new String[] { String.valueOf(index + 1),
-										lowerClamp + MainFrame.getDataHandler().getElement(index).getLowerValue().value + ", " + MainFrame.getDataHandler().getElement(index).getUpperValue().value + upperClamp, 
-										String.valueOf(MainFrame.getDataHandler().getElement(index).getAbsoluteOccurences()), "" };
-		
-		
+				lowerClamp + MainFrame.getDataHandler().getElement(index).getLowerValue().value + ", "
+						+ MainFrame.getDataHandler().getElement(index).getUpperValue().value + upperClamp,
+				String.valueOf(MainFrame.getDataHandler().getElement(index).getAbsoluteOccurences()), "" };
+
 		return row;
 	}
 
@@ -402,20 +405,19 @@ public class InputPanel extends JPanel
 	public static void updateTable()
 	{
 		for (int i = 0; i < MainFrame.getDataHandler().getClassCount(); i++)
-		{	
-			//Set K(j)
+		{
+			// Set K(j)
 			String currentClassValues[] = getTableRowString(i);
-			table.getModel()
-			.setValueAt(currentClassValues[1], i, 1);
-			
-			//Set k(Kj)
+			table.getModel().setValueAt(currentClassValues[1], i, 1);
+
+			// Set k(Kj)
 			table.getModel().setValueAt(currentClassValues[2], i, 2);
-			
-			//Set r(Kj)
+
+			// Set r(Kj)
 			table.getModel()
 					.setValueAt(String.format("%.3f", LogicHandler.getRelativeOccurences(MainFrame.getDataHandler().getList(),
 							MainFrame.getDataHandler().getSampleSize())[i]), i, 3);
-		
+
 		}
 	}
 
@@ -527,18 +529,18 @@ public class InputPanel extends JPanel
 			if (text.equals(" ( "))
 			{
 				leftClassBorderLabel.setText(" [ ");
-				rightClassBorderLabel.setText(" ) ");
+				// rightClassBorderLabel.setText(" ) ");
 			} else if (text.equals(" [ "))
 			{
 				leftClassBorderLabel.setText(" ( ");
-				rightClassBorderLabel.setText(" ] ");
+				// rightClassBorderLabel.setText(" ] ");
 			} else if (text.equals(" ) "))
 			{
-				leftClassBorderLabel.setText(" ( ");
+				// leftClassBorderLabel.setText(" ( ");
 				rightClassBorderLabel.setText(" ] ");
 			} else if (text.equals(" ] "))
 			{
-				leftClassBorderLabel.setText(" [ ");
+				// leftClassBorderLabel.setText(" [ ");
 				rightClassBorderLabel.setText(" ) ");
 			} else
 			{
@@ -610,7 +612,7 @@ public class InputPanel extends JPanel
 				{
 					index++;
 					try
-					{		
+					{
 						updateInputFields(index);
 					} catch (IndexOutOfBoundsException e)
 					{
@@ -791,8 +793,9 @@ public class InputPanel extends JPanel
 			return false;
 		}
 	}
-	
-	public void resetFocus(){
+
+	public void resetFocus()
+	{
 		leftClassBorderField.requestFocus();
 	}
 
