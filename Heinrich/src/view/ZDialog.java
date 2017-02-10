@@ -86,7 +86,7 @@ public class ZDialog extends JDialog
 		zInputPanel.add(zInputField, BorderLayout.CENTER);
 
 		zWarningLabel = new JLabel(" ");
-		zWarningLabel.setForeground(Color.RED);
+		zWarningLabel.setForeground(MainFrame.getRed());
 		zWarningLabel.setFont(NORMAL);
 		zWarningLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		zInputPanel.add(zWarningLabel, BorderLayout.SOUTH);

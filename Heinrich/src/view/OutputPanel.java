@@ -41,7 +41,6 @@ public class OutputPanel extends JPanel
 	private JPanel buttonContainer;
 	private JTabbedPane tabbedPane;
 
-	private final static Color RED = new Color(175, 22, 20);
 	private final static Font NORMAL = new Font("Calibri", Font.BOLD, 16);
 
 	private JButton changeValueButton;
@@ -397,7 +396,7 @@ public class OutputPanel extends JPanel
 		JPanel headerPanel = new JPanel();
 		JLabel headerLabel = new JLabel(title);
 
-		headerPanel.setBackground(RED);
+		headerPanel.setBackground(MainFrame.getRed());
 		headerPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		headerPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 		headerLabel.setForeground(Color.WHITE);

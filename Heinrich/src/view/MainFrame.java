@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -28,6 +29,7 @@ public class MainFrame extends JFrame
 	private static InputPanel inputPanel;
 	private static OutputPanel outputPanel;
 	private static DataHandler data;
+	private final static Color RED = new Color(175, 22, 20);
 
 	/**
 	 * Launch the application.
@@ -150,5 +152,15 @@ public class MainFrame extends JFrame
 	public static DataHandler getDataHandler()
 	{
 		return data;
+	}
+
+	/**
+	 * Return the defined Color Red.
+	 * 
+	 * @return Color Red
+	 */
+	public final static Color getRed()
+	{
+		return RED;
 	}
 }

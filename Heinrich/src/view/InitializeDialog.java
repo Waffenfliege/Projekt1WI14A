@@ -22,7 +22,6 @@ import javax.swing.border.EmptyBorder;
 @SuppressWarnings("serial")
 public class InitializeDialog extends JDialog
 {
-
 	private final JPanel contentPanel = new JPanel();
 
 	/**

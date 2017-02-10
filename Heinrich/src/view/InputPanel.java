@@ -53,15 +53,13 @@ public class InputPanel extends JPanel
 	private static JLabel leftClassBorderLabel, rightClassBorderLabel, classLabel;
 	private JScrollPane tableScrollPane;
 	private static JTable table;
+	private static JButton lastClassButton, calculateButton, nextClassButton, resetInputButton, deleteDataButton;
 
-	private final static Color RED = new Color(175, 22, 20);
 	private final static Font NORMAL = new Font("Calibri", Font.BOLD, 16);
 	private final static Font BIG = new Font("Calibri", Font.PLAIN, 26);
 	private final static String[] TABLE_HEADER = { "j", "K(j)", "h(Kj)", "r(Kj)" };
 
 	private static int index;
-
-	private static JButton lastClassButton, calculateButton, nextClassButton, resetInputButton, deleteDataButton;
 
 	/**
 	 * Creating the panel with all its components.
@@ -93,7 +91,7 @@ public class InputPanel extends JPanel
 
 		classHeaderPanel = new JPanel();
 		classHeaderPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		classHeaderPanel.setBackground(RED);
+		classHeaderPanel.setBackground(MainFrame.getRed());
 
 		classLabel = new JLabel("Klasse 1 definieren");
 		classLabel.setForeground(Color.WHITE);
@@ -156,7 +154,7 @@ public class InputPanel extends JPanel
 
 		quantityHeaderPanel = new JPanel();
 		quantityHeaderPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		quantityHeaderPanel.setBackground(RED);
+		quantityHeaderPanel.setBackground(MainFrame.getRed());
 
 		quantityLabel = new JLabel("Absolute H\u00E4ufigkeit h");
 		quantityLabel.setForeground(Color.WHITE);
@@ -195,7 +193,7 @@ public class InputPanel extends JPanel
 		errorLabel = new JLabel("");
 		errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		errorLabel.setBackground(Color.WHITE);
-		errorLabel.setForeground(RED);
+		errorLabel.setForeground(MainFrame.getRed());
 		errorLabel.setFont(NORMAL);
 		errorLabel.setVisible(false);
 		errorLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -227,7 +225,7 @@ public class InputPanel extends JPanel
 		resetInputButton = new JButton("X");
 		resetInputButton.addActionListener(resetAction);
 		resetInputButton.setMaximumSize(new Dimension(50, 50));
-		resetInputButton.setForeground(RED);
+		resetInputButton.setForeground(MainFrame.getRed());
 		resetInputButton.setFont(BIG);
 
 		calculateButton = new JButton("Berechnen");
