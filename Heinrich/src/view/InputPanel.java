@@ -903,7 +903,7 @@ public class InputPanel extends JPanel
 	{
 		try
 		{
-			float f = Float.parseFloat(input);
+			int f = Integer.parseInt(input);
 			if (f > 0)
 			{
 				return true;
