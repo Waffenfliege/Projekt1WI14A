@@ -35,7 +35,7 @@ import logic.LogicHandler;
 /**
  * Manages the InputPanel and its components.
  * 
- * Used to type in the class values and show the data already typed in.
+ * Needed to type in the class values and show the data already typed in.
  * 
  * @author Jan Sauerland, Lukas Moser, Mathias Engmann.
  *
@@ -53,15 +53,13 @@ public class InputPanel extends JPanel
 	private static JLabel leftClassBorderLabel, rightClassBorderLabel, classLabel;
 	private JScrollPane tableScrollPane;
 	private static JTable table;
+	private static JButton lastClassButton, calculateButton, nextClassButton, resetInputButton, deleteDataButton;
 
-	private final static Color RED = new Color(175, 22, 20);
 	private final static Font NORMAL = new Font("Calibri", Font.BOLD, 16);
 	private final static Font BIG = new Font("Calibri", Font.PLAIN, 26);
 	private final static String[] TABLE_HEADER = { "j", "K(j)", "h(Kj)", "r(Kj)" };
 
 	private static int index;
-
-	private static JButton lastClassButton, calculateButton, nextClassButton, resetInputButton, deleteDataButton;
 
 	/**
 	 * Creating the panel with all its components.
@@ -93,7 +91,7 @@ public class InputPanel extends JPanel
 
 		classHeaderPanel = new JPanel();
 		classHeaderPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		classHeaderPanel.setBackground(RED);
+		classHeaderPanel.setBackground(MainFrame.getRed());
 
 		classLabel = new JLabel("Klasse 1 definieren");
 		classLabel.setForeground(Color.WHITE);
@@ -156,7 +154,7 @@ public class InputPanel extends JPanel
 
 		quantityHeaderPanel = new JPanel();
 		quantityHeaderPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		quantityHeaderPanel.setBackground(RED);
+		quantityHeaderPanel.setBackground(MainFrame.getRed());
 
 		quantityLabel = new JLabel("Absolute H\u00E4ufigkeit h");
 		quantityLabel.setForeground(Color.WHITE);
@@ -195,7 +193,7 @@ public class InputPanel extends JPanel
 		errorLabel = new JLabel("");
 		errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		errorLabel.setBackground(Color.WHITE);
-		errorLabel.setForeground(RED);
+		errorLabel.setForeground(MainFrame.getRed());
 		errorLabel.setFont(NORMAL);
 		errorLabel.setVisible(false);
 		errorLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -222,11 +220,12 @@ public class InputPanel extends JPanel
 		lastClassButton = new JButton("Vorherige Klasse");
 		lastClassButton.addActionListener(lastClassAction);
 		lastClassButton.setFont(NORMAL);
+		lastClassButton.setEnabled(false);
 
 		resetInputButton = new JButton("X");
 		resetInputButton.addActionListener(resetAction);
 		resetInputButton.setMaximumSize(new Dimension(50, 50));
-		resetInputButton.setForeground(RED);
+		resetInputButton.setForeground(MainFrame.getRed());
 		resetInputButton.setFont(BIG);
 
 		calculateButton = new JButton("Berechnen");
@@ -291,7 +290,7 @@ public class InputPanel extends JPanel
 	/**
 	 * Return the InputPanel.
 	 * 
-	 * @return the InputPanel
+	 * @return InputPanel inputPanel
 	 */
 	public InputPanel get()
 	{
@@ -299,11 +298,17 @@ public class InputPanel extends JPanel
 	}
 
 	/**
+	 * Set the values of a table row to the generated tableRowString according
+	 * to the given data.
 	 * 
 	 * @param lowerValue
+	 *            lowerValue
 	 * @param upperValue
+	 *            upperValue
 	 * @param quantity
+	 *            quantity
 	 * @param index
+	 *            index of table
 	 */
 	public static void setTableValue(StatisticClassValue lowerValue, StatisticClassValue upperValue, int quantity, int index)
 	{
@@ -320,6 +325,19 @@ public class InputPanel extends JPanel
 
 	}
 
+	/**
+	 * Processes the given data to generate the respective String Array.
+	 * 
+	 * @param lowerValue
+	 *            lowerValue
+	 * @param upperValue
+	 *            upperValue
+	 * @param quantity
+	 *            quantity
+	 * @param index
+	 *            index of data
+	 * @return String[] Array of the generated data.
+	 */
 	public static String[] getTableRowString(StatisticClassValue lowerValue, StatisticClassValue upperValue, int quantity,
 			int index)
 	{
@@ -359,6 +377,14 @@ public class InputPanel extends JPanel
 		return row;
 	}
 
+	/**
+	 * Processes the current data at a given index to generate the respective
+	 * String Array.
+	 * 
+	 * @param index
+	 *            index of the data to generate
+	 * @return String[] Array of the generated data.
+	 */
 	public static String[] getTableRowString(int index)
 	{
 		String lowerClamp = "";
@@ -400,7 +426,7 @@ public class InputPanel extends JPanel
 	}
 
 	/**
-	 * Updates relative Occurrences in table
+	 * Update the Table to match the current data.
 	 */
 	public static void updateTable()
 	{
@@ -422,9 +448,9 @@ public class InputPanel extends JPanel
 	}
 
 	/**
-	 * Return the leftClassBorderField component.
+	 * Return the Text of the leftClassBorderField component.
 	 * 
-	 * @return the leftClassBorderField component
+	 * @return String Text of leftClassBorderField
 	 */
 	public static String getLeftClassBorderField()
 	{
@@ -432,9 +458,9 @@ public class InputPanel extends JPanel
 	}
 
 	/**
-	 * Return the rightClassBorderField component.
+	 * Return the Text of the rightClassBorderField component.
 	 * 
-	 * @return the rightClassBorderField component
+	 * @return String Text of rightClassBorderField
 	 */
 	public static String getRightClassBorderField()
 	{
@@ -442,9 +468,9 @@ public class InputPanel extends JPanel
 	}
 
 	/**
-	 * Return the quantityField component.
+	 * Return the Text of the quantityField component.
 	 * 
-	 * @return the quantitiyField component
+	 * @return String Text of quantitiyField component
 	 */
 	public static String getQuantityField()
 	{
@@ -453,9 +479,9 @@ public class InputPanel extends JPanel
 	}
 
 	/**
-	 * Return the text of the leftClassBorderLabel
+	 * Return the Text of the leftClassBorderLabel.
 	 * 
-	 * @return the text of the leftClassBorderLabel
+	 * @return String Text of the leftClassBorderLabel
 	 */
 	public static String getLeftClamp()
 	{
@@ -463,9 +489,9 @@ public class InputPanel extends JPanel
 	}
 
 	/**
-	 * Return the text of the rightClassBorderLabel
+	 * Return the Text of the rightClassBorderLabel.
 	 * 
-	 * @return the text of the rightClassBorderLabel
+	 * @return String Text of the rightClassBorderLabel
 	 */
 	public static String getRightClamp()
 	{
@@ -483,7 +509,7 @@ public class InputPanel extends JPanel
 	}
 
 	/**
-	 * Reset the Table in the InputPanel
+	 * Reset the Table in the InputPanel.
 	 */
 	public static void resetTable()
 	{
@@ -774,7 +800,7 @@ public class InputPanel extends JPanel
 	 * given index.
 	 * 
 	 * @param index
-	 *            the index of the entry to show
+	 *            index of the entry to show
 	 */
 	private void updateInputFields(int index)
 	{
@@ -784,19 +810,21 @@ public class InputPanel extends JPanel
 	}
 
 	/**
-	 * Compare Classes
+	 * Compare Classes and save the given user Input if it's valid
 	 * 
 	 * If nothing has changed, do nothing. If something has changed, change or
 	 * add a new Class
 	 * 
 	 * @throws IllegalOverlapException
+	 *             is ignored in this method
 	 * @throws Exception
+	 *             generic Exception is ignored
 	 */
 	private boolean processInputMasks() throws IllegalOverlapException, Exception
 	{
 
 		if (isValid(InputPanel.getLeftClassBorderField()) && isValid(InputPanel.getRightClassBorderField())
-				&& isValid(InputPanel.getQuantityField()))
+				&& isValidPositive(InputPanel.getQuantityField()))
 		{
 			float lowerValue = Float.parseFloat(InputPanel.getLeftClassBorderField());
 			float upperValue = Float.parseFloat(InputPanel.getRightClassBorderField());
@@ -826,6 +854,7 @@ public class InputPanel extends JPanel
 			updateTable();
 			resetFields();
 			calculateButton.setEnabled(true);
+			lastClassButton.setEnabled(true);
 			return true;
 		} else
 		{
@@ -845,17 +874,17 @@ public class InputPanel extends JPanel
 	}
 
 	/**
-	 * Validates numbers in Input Fields
+	 * Validates numbers in Input Fields.
 	 * 
 	 * @param input
 	 *            String from Input Fields
-	 * @return true if input is a valid number
+	 * @return Boolean true if input is a valid number
 	 */
 	private boolean isValid(String input)
 	{
 		try
 		{
-			Double.parseDouble(input);
+			Float.parseFloat(input);
 			return true;
 		} catch (NumberFormatException e)
 		{
@@ -863,6 +892,34 @@ public class InputPanel extends JPanel
 		}
 	}
 
+	/**
+	 * Validates positive numbers in Input Fields.
+	 * 
+	 * @param input
+	 *            String from Input Fields
+	 * @return Boolean true if input is a valid positive number
+	 */
+	private boolean isValidPositive(String input)
+	{
+		try
+		{
+			int f = Integer.parseInt(input);
+			if (f > 0)
+			{
+				return true;
+			} else
+			{
+				return false;
+			}
+		} catch (NumberFormatException e)
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * Reset the Focus of the MainFrame to the leftClassBorderField.
+	 */
 	public void resetFocus()
 	{
 		leftClassBorderField.requestFocus();
@@ -878,12 +935,13 @@ public class InputPanel extends JPanel
 		quantitySumLabel.setText(" n = 0");
 		resetFields();
 		resetTable();
+		lastClassButton.setEnabled(false);
 		calculateButton.setEnabled(false);
 		leftClassBorderField.requestFocus();
 	}
 
 	/**
-	 * 
+	 * Calculate part of the results to be able to show them in the ZDialog.
 	 */
 	public static void calculateResultsPreZ()
 	{
