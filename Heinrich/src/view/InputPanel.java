@@ -222,6 +222,7 @@ public class InputPanel extends JPanel
 		lastClassButton = new JButton("Vorherige Klasse");
 		lastClassButton.addActionListener(lastClassAction);
 		lastClassButton.setFont(NORMAL);
+		lastClassButton.setEnabled(false);
 
 		resetInputButton = new JButton("X");
 		resetInputButton.addActionListener(resetAction);
@@ -796,7 +797,7 @@ public class InputPanel extends JPanel
 	{
 
 		if (isValid(InputPanel.getLeftClassBorderField()) && isValid(InputPanel.getRightClassBorderField())
-				&& isValid(InputPanel.getQuantityField()))
+				&& isValidPositive(InputPanel.getQuantityField()))
 		{
 			float lowerValue = Float.parseFloat(InputPanel.getLeftClassBorderField());
 			float upperValue = Float.parseFloat(InputPanel.getRightClassBorderField());
@@ -826,6 +827,7 @@ public class InputPanel extends JPanel
 			updateTable();
 			resetFields();
 			calculateButton.setEnabled(true);
+			lastClassButton.setEnabled(true);
 			return true;
 		} else
 		{
@@ -855,8 +857,26 @@ public class InputPanel extends JPanel
 	{
 		try
 		{
-			Double.parseDouble(input);
+			Float.parseFloat(input);
 			return true;
+		} catch (NumberFormatException e)
+		{
+			return false;
+		}
+	}
+
+	private boolean isValidPositive(String input)
+	{
+		try
+		{
+			float f = Float.parseFloat(input);
+			if (f > 0)
+			{
+				return true;
+			} else
+			{
+				return false;
+			}
 		} catch (NumberFormatException e)
 		{
 			return false;
@@ -878,6 +898,7 @@ public class InputPanel extends JPanel
 		quantitySumLabel.setText(" n = 0");
 		resetFields();
 		resetTable();
+		lastClassButton.setEnabled(false);
 		calculateButton.setEnabled(false);
 		leftClassBorderField.requestFocus();
 	}
