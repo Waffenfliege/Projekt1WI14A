@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +13,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 /**
+ * 
+ * Manages a dialog to ask the user if he wants to start an new calculation.
  * 
  * @author Jan Sauerland, Mathias Engmann.
  *

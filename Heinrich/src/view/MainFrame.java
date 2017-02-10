@@ -9,10 +9,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import data.DataHandler;
-import logic.LogicHandler;
 
 @SuppressWarnings("serial")
 /**
+ * 
+ * Manages the MainFrame of the Application.
+ * 
+ * MainFrame is able to switch freely between the given JPanels inputPanel and
+ * outputPanel
  * 
  * @author Jan Sauerland
  *
@@ -66,9 +70,11 @@ public class MainFrame extends JFrame
 
 		setContentPane(contentPanel);
 		switchToInputPanel();
-		
-		this.addWindowListener(new WindowAdapter(){
-			public void windowOpened(WindowEvent e){
+
+		this.addWindowListener(new WindowAdapter()
+		{
+			public void windowOpened(WindowEvent e)
+			{
 				inputPanel.resetFocus();
 			}
 		});
@@ -112,14 +118,14 @@ public class MainFrame extends JFrame
 	 */
 	public static void switchToInputPanel()
 	{
-		
+
 		switchPanel(inputPanel);
 	}
 
 	/**
 	 * Return the inputPanel.
 	 * 
-	 * @return the inputPanel
+	 * @return InputPanel inputPanel
 	 */
 	public static InputPanel getInputPanel()
 	{
@@ -129,7 +135,7 @@ public class MainFrame extends JFrame
 	/**
 	 * Return the outputPanel.
 	 * 
-	 * @return the outputPanel
+	 * @return OutputPanel outputPanel
 	 */
 	public static OutputPanel getOutputPanel()
 	{
@@ -139,7 +145,7 @@ public class MainFrame extends JFrame
 	/**
 	 * Return the dataHandler.
 	 * 
-	 * @return the dataHandler
+	 * @return DataHandler dataHandler
 	 */
 	public static DataHandler getDataHandler()
 	{

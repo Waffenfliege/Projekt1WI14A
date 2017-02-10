@@ -59,8 +59,7 @@ public class OutputPanel extends JPanel
 	 * Set up and initialize the OutputPanel.
 	 * 
 	 * @param data
-	 *            the DataHandler that contains all needed data for the
-	 *            calculation.
+	 *            DataHandler that contains all needed data for the calculation.
 	 */
 	public void setData(DataHandler data)
 	{
@@ -71,7 +70,7 @@ public class OutputPanel extends JPanel
 		setLayout(new BorderLayout(20, 5));
 
 		tabbedPane = setUpTabs(data);
-		buttonContainer = setUpButtons(); 
+		buttonContainer = setUpButtons();
 
 		add(tabbedPane, BorderLayout.CENTER);
 		add(buttonContainer, BorderLayout.SOUTH);
@@ -81,9 +80,8 @@ public class OutputPanel extends JPanel
 	 * Set up and initialize the tabbedPane.
 	 * 
 	 * @param data
-	 *            the DataHandler that contains all needed data for the
-	 *            calculation.
-	 * @return the JTabbedPane tabbedPane that contains the JPanels
+	 *            DataHandler that contains all needed data for the calculation.
+	 * @return JTabbedPane tabbedPane that contains the JPanels
 	 *         overviewContainer, histogramContainer and empiricContainer.
 	 */
 	private JTabbedPane setUpTabs(DataHandler data)
@@ -101,14 +99,14 @@ public class OutputPanel extends JPanel
 	}
 
 	/**
-	 * Set up and initialize the overviewContainer.
+	 * Set up, initialize and fill the overviewContainer with the calculated
+	 * result values.
 	 * 
 	 * Contains all the calculation results in their respective JLabels.
 	 * 
 	 * @param data
-	 *            the DataHandler that contains all needed data for the
-	 *            calculation.
-	 * @return the JPanel overviewContainer
+	 *            DataHandler that contains all needed data for the calculation.
+	 * @return JPanel overviewContainer
 	 */
 	private JPanel setUpOverviewContainer(DataHandler data)
 	{
@@ -273,7 +271,7 @@ public class OutputPanel extends JPanel
 		resultLayout.setConstraints(standardLabel3, valueConstraints);
 		resultSetPanel.add(standardLabel3);
 
-		JLabel giniLabel1 = new JLabel("Gini-Koeffizient" );
+		JLabel giniLabel1 = new JLabel("Gini-Koeffizient");
 		giniLabel1.setVerticalAlignment(SwingConstants.TOP);
 		giniLabel1.setFont(NORMAL);
 		resultLayout.setConstraints(giniLabel1, titleConstraints);
@@ -284,7 +282,7 @@ public class OutputPanel extends JPanel
 		giniLabel2.setIcon(new ImageIcon(OutputPanel.class.getResource("/view/gini.png")));
 		resultLayout.setConstraints(giniLabel2, formulaConstraints);
 		resultSetPanel.add(giniLabel2);
-		JLabel giniLabel3 = new JLabel(String.format("%,3f",data.getResults().getGini()));
+		JLabel giniLabel3 = new JLabel(String.format("%,3f", data.getResults().getGini()));
 		giniLabel3.setVerticalAlignment(SwingConstants.BOTTOM);
 		giniLabel3.setFont(NORMAL);
 		resultLayout.setConstraints(giniLabel3, valueConstraints);
@@ -312,9 +310,8 @@ public class OutputPanel extends JPanel
 	 * histogram.
 	 * 
 	 * @param data
-	 *            the DataHandler that contains all needed data for the
-	 *            calculation.
-	 * @return the JPanel histogramContainer
+	 *            DataHandler that contains all needed data for the calculation.
+	 * @return JPanel histogramContainer
 	 * @see GraphFactory
 	 */
 	private JPanel setUpHistogramContainer(DataHandler data, int width, int height, int chartWidth, int chartHeight,
@@ -325,9 +322,7 @@ public class OutputPanel extends JPanel
 		if (!isDetailed)
 		{
 			histogramPanel = GraphFactory.createHistogram(data, 10, 15, width, height, chartWidth, chartHeight, isDetailed);
-		}
-
-		else
+		} else
 		{
 			histogramPanel = GraphFactory.createHistogram(data, 50, 50, width, height, chartWidth, chartHeight, isDetailed);
 		}
@@ -343,9 +338,8 @@ public class OutputPanel extends JPanel
 	 * distribution diagram.
 	 * 
 	 * @param data
-	 *            the DataHandler that contains all needed data for the
-	 *            calculation.
-	 * @return the JPanel empiricContainer
+	 *            DataHandler that contains all needed data for the calculation.
+	 * @return JPanel empiricContainer
 	 * @see GraphFactory
 	 */
 	private JPanel setUpEmpiricContainer(DataHandler data, int width, int height, int chartWidth, int chartHeight,
@@ -357,14 +351,11 @@ public class OutputPanel extends JPanel
 		{
 			empiricPanel = GraphFactory.createEmpiricDistribution(data, 10, 15, width, height, chartWidth, chartHeight,
 					isDetailed);
-		}
-
-		else
+		} else
 		{
 			empiricPanel = GraphFactory.createEmpiricDistribution(data, 50, 50, width, height, chartWidth, chartHeight,
 					isDetailed);
 		}
-
 		empiricContainer.setLayout(new BorderLayout(0, 0));
 		empiricContainer.add(setUpHeaderPanel("Empirische Verteilung"), BorderLayout.NORTH);
 		empiricContainer.add(empiricPanel, BorderLayout.CENTER);
@@ -375,8 +366,8 @@ public class OutputPanel extends JPanel
 	/**
 	 * Set up and initialize the buttonContainer.
 	 * 
-	 * @return the JPanel buttonPanel that contains the buttons
-	 *         changeValueButton and newCalculationButton
+	 * @return JPanel buttonPanel that contains the buttons changeValueButton
+	 *         and newCalculationButton
 	 */
 	private JPanel setUpButtons()
 	{
@@ -395,11 +386,11 @@ public class OutputPanel extends JPanel
 
 	/**
 	 * Set up and initialize a headerPanel that contains a JLabel with the given
-	 * String title
+	 * String title.
 	 * 
 	 * @param title
-	 *            the String for the headerLabel
-	 * @return the JPanel headerPanel
+	 *            String for the headerLabel
+	 * @return JPanel headerPanel
 	 */
 	private JPanel setUpHeaderPanel(String title)
 	{

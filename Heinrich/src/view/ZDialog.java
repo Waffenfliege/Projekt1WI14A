@@ -20,6 +20,13 @@ import javax.swing.border.EmptyBorder;
 import data.DataHandler;
 import logic.LogicHandler;
 
+/**
+ * 
+ * Manages a dialog to ask the user for a "variable z" to continue calculation.
+ * 
+ * @author Jan Sauerland, Mathias Engmann
+ *
+ */
 @SuppressWarnings("serial")
 public class ZDialog extends JDialog
 {
@@ -31,6 +38,12 @@ public class ZDialog extends JDialog
 	private final static Font NORMAL = new Font("Calibri", Font.BOLD, 16);
 	private static DataHandler dataHandler;
 
+	/**
+	 * Constructor for a new Dialog that asks for a "variable z".
+	 * 
+	 * User can either choose from one of the predefined values or put in his
+	 * own value.
+	 */
 	public ZDialog()
 	{
 		dataHandler = MainFrame.getDataHandler();
@@ -139,6 +152,17 @@ public class ZDialog extends JDialog
 		}
 	};
 
+	/**
+	 * Calculate the rest of the results after the variable z was given by the
+	 * user.
+	 * 
+	 * @param z
+	 *            variable z that the user chose
+	 * @throws IllegalArgumentException
+	 *             ignored
+	 * @throws Exception
+	 *             generic Exception is ignored
+	 */
 	public static void calculateResultsPostZ(float z) throws IllegalArgumentException, Exception
 	{
 
