@@ -40,6 +40,7 @@ public class InitializeDialog extends JDialog
 		setResizable(false);
 		setModal(true);
 		setBounds(500, 300, 300, 150);
+		
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -49,36 +50,41 @@ public class InitializeDialog extends JDialog
 		contentPanel.add(zHeaderLabel);
 
 		JPanel buttonPane = new JPanel();
-		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 		buttonPane.setLayout(new FlowLayout(FlowLayout.CENTER, 25, 20));
 
 		JButton okButton = new JButton("Ja");
 		okButton.setActionCommand("Ja");
-		okButton.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent actionEvent)
-			{
-				MainFrame.getDataHandler().getList().clear();
-				MainFrame.getDataHandler().initialize();
-				MainFrame.switchToInputPanel();
-				InputPanel.initialize();
-				dispose();
-			}
-		});
-		buttonPane.add(okButton);
-		getRootPane().setDefaultButton(okButton);
+		okButton.addActionListener(okAction);
 
 		JButton cancelButton = new JButton("Nein");
 		cancelButton.setActionCommand("Nein");
-		cancelButton.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent actionEvent)
-			{
-				dispose();
-			}
-		});
+		cancelButton.addActionListener(cancelAction);
+
+		buttonPane.add(okButton);
 		buttonPane.add(cancelButton);
+
+		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 	}
+
+	private ActionListener okAction = new ActionListener()
+	{
+		public void actionPerformed(ActionEvent actionEvent)
+		{
+			MainFrame.getDataHandler().getList().clear();
+			MainFrame.getDataHandler().initialize();
+			MainFrame.switchToInputPanel();
+			InputPanel.initialize();
+			dispose();
+		}
+	};
+
+	private ActionListener cancelAction = new ActionListener()
+	{
+		public void actionPerformed(ActionEvent actionEvent)
+		{
+			dispose();
+		}
+	};
 
 	/**
 	 * Start a new InitializeDialog.

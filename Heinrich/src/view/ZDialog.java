@@ -34,7 +34,7 @@ public class ZDialog extends JDialog
 	private static JComboBox zInputField;
 	private JLabel zHeaderLabel, zInputLabel, zWarningLabel;
 	private JPanel zInputPanel, buttonContainer;
-	private JButton continueButton;
+	private JButton continueButton, cancelButton;
 	private final static Font NORMAL = new Font("Calibri", Font.BOLD, 16);
 	private static DataHandler dataHandler;
 
@@ -97,7 +97,11 @@ public class ZDialog extends JDialog
 		continueButton = new JButton("Weiter");
 		continueButton.setActionCommand("Weiter");
 		continueButton.addActionListener(continueAction);
+		cancelButton = new JButton("Abbrechen");
+		cancelButton.setActionCommand("Abbrechen");
+		cancelButton.addActionListener(cancelAction);
 		buttonContainer.add(continueButton);
+		buttonContainer.add(cancelButton);
 		getContentPane().add(buttonContainer, BorderLayout.SOUTH);
 	}
 
@@ -149,6 +153,14 @@ public class ZDialog extends JDialog
 			{
 				e.printStackTrace();
 			}
+		}
+	};
+
+	private ActionListener cancelAction = new ActionListener()
+	{
+		public void actionPerformed(ActionEvent actionEvent)
+		{
+			dispose();
 		}
 	};
 
