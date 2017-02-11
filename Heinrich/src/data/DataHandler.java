@@ -117,6 +117,7 @@ public class DataHandler
 	}
 
 	/**
+	 * This method returns the overall sample size.
 	 * @return absolute sample size over all statistical classes
 	 */
 	public int getSampleSize()
@@ -130,18 +131,31 @@ public class DataHandler
 		return sampleSize;
 	}
 	
-	//TODO Comments
+	/**
+	 * Returns the number of existing statistical classes.
+	 * @return size of ArrayList for statistical classes
+	 */
 	public int getClassCount()
 	{
 		return classes.size();
 	}
 	
-	//TODO Comments
+	/**
+	 * This method is used to add or change statistical classes and their values. 
+	 * 
+	 * @param lowerValue StatisticClassValue object of the lower border value and bracket of the statistical class.  
+	 * @param upperValue StatisticClassValue object of the upper border value and bracket of the statistical class. 
+	 * @param absoluteOccurence Number of data points in the handled statistical class.
+	 * @param currentViewIndex Current Integer index of the handled statistical class.
+	 * @throws IllegalOverlapException Exception due to overlapping borders with one or multiple other statistical classes.
+	 * @throws IllegalBorderException  Exception due to illegal borders.
+	 * @throws Exception Suddenly: Exception! //TODO Fix meme
+	 */
 	public void receiveData(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence,
 			int currentViewIndex) throws IllegalOverlapException, IllegalBorderException, Exception
 	{
 		checkBorderOrder(lowerValue, upperValue);
-		// are we handling a newly entered class or were data just changed?
+		// are we handling a newly entered class or was data just changed?
 		// new class
 		if (isNewClass(currentViewIndex))
 		{
@@ -159,7 +173,14 @@ public class DataHandler
 		
 	}
 	
-	//TODO Comments
+	/**
+	 * This method is used for the creation of a new statistical class.
+	 * @param lowerValue StatisticClassValue object of the lower border value and bracket of the statistical class.
+	 * @param upperValue StatisticClassValue object of the upper border value and bracket of the statistical class.
+	 * @param absoluteOccurence Number of data points in the handled statistical class.
+	 * @throws IllegalOverlapException Exception due to overlapping borders.
+	 * @throws Exception Exception due to reached statistical class limit.
+	 */
 	private void checkClassCreation(StatisticClassValue lowerValue, StatisticClassValue upperValue,
 			int absoluteOccurence) throws IllegalOverlapException, Exception
 	{
@@ -195,7 +216,14 @@ public class DataHandler
 		}
 	}
 	
-	//TODO Comments
+	/**
+	 * This method is used for the modification of an existing statistical class.
+	 * @param lowerValue StatisticClassValue object of the lower border value and bracket of the statistical class.
+	 * @param upperValue StatisticClassValue object of the upper border value and bracket of the statistical class.
+	 * @param absoluteOccurence Number of data points in the handled statistical class.
+	 * @param currentViewIndex Current Integer index of the handled statistical class.
+	 * @throws IllegalOverlapException Exception due to overlapping borders with one or multiple other statistical classes.
+	 */
 	private void checkClassChange(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence,
 			int currentViewIndex) throws IllegalOverlapException
 	{
@@ -248,7 +276,13 @@ public class DataHandler
 		}
 	}
 	
-	//TODO Comments
+	/**
+	 * 
+	 * @param currentViewIndex Current Integer index of the handled statistical class.
+	 * @param lowerValue StatisticClassValue object of the lower border value and bracket of the statistical class.
+	 * @param upperValue StatisticClassValue object of the upper border value and bracket of the statistical class.
+	 * @throws IllegalOverlapException Exception due to overlapping borders with one or multiple other statistical classes.
+	 */
 	private void checkForOverlap(int currentViewIndex, StatisticClassValue lowerValue, StatisticClassValue upperValue)
 			throws IllegalOverlapException
 	{
@@ -355,7 +389,12 @@ public class DataHandler
 
 	}
 	
-	//TODO Comments
+	/**
+	 * 
+	 * @param lowerValue StatisticClassValue object of the lower border value and bracket of the statistical class.
+	 * @param upperValue StatisticClassValue object of the upper border value and bracket of the statistical class.
+	 * @throws IllegalBorderException Exception due to illegal borders.
+	 */
 	private void checkBorderOrder(StatisticClassValue lowerValue, StatisticClassValue upperValue)
 		throws IllegalBorderException
 	{
