@@ -331,7 +331,7 @@ public class DataHandler
 				//Klasse kleiner als untergrenze der neuen Klasse. Da ist die Frage ob da ein Abstand 
 				//bestehen darf oder das ein anderer Fehler ist.  
 				
-				if (classes.get(i).getUpperValue().value == lowerValue.value)
+				if (classes.get(i).getUpperValue().value <= lowerValue.value)
 				{
 					if (classes.get(i).getUpperValue().clamp == ClampType.INCLUSIVE && lowerValue.clamp == ClampType.INCLUSIVE)
 					{
