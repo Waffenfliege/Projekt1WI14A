@@ -798,7 +798,7 @@ public class InputPanel extends JPanel
 	};
 
 	/**
-	 * Update the textFields in the InputPanel according to the Data of the
+	 * Update the textFields and clamps in the InputPanel according to the Data of the
 	 * given index.
 	 * 
 	 * @param index
@@ -806,17 +806,19 @@ public class InputPanel extends JPanel
 	 */
 	private void updateInputFields(int index)
 	{	
-		//TODO Update clamps as well
+		//Update clamp for lower value
 		if(MainFrame.getDataHandler().getElement(index).getLowerValue().clamp == ClampType.INCLUSIVE){
 			leftClassBorderLabel.setText(" [ ");
 		} else if(MainFrame.getDataHandler().getElement(index).getLowerValue().clamp == ClampType.EXCLUSIVE){
 			leftClassBorderLabel.setText(" ( ");
 		}
+		//Update clamp for upper Value
 		if(MainFrame.getDataHandler().getElement(index).getUpperValue().clamp == ClampType.INCLUSIVE){
 			rightClassBorderLabel.setText(" ] ");
 		} else if(MainFrame.getDataHandler().getElement(index).getUpperValue().clamp == ClampType.EXCLUSIVE){
 			rightClassBorderLabel.setText(" ) ");
 		}
+		//Update values
 		leftClassBorderField.setText(String.valueOf(MainFrame.getDataHandler().getElement(index).getLowerValue().value));
 		rightClassBorderField.setText(String.valueOf(MainFrame.getDataHandler().getElement(index).getUpperValue().value));
 		quantityField.setText(String.valueOf(MainFrame.getDataHandler().getElement(index).getAbsoluteOccurences()));
