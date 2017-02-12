@@ -277,6 +277,7 @@ public class DataHandler
 	}
 	
 	/**
+	 * This method checks if the given statistical class overlaps with an existing class. 
 	 * 
 	 * @param currentViewIndex Current Integer index of the handled statistical class.
 	 * @param lowerValue StatisticClassValue object of the lower border value and bracket of the statistical class.
@@ -330,7 +331,7 @@ public class DataHandler
 				//Klasse kleiner als untergrenze der neuen Klasse. Da ist die Frage ob da ein Abstand 
 				//bestehen darf oder das ein anderer Fehler ist.  
 				
-				if (classes.get(i).getUpperValue().value <= lowerValue.value)
+				if (classes.get(i).getUpperValue().value == lowerValue.value)
 				{
 					if (classes.get(i).getUpperValue().clamp == ClampType.INCLUSIVE && lowerValue.clamp == ClampType.INCLUSIVE)
 					{
@@ -390,6 +391,7 @@ public class DataHandler
 	}
 	
 	/**
+	 * This method checks if the upper value of the statistical class is higher than lower value and throws an exception is this is not the case. 
 	 * 
 	 * @param lowerValue StatisticClassValue object of the lower border value and bracket of the statistical class.
 	 * @param upperValue StatisticClassValue object of the upper border value and bracket of the statistical class.
