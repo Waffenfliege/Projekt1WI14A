@@ -543,6 +543,8 @@ public class InputPanel extends JPanel
 		table.getColumnModel().getColumn(3).setPreferredWidth(60);
 		table.getColumnModel().getColumn(3).setMaxWidth(80);
 
+		table.setRowHeight(26);
+
 		table.setEnabled(true);
 	}
 
