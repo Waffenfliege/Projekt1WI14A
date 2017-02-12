@@ -805,7 +805,18 @@ public class InputPanel extends JPanel
 	 *            index of the entry to show
 	 */
 	private void updateInputFields(int index)
-	{
+	{	
+		//TODO Update clamps as well
+		if(MainFrame.getDataHandler().getElement(index).getLowerValue().clamp == ClampType.INCLUSIVE){
+			leftClassBorderLabel.setText(" [ ");
+		} else if(MainFrame.getDataHandler().getElement(index).getLowerValue().clamp == ClampType.EXCLUSIVE){
+			leftClassBorderLabel.setText(" ( ");
+		}
+		if(MainFrame.getDataHandler().getElement(index).getUpperValue().clamp == ClampType.INCLUSIVE){
+			rightClassBorderLabel.setText(" ] ");
+		} else if(MainFrame.getDataHandler().getElement(index).getUpperValue().clamp == ClampType.EXCLUSIVE){
+			rightClassBorderLabel.setText(" ) ");
+		}
 		leftClassBorderField.setText(String.valueOf(MainFrame.getDataHandler().getElement(index).getLowerValue().value));
 		rightClassBorderField.setText(String.valueOf(MainFrame.getDataHandler().getElement(index).getUpperValue().value));
 		quantityField.setText(String.valueOf(MainFrame.getDataHandler().getElement(index).getAbsoluteOccurences()));
