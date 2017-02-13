@@ -19,7 +19,7 @@ import data.DataHandler;
  * MainFrame is able to switch freely between the given JPanels inputPanel and
  * outputPanel
  * 
- * @author Jan Sauerland
+ * @author Jan Sauerland, Mathias Engmann
  *
  */
 public class MainFrame extends JFrame

@@ -5,8 +5,7 @@ import java.util.ArrayList;
 import view.InputPanel;
 
 /**
- * 
- * 
+ * Class that provides methods to store, modify and provide data of statistical classes and the results of statistical calculations
  * @author Mathias Engmann, Jonathan Klopfer.
  */
 public class DataHandler

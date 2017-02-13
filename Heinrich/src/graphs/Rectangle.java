@@ -1,10 +1,22 @@
 package graphs;
 
 import java.awt.Color;
-import java.awt.Component;
 
-public class Rectangle extends Component{
+/**
+ * Class that stores the attributes of a simple rectangle
+ * @author Mathias Engmann
+ */
+public class Rectangle{
 
+	private int width, height;
+	private Color color;
+	
+	/**
+	 * Creates an object that stores details about a rectangle
+	 * @param width the width of the rectangle
+	 * @param height the height of the rectangle
+	 * @param color the color of the rectangle
+	 */
 	public Rectangle(int width, int height, Color color){
 		this.width = width;
 		this.height = height;
@@ -29,8 +41,6 @@ public class Rectangle extends Component{
 	public void setColor(Color color) {
 		this.color = color;
 	}
-	private int width;
-	private int height;
-	private Color color;
+
 
 }

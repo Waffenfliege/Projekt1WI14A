@@ -1,21 +1,16 @@
 package graphs;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.GridBagLayout;
 import java.util.ArrayList;
 
-import javax.swing.JPanel;
-
 import data.DataHandler;
-import data.ResultSet;
 import data.StatisticClass;
 import logic.LogicHandler;
 
-
+/**
+ * Class that provides static methods to generate EmpiricDistributionPanel- and HistogramPanel-Objects
+ * @author Mathias Engmann
+ */
 public class GraphFactory {
 
 	private static final float GRAPH_BUFFER_FACTOR = 0.9f;
@@ -26,17 +21,19 @@ public class GraphFactory {
 	private static final Color BORDER_COLOR = Color.BLACK;
 
 
-	/**
-	 * 
-	 * @param dataHandler
-	 * @param positionX 
-	 * @param positionY
-	 * @param width
-	 * @param height
-	 * @param horizontalPadding
-	 * @param verticalPadding
-	 * @return
-	 */
+/**
+ * Instantiates and returns a HistogramPanel-Object
+ * @param data DataHandler to draw the class data from
+ * @param positionX the x position of the origin within the panel
+ * @param positionY the y position of the origin within the panel
+ * @param panelWidth the total preferred width of the panel
+ * @param panelHeight the total preferred height of the panel
+ * @param chartWidth the total width of the chart
+ * @param chartHeight the total height of the chart
+ * @param isDetailed boolean. True if axis lables are to be painted
+ * @return a HistoGramPanel-Object
+ * @author Mathias Engmann
+ */
 	public static HistogramPanel createHistogram(DataHandler data, int positionX, int positionY, int panelWidth, int panelHeight, int chartWidth, int chartHeight, boolean isDetailed) {
 
 		
@@ -54,6 +51,14 @@ public class GraphFactory {
 		return result;
 	}
 	
+	/**
+	 * Sets up the Rectangles for the HistogramPanel
+	 * @param histoGramData ArrayList of HistogramTupels to generate rectangles from
+	 * @param totalDataWidth the sum of the width of all classes
+	 * @param maxDataHeight the highest, particular relative share of all classes
+	 * @return an ArrayList of Rectangles
+	 * @author Mathias Engmann
+	 */
 	private static ArrayList<Rectangle> setUpRectangles(ArrayList<HistogramTupel> histoGramData, int totalDataWidth, float maxDataHeight){
 		ArrayList<Rectangle> results = new ArrayList<Rectangle>();
 		
@@ -69,6 +74,13 @@ public class GraphFactory {
 		
 	}
 	
+	/**
+	 * Sets up the positions of the rectangles in a HisogramPanel
+	 * @param rectangles ArrayList of rectangles to calculate the positions for
+	 * @param height the height of the chart
+	 * @return an ArrayList of Vector2D with all rectangle positions
+	 * @author Mathias Engmann
+	 */
 	private static ArrayList<Vector2D> setUpRectanglePositions(ArrayList<Rectangle> rectangles, int height){
 		ArrayList<Vector2D> results = new ArrayList<Vector2D>();
 		
@@ -89,6 +101,19 @@ public class GraphFactory {
 	
 	}
 
+	/**
+	 * Instantiates and returns a EmpiricDistributionPanel-Object
+	 *  * @param data DataHandler to draw the class data from
+	 * @param positionX the x position of the origin within the panel
+	 * @param positionY the y position of the origin within the panel
+	 * @param panelWidth the total preferred width of the panel
+	 * @param panelHeight the total preferred height of the panel
+	 * @param chartWidth the total width of the chart
+	 * @param chartHeight the total height of the chart
+	 * @param isDetailed boolean. True if axis lables are to be painted
+	 * @return a EmpiricDistributionPanel-Object
+	 * @author Mathias Engmann
+	 */
 	public static EmpiricDistributionPanel createEmpiricDistribution(DataHandler data, int positionX, int positionY, int panelWidth, int panelHeight, int chartWidth, int chartHeight, boolean isDetailed) {
 
 		
@@ -105,6 +130,14 @@ public class GraphFactory {
 		return result;
 	}
 
+	/**
+	 * Sets up the Lines for the empiric distribution panel
+	 * @param empiricGraphData ArrayList of EmpiricTupel to generate lines from
+	 * @param totalDataWidth the sum of the width of all classes
+	 * @return an ArrayList of EmpiricLines
+	 * @author Mathias Engmann
+	 */
+	
 	private static ArrayList<EmpiricLine> setUpLines(ArrayList<EmpiricTupel> empiricGraphData, int totalDataWidth){
 		ArrayList<EmpiricLine> results = new ArrayList<EmpiricLine>();
 	
@@ -118,6 +151,14 @@ public class GraphFactory {
 		return results;
 	}
 	
+	/**
+	 * Sets up the positions of the rectangles in a HisogramPanel
+	 * @param lines ArrayList of EmpiricLines to calculate the position for
+	 * @param quotas ArrayList of EmpiricTupels to draw the relative shares from
+	 * @param chartHeight the maximum height of the chart
+	 * @return an ArrayList of Vector2D with all line positions
+	 * @author Mathias Engmann
+	 */
 	private static ArrayList<Vector2D> setUpLinePositions(ArrayList<EmpiricLine> lines, ArrayList<EmpiricTupel> quotas, int chartHeight)
 	{
 		ArrayList<Vector2D> results = new ArrayList<Vector2D>();
@@ -138,6 +179,13 @@ public class GraphFactory {
 		return results;
 	}
 	
+	/**
+	 * Calculates the sum of the widths of given statistical classes
+	 * @param classes ArrayList of StatisticClasses
+	 * @return int designating the total width of all classes
+	 * @author Mathias Engmann
+	 */
+	
 	public static int getTotalWidth(ArrayList<StatisticClass> classes){
 		int result = 0;
 		
@@ -148,6 +196,13 @@ public class GraphFactory {
 		return result;
 	}
 
+	/**
+	 * Finds the class with the biggest relative share of given statistical classes
+	 * @param classes ArrayList of StatisticClasses to find the target in
+	 * @param sampleSize the numbers of samples that were stored in those classes
+	 * @return the highest relative share of any given class
+	 * @author Mathias Engmann
+	 */
 	public static float getMaxHeight(ArrayList<StatisticClass> classes, int sampleSize) {
 		float value = 0;
 		float heights[] = LogicHandler.getRelativeOccurences(classes, sampleSize);
@@ -158,7 +213,13 @@ public class GraphFactory {
 		}
 		return value;
 	}
-
+	
+	/**
+	 * Calcultes and stores the mathematical data needed for an element to be drawn in the HistogramPanel
+	 * @param data DataHandler to draw the classes from
+	 * @return ArrayList of HistogramTupels to calculate positions and rectangles from
+	 * @author Mathias Engmann
+	 */
 	public static ArrayList<HistogramTupel> generateHistogramData(DataHandler data) {
 		ArrayList<HistogramTupel> results = new ArrayList<HistogramTupel>();
 		
@@ -170,6 +231,12 @@ public class GraphFactory {
 		return results;
 	}
 
+	/**
+	 * Calcultes and stores the mathematical data needed for an element to be drawn in the EmpiricDistributionPanel
+	 * @param data DataHandler to draw the classes from
+	 * @return ArrayList of EmpiricTupels to calculate positions and lines from
+	 * @author Mathias Engmann
+	 */
 	public static ArrayList<EmpiricTupel> generateEmpiricData(DataHandler data)
 	{
 		ArrayList<EmpiricTupel> results = new ArrayList<EmpiricTupel>();

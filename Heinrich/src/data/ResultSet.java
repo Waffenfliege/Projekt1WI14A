@@ -2,6 +2,11 @@ package data;
 
 import logic.Quantile;
 
+/**
+ * Class that stores the results of statistical calculations
+ * @author Mathias Engmann
+ *
+ */
 public class ResultSet {
 
 	private float[] relativeOccurences;
@@ -18,6 +23,10 @@ public class ResultSet {
 	int sampleSize;
 	int classCount;
 	
+	/**
+	 * Creates a ResultSet that stores the results for the given amount of statistical classes
+	 * @param classCount amount of classes to store results for
+	 */
 	public ResultSet(int classCount){
 		relativeOccurences = new float[classCount];
 		classMiddles = new float[classCount];

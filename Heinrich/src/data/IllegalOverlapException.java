@@ -2,6 +2,11 @@ package data;
 
 import java.util.ArrayList;
 
+/**
+ * Exception used to designate value overlaps for statistical classes
+ * @author Mathias Engmann
+ *
+ */
 public class IllegalOverlapException extends RuntimeException{
 	
 	ArrayList<Integer> overlappingClassIndices;

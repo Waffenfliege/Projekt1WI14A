@@ -6,22 +6,14 @@ import data.StatisticClass;
 import data.StatisticClassValue;
 import data.ClampType;
 
-//TODO Comments
 /**
- * 
- * @author Robert, Mathias
+ * Class with static Methods that provides varying statistic calculations
+ * @author Mathias Engmann, Robert
  *
  */
 public class LogicHandler
 {
-	/*
-	 * x Klassenmitten x Median x Arithmetisches Mittel x Absolute Häufigkeit x
-	 * Relative Häufigkeit Histogramm - Breite - Höhe Empirische
-	 * Verteilungsfunktion Quantil Mittlere absolute Abweichung Varianz
-	 * Standardabweichung Gini-Koeffizient
-	 */
-
-	// TODO ERRORHANDLING, KOMMENTARE,
+	
 	/**
 	 * This method calculates the mean value of the given data per statistical class.
 	 * 
@@ -79,18 +71,20 @@ public class LogicHandler
 		}
 	}
 
-	// TODO KOMMENTARE (englisch); DOKU; ERRORHANDLING
+
 	/**
+	 * This method calculates the median of an array of statistic classes.
 	 * 
-	 * @param classes
-	 * @param classMiddles
-	 * @param relativeOccurences
-	 * @return
-	 * @throws Exception
+	 * @param classes     ArrayList of statistical classes to calculate median from.
+	 * @param classMiddles float array of the middles of the classes to calculate median from. 
+	 * @param relativeOccurences float array of the relative occurrences of every class in the array of classes
+	 * @return float, the median of all classes
+	 * @throws IllegalArgumentException If the given arrays are not filled 
+	 * @throws Exception If no class could be found in which the median lies.
 	 * @author Mathias Engmann
 	 */
 	public static float getMedian(ArrayList<StatisticClass> classes, float[] classMiddles, float[] relativeOccurences)
-			throws Exception
+			throws IllegalArgumentException, Exception
 	{
 		// Braucht: Klassenmitten, relative Häufigkeiten
 
@@ -140,13 +134,13 @@ public class LogicHandler
 
 		}
 	}
-
-	// TODO Comments
+	
 	/**
+	 * This method calculates the arithmetic middle of an array of statistical classes
 	 * 
-	 * @param classMiddles
-	 * @param relativeOccurences
-	 * @return
+	 * @param classMiddles float array of the middles of the classes to calculate the arithmetic middle from. 
+	 * @param relativeOccurences float array of the relative occurrences of every class in the array of classes
+	 * @return float, the arithmetic middle of all classes
 	 * @author Jonathan Klopfer
 	 */
 	public static float getArithmeticMiddle(float[] classMiddles, float[] relativeOccurences)
@@ -162,27 +156,27 @@ public class LogicHandler
 		return arithmeticMiddle;
 	}
 
-	// TODO Formel in FK (und Buch?) stimmt nicht. R2 dort ist R1+R2
 	/**
-	 * 
-	 * @param classes
-	 * @param classMiddles
-	 * @param relativeOccurences
-	 * @return
-	 * @throws Exception
+	 * This method calculates the 0.05, 0.1, 0.25, 0.75, 0.9 and 0.95-Quantiles of a given array of statistical classes
+	 * @param classes ArrayList of statistical classes to calculate the quantiles from.
+	 * @param classMiddles float array of the middles of the classes to calculate the quantiles from. 
+	 * @param relativeOccurences float array of the relative occurrences of every class in the array of classes
+	 * @return float array, the aforementioned quantile values
+	 * @throws Exception If no class could be found in which the current quantile lies.
+	 * @author Mathias Engmann
 	 */
 	public static Quantile[] getQuantiles(ArrayList<StatisticClass> classes, float[] classMiddles, float[] relativeOccurences)
 			throws Exception
 	{
 		Quantile[] quantiles = new Quantile[6];
-		quantiles[0] = new Quantile(-1f, 0.2f);
+		quantiles[0] = new Quantile(-1f, 0.05f);
 		quantiles[1] = new Quantile(-1f, 0.1f);
 		quantiles[2] = new Quantile(-1f, 0.25f);
 		quantiles[3] = new Quantile(-1f, 0.75f);
 		quantiles[4] = new Quantile(-1f, 0.9f);
 		quantiles[5] = new Quantile(-1f, 0.95f);
 
-		// Für jedes gesuchte Quantil...
+		// F�r jedes gesuchte Quantil...
 		for (int i = 0; i < quantiles.length; i++)
 		{
 
@@ -190,12 +184,17 @@ public class LogicHandler
 			// (analog wie beim Median)
 			float currentAlpha = quantiles[i].getAlpha();
 
+			//Ri
 			float currentRelativeShare = 0;
 			float relativeShareBeforeHit = 0;
+			
+			//Alpha
 			float threshholdRelativeShare = currentAlpha;
 
 			int classIndexWithQuantile = -1;
 
+			//Add the relative shares of the classes until their sum is bigger than the alpha threshhold. 
+			//The index of the class that was added lastly is the class in which the quantile lies.
 			for (int j = 0; j < relativeOccurences.length; j++)
 			{
 				currentRelativeShare += relativeOccurences[j];
@@ -212,14 +211,17 @@ public class LogicHandler
 				}
 			}
 
-			// Prüfung, ob eine Klasse gefunden wurde
+			// Check if a class has been found
 			if (classIndexWithQuantile == -1)
 			{
 				throw new Exception(
 						"Es konnte keine Klasse ermittelt werden, in dem das Quantil " + threshholdRelativeShare + " liegt");
 			}
-
-			// Quantil berechnen
+			
+			System.out.println("Quantil " + currentAlpha + "liegt in Klasse: " + classIndexWithQuantile + " mit Rx:" + currentRelativeShare);
+			System.out.println("relativer Anteil der vorherigen Klasse: " + relativeShareBeforeHit);
+			
+			// Calculate quantile
 			float z1 = classes.get(classIndexWithQuantile).getLowerValue().value;
 			float z2 = classes.get(classIndexWithQuantile).getUpperValue().value;
 			float r1 = relativeShareBeforeHit;
@@ -232,42 +234,40 @@ public class LogicHandler
 		return quantiles;
 	}
 
-	// TODO Fehler auf Seite 124 im Buch: 1/7 sollte in der Klasser stehen, vor
-	// abs(36-35)
+
+	
 	/**
+	 * This method calculates the absolute mean deviation d of a given array of statistical classes
 	 * 
-	 * @param classes
-	 * @param classMiddles
-	 * @param relativeOccurences
-	 * @param z
-	 * @return
+	 * @param classes ArrayList of statistical classes to calculate the mean absolute deviation from.
+	 * @param classMiddles float array of the middles of the classes to calculate the mean absolute deviation from. 
+	 * @param relativeOccurences float array of the relative occurrences of every class in the array of classes
+	 * @param z parameter needed for the calculation
+	 * @return float, the absolute mean deviation
+	 * @author Mathias Engmann
 	 */
 	public static float getMeanAbsoluteDeviation(ArrayList<StatisticClass> classes, float[] classMiddles,
 			float[] relativeOccurences, float z)
 	{
-		// Braucht: Median, Mittelwert, Randwerte ??
-
 		float sigmaResult = 0;
 		float currentDeviation;
 
+		//for every class, calculate its share to the summed result and add it to the sigmaResult
 		for (int i = 0; i < classes.size(); i++)
 		{
 			currentDeviation = Math.abs(classMiddles[i] - z);
 			sigmaResult += relativeOccurences[i] * currentDeviation;
 		}
-
-		float result = sigmaResult;
-		return result;
+		return sigmaResult;
 	}
-
-	// TODO DOKU; KOMMENTARE; FEHLERCATCHING
+	
 	/**
-	 * 
-	 * @param classes
-	 * @param classMiddles
-	 * @param arithmeticMiddle
-	 * @param sampleSize
-	 * @return
+	 * This method calculates the variance of a given array of statistical classes
+	 * @param classes  ArrayList of statistical classes to calculate median from.
+	 * @param classMiddles float array of the middles of the classes to calculate the variance from. 
+	 * @param arithmeticMiddle float, arithemtic middle of the array of statistical classes
+	 * @param sampleSize the sample size of all statistical classes
+	 * @return float, the variance of all classes
 	 * @author Mathias Engmann
 	 */
 	public static float getVariance(ArrayList<StatisticClass> classes, float[] classMiddles, float arithmeticMiddle,
@@ -289,8 +289,9 @@ public class LogicHandler
 		result = sigmaResult / (sampleSize - 1);
 		return result;
 	}
+	
+	//TODO
 
-	//TODO comments
 	/**
 	 * 
 	 * @param variance
@@ -302,15 +303,16 @@ public class LogicHandler
 		float result = (float) Math.sqrt(variance);
 		return result;
 	}
+	
+	//TODO
 
-	//TODO comments
 	/**
 	 * 
 	 * @param classMiddles
 	 * @param classMiddlesAdded
 	 * @param orderedClassMiddles
 	 * @return
-	 * @author Mathias Engmann
+	 * @author Robert Bilger
 	 */
 	public static float getGiniCoefficient(float[] classMiddles, float classMiddlesAdded, float[][] orderedClassMiddles)
 	{
@@ -387,7 +389,7 @@ public class LogicHandler
 	 * @param classMiddles
 	 * @param relativeOccurences
 	 * @return
-	 * @author Robert
+	 * @author Robert Bilger
 	 */
 	public static float[][] getOrderedClassMiddles(float[] classMiddles, float[] relativeOccurences)
 	{ // Reihenfolge 123 der Klassenmitten ist gleich wie von den H�ufigkeiten
@@ -432,7 +434,7 @@ public class LogicHandler
 	 * 
 	 * @param classMiddles
 	 * @return
-	 * @author Robert
+	 * @author Robert Bilger
 	 */
 	public static float getHighestClassMiddle(float[] classMiddles)
 	{

@@ -66,6 +66,9 @@ public class InitializeDialog extends JDialog
 		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 	}
 
+	/**
+	 * ActionListener for the "weiter"-Button
+	 */
 	private ActionListener okAction = new ActionListener()
 	{
 		public void actionPerformed(ActionEvent actionEvent)
@@ -78,6 +81,9 @@ public class InitializeDialog extends JDialog
 		}
 	};
 
+	/**
+	 * ActionListener for the "abbrechen"-Button
+	 */
 	private ActionListener cancelAction = new ActionListener()
 	{
 		public void actionPerformed(ActionEvent actionEvent)
@@ -87,7 +93,7 @@ public class InitializeDialog extends JDialog
 	};
 
 	/**
-	 * Start a new InitializeDialog.
+	 * Starts a new InitializeDialog.
 	 */
 	public static void start()
 	{

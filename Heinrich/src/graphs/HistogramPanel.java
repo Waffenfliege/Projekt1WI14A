@@ -6,14 +6,16 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
 import view.MainFrame;
 
+/**
+ *
+ * @author Mathias Engmann
+ */
 public class HistogramPanel extends JPanel{
 
 	ArrayList<Rectangle> rectangles;
@@ -25,6 +27,20 @@ public class HistogramPanel extends JPanel{
 
 	int chartWidth;
 	int chartHeight;
+	
+	/**
+	 * Returns a JPanel extension that paints a histogram graph
+	 * @param rectangles ArrayList of Rectangles to be painted
+	 * @param positions ArrayList of Vector2D with the positions of the rectangles to be painted
+	 * @param origin Vector2D designating the origin of the cartesian system
+	 * @param labelColor AWT Color that all lables, the axis and frames are painted in
+	 * @param width The total width of the JPanel
+	 * @param height The total height of the JPanel
+	 * @param chartWidth The width of the chart within the JPanel
+	 * @param chartHeight The height of the chart within the JPanel
+	 * @param detail boolean if axis lables are to be painted
+	 * @author Mathias Engmann
+	 */
 	public HistogramPanel(ArrayList<Rectangle> rectangles, ArrayList<Vector2D>positions, Vector2D origin, Color labelColor, int width, int height, int chartWidth, int chartHeight, boolean detail){
 		super();
 		this.rectangles = rectangles;
@@ -38,6 +54,9 @@ public class HistogramPanel extends JPanel{
 		this.isDetailed  = detail;
 	}
 	
+	/**
+	 * override of the paint method of the underlying JPanel
+	 */
 	@Override
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
