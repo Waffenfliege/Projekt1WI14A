@@ -6,7 +6,12 @@ import data.StatisticClass;
 import data.StatisticClassValue;
 import data.ClampType;
 
-//Robert, Mathias
+//TODO Comments
+/**
+ * 
+ * @author Robert, Mathias
+ *
+ */
 public class LogicHandler
 {
 	/*
@@ -16,13 +21,13 @@ public class LogicHandler
 	 * Standardabweichung Gini-Koeffizient
 	 */
 
-	// TODO ERRORHANDLING, KOMMENTARE
+	// TODO ERRORHANDLING, KOMMENTARE,
 	/**
-	 * Methode zur Ermittlung der Klassenmitten eines Datensatzes
+	 * This method calculates the mean value of the given data per statistical class.
 	 * 
 	 * @param classes
-	 *            Datensatz, für den die Klassenmitten ermittelt werden sollen.
-	 * @return Array der Klassenmitten
+	 *            ArrayList of statistical classes to calculate mean value from.
+	 * @return Array of mean values
 	 * @author Mathias Engmann
 	 */
 	public static float[] getClassMiddles(ArrayList<StatisticClass> classes)
@@ -41,16 +46,16 @@ public class LogicHandler
 		return results;
 	}
 
+
 	/**
-	 * Methode zur Berechnung der relativen Häufigkeiten der Klassen eines
-	 * Datensatzes
+	 * This method calculates the relative occurrence of data points of a statistical class in relation to the other classes of the data record. 
 	 * 
 	 * @param classes
-	 *            Datensatz, für den die relativen Häufigkeiten ermittelt
-	 *            werden sollen.
-	 * @return Array der relativen Häufigkeiten
+	 *            ArrayList of statistical classes to calculate relative occurrences from.
+	 * @param sampleSize Complete number of data points in the record.
+	 * @return Array of relative occurrences.
+	 * @throws IllegalArgumentException Exception due to missing data points.
 	 * @author Mathias Engmann
-	 * @param statisticClass
 	 */
 	public static float[] getRelativeOccurences(ArrayList<StatisticClass> classes, int sampleSize)
 			throws IllegalArgumentException
@@ -74,7 +79,7 @@ public class LogicHandler
 		}
 	}
 
-	// TODO KOMMENTARE; DOKU; ERRORHANDLING
+	// TODO KOMMENTARE (englisch); DOKU; ERRORHANDLING
 	/**
 	 * 
 	 * @param classes
@@ -165,7 +170,6 @@ public class LogicHandler
 	 * @param relativeOccurences
 	 * @return
 	 * @throws Exception
-	 * @author Mathias Engmann
 	 */
 	public static Quantile[] getQuantiles(ArrayList<StatisticClass> classes, float[] classMiddles, float[] relativeOccurences)
 			throws Exception
@@ -237,7 +241,6 @@ public class LogicHandler
 	 * @param relativeOccurences
 	 * @param z
 	 * @return
-	 * @author Mathias Engmann
 	 */
 	public static float getMeanAbsoluteDeviation(ArrayList<StatisticClass> classes, float[] classMiddles,
 			float[] relativeOccurences, float z)
@@ -287,11 +290,12 @@ public class LogicHandler
 		return result;
 	}
 
+	//TODO comments
 	/**
 	 * 
 	 * @param variance
 	 * @return
-	 * @author Mathias Engmann
+	 * @author Robert
 	 */
 	public static float getStandardDeviation(float variance)
 	{
@@ -299,9 +303,14 @@ public class LogicHandler
 		return result;
 	}
 
+	//TODO comments
 	/**
 	 * 
-	 * @author Robert
+	 * @param classMiddles
+	 * @param classMiddlesAdded
+	 * @param orderedClassMiddles
+	 * @return
+	 * @author Mathias Engmann
 	 */
 	public static float getGiniCoefficient(float[] classMiddles, float classMiddlesAdded, float[][] orderedClassMiddles)
 	{
@@ -353,8 +362,11 @@ public class LogicHandler
 		return giniCoefficient;
 	}
 
+	//TODO comments
 	/**
 	 * 
+	 * @param classMiddles
+	 * @return
 	 * @author Robert
 	 */
 	public static float getClassMiddlesAdded(float[] classMiddles)
@@ -369,8 +381,12 @@ public class LogicHandler
 									// Klassenmitten aus.
 	}
 
+	//TODO comments
 	/**
 	 * 
+	 * @param classMiddles
+	 * @param relativeOccurences
+	 * @return
 	 * @author Robert
 	 */
 	public static float[][] getOrderedClassMiddles(float[] classMiddles, float[] relativeOccurences)
@@ -411,8 +427,11 @@ public class LogicHandler
 		return orderedClassMiddles;
 	}
 
+	//TODO Comments
 	/**
 	 * 
+	 * @param classMiddles
+	 * @return
 	 * @author Robert
 	 */
 	public static float getHighestClassMiddle(float[] classMiddles)
