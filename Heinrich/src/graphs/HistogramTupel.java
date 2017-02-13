@@ -14,7 +14,7 @@ public class HistogramTupel {
 	 * @param height the height of the element - the relative share of the class
 	 * @param width width of the element - upper limit of the class minus lower limit of the class
 	 */
-	public HistogramTupel(float height, float width){
+	public HistogramTupel(float height, float width ){
 		this.width = width;
 		this.height = height;
 	}
