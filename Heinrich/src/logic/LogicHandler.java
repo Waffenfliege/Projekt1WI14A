@@ -57,7 +57,7 @@ public class LogicHandler
 		if (sampleSize <= 0 || classes.size() <= 0)
 		{
 
-			throw new IllegalArgumentException("Die Stichprobengröße muss größer als 0 sein.");
+			throw new IllegalArgumentException("Die StichprobengrÃ¶ÃŸe muss grÃ¶ÃŸer als 0 sein.");
 		}
 
 		else
@@ -86,11 +86,11 @@ public class LogicHandler
 	public static float getMedian(ArrayList<StatisticClass> classes, float[] classMiddles, float[] relativeOccurences)
 			throws IllegalArgumentException, Exception
 	{
-		// Braucht: Klassenmitten, relative Häufigkeiten
+		// Braucht: Klassenmitten, relative HÃ¤ufigkeiten
 
 		if (classes.size() == 0 || classMiddles.length == 0 || relativeOccurences.length == 0)
 		{
-			throw new IllegalArgumentException("Die angegebenen Wertearrays sind nicht gefüllt.");
+			throw new IllegalArgumentException("Die angegebenen Wertearrays sind nicht gefÃ¼llt.");
 		}
 
 		else
@@ -176,11 +176,11 @@ public class LogicHandler
 		quantiles[4] = new Quantile(-1f, 0.9f);
 		quantiles[5] = new Quantile(-1f, 0.95f);
 
-		// F�r jedes gesuchte Quantil...
+		// Für jedes gesuchte Quantil...
 		for (int i = 0; i < quantiles.length; i++)
 		{
 
-			// ...zun�chst die Klasse finden, in der sich das Quantil befindet
+			// ...zunächst die Klasse finden, in der sich das Quantil befindet
 			// (analog wie beim Median)
 			float currentAlpha = quantiles[i].getAlpha();
 
@@ -319,7 +319,7 @@ public class LogicHandler
 		float giniCoefficient;
 
 		for (int i = 0; i < 6; i++)
-		{ // Die erste Zeile der Tabelle beinhaltet immer ausschließlich nuller
+		{ // Die erste Zeile der Tabelle beinhaltet immer ausschlieÃŸlich nuller
 			giniTable[i][0] = 0;
 		}
 		for (int i = 1; i < size; i++)
@@ -327,13 +327,13 @@ public class LogicHandler
 			giniTable[0][i] = i;
 		}
 		for (int i = 1; i < size; i++)
-		{ // Die zweite Spalte wird mit den Aufaddierten relativen Häufigkeiten
-			// gefüllt ->u (von m)
+		{ // Die zweite Spalte wird mit den Aufaddierten relativen HÃ¤ufigkeiten
+			// gefÃ¼llt ->u (von m)
 			giniTable[1][i] = orderedClassMiddles[i - 1][1] + giniTable[1][i - 1];
 		}
 		for (int i = 1; i < size; i++)
 		{ // Die dritte Spalte wird mit den Aufaddierten relativen Klassenmitten
-			// gefüllt -> v (von m)
+			// gefÃ¼llt -> v (von m)
 			classMiddlesAddUp = orderedClassMiddles[i - 1][0] + classMiddlesAddUp;
 			giniTable[2][i] = classMiddlesAddUp / classMiddlesAdded;
 		}
@@ -384,13 +384,13 @@ public class LogicHandler
 	 * @author Robert Bilger
 	 */
 	public static float[][] getOrderedClassMiddles(float[] classMiddles, float[] relativeOccurences)
-	{ // Reihenfolge 123 der Klassenmitten ist gleich wie von den H�ufigkeiten
+	{ // Reihenfolge 123 der Klassenmitten ist gleich wie von den Häufigkeiten
 		// (davon wird ausgegangen)
 		float[][] orderedClassMiddles = new float[classMiddles.length][2];
 		int counter = 0;
 		float minValue = classMiddles[0];
 		float minValueOccurence = relativeOccurences[0];
-		float maxValue = getHighestClassMiddle(classMiddles); // h�chster Wert
+		float maxValue = getHighestClassMiddle(classMiddles); // höchster Wert
 																// der
 																// classMiddles
 		// Suche minimalen wert, store in float[i = 0][0], i+1, suche minimalen
@@ -423,8 +423,8 @@ public class LogicHandler
 
 	/**
 	 * 
-	 * @param classMiddles ROOOBERT
-	 * @return ROOOBERT
+	 * @param classMiddles, to search for the highest classMiddle
+	 * @return float, highest classMiddle
 	 * @author Robert Bilger
 	 */
 	public static float getHighestClassMiddle(float[] classMiddles)
