@@ -101,7 +101,6 @@ public class MainFrame extends JFrame
 	 * Change the current shown contentPanel of the MainFrame to the current
 	 * outputPanel.
 	 * 
-	 * @see switchPanel()
 	 */
 	public static void switchToOutputPanel()
 	{

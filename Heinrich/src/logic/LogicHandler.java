@@ -294,8 +294,8 @@ public class LogicHandler
 
 	/**
 	 * 
-	 * @param variance
-	 * @return
+	 * @param variance ROOOBERT
+	 * @return ROOOBERT
 	 * @author Robert
 	 */
 	public static float getStandardDeviation(float variance)
@@ -308,10 +308,10 @@ public class LogicHandler
 
 	/**
 	 * 
-	 * @param classMiddles
-	 * @param classMiddlesAdded
-	 * @param orderedClassMiddles
-	 * @return
+	 * @param classMiddles ROOOBERT
+	 * @param classMiddlesAdded ROOOBERT
+	 * @param orderedClassMiddles ROOOBERT
+	 * @return ROOOBERT
 	 * @author Robert Bilger
 	 */
 	public static float getGiniCoefficient(float[] classMiddles, float classMiddlesAdded, float[][] orderedClassMiddles)
@@ -367,8 +367,8 @@ public class LogicHandler
 	//TODO comments
 	/**
 	 * 
-	 * @param classMiddles
-	 * @return
+	 * @param classMiddles ROOOBERT
+	 * @return ROOOBERT
 	 * @author Robert
 	 */
 	public static float getClassMiddlesAdded(float[] classMiddles)
@@ -386,9 +386,9 @@ public class LogicHandler
 	//TODO comments
 	/**
 	 * 
-	 * @param classMiddles
-	 * @param relativeOccurences
-	 * @return
+	 * @param classMiddles ROOOBERT
+	 * @param relativeOccurences ROOOBERT
+	 * @return ROOOBERT
 	 * @author Robert Bilger
 	 */
 	public static float[][] getOrderedClassMiddles(float[] classMiddles, float[] relativeOccurences)
@@ -432,8 +432,8 @@ public class LogicHandler
 	//TODO Comments
 	/**
 	 * 
-	 * @param classMiddles
-	 * @return
+	 * @param classMiddles ROOOBERT
+	 * @return ROOOBERT
 	 * @author Robert Bilger
 	 */
 	public static float getHighestClassMiddle(float[] classMiddles)

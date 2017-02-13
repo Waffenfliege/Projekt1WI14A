@@ -103,7 +103,7 @@ public class GraphFactory {
 
 	/**
 	 * Instantiates and returns a EmpiricDistributionPanel-Object
-	 *  * @param data DataHandler to draw the class data from
+	 * @param data DataHandler to draw the class data from
 	 * @param positionX the x position of the origin within the panel
 	 * @param positionY the y position of the origin within the panel
 	 * @param panelWidth the total preferred width of the panel
