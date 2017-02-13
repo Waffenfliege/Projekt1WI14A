@@ -386,23 +386,13 @@ public class LogicHandler
 		int counter = 0;
 		float minValue = classMiddles[0];
 		float minValueOccurence = relativeOccurences[0];
-		float maxValue = getHighestClassMiddle(classMiddles); // höchster Wert
-																// der
-																// classMiddles
-		// Suche minimalen wert, store in float[i = 0][0], i+1, suche minimalen
-		// wert usw, bis counter bei length-1 ist
+		float maxValue = getHighestClassMiddle(classMiddles);
 
 		while (counter < classMiddles.length)
 		{
 			for (int i = 1; i < classMiddles.length; i++)
 			{
-				if (classMiddles[i] < minValue && classMiddles[i] > orderedClassMiddles[i - 1][0]) // Problem
-																									// wenn
-																									// orderedClassMiddles
-																									// noch
-																									// keinen
-																									// Wert
-																									// hat?
+				if (classMiddles[i] < minValue && classMiddles[i] > orderedClassMiddles[i - 1][0])
 				{
 					minValue = classMiddles[i];
 					minValueOccurence = relativeOccurences[i];
