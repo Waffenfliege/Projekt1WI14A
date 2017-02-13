@@ -125,7 +125,7 @@ public class GraphFactory {
 		ArrayList<EmpiricLine> lines = setUpLines(empiricGraphData, totalDataWidth);
 		ArrayList<Vector2D> positions= setUpLinePositions(lines, empiricGraphData, chartHeight);
 		Vector2D origin = new Vector2D(positionX, panelHeight-chartHeight-positionY);
-		EmpiricDistributionPanel result = new EmpiricDistributionPanel(lines, positions, origin, BORDER_COLOR, panelWidth, panelHeight, chartWidth, chartHeight, isDetailed);
+		EmpiricDistributionPanel result = new EmpiricDistributionPanel(empiricGraphData, lines, positions, origin, BORDER_COLOR, panelWidth, panelHeight, chartWidth, chartHeight, isDetailed);
 		
 		return result;
 	}

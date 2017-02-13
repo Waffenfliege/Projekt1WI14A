@@ -97,17 +97,6 @@ public class HistogramPanel extends JPanel{
 	
 		if(isDetailed){
 			//########################## MARKERS ###########################
-			//X-AXIS Regular Markers
-			g2.setStroke(new BasicStroke(1));
-			float markerStep = chartWidth*0.9f/10.0f;
-			for(int i=1; i<=10;i++){
-				int x = origin.getPosX()+ (int)(markerStep*i);
-				System.out.println("Marker:"+ x);
-				int y = origin.getPosY()+chartHeight-6;
-				int xTarget =   origin.getPosX()+ (int)(markerStep*i);
-				int yTarget  =origin.getPosY()+chartHeight+6;
-				g2.drawLine(x, y, xTarget, yTarget);
-			}
 			
 			//X-AXIS Markers
 			g2.setStroke(new BasicStroke(3));
@@ -121,16 +110,6 @@ public class HistogramPanel extends JPanel{
 			}
 			
 			
-			//Y-AXIS Regular Markers
-			g2.setStroke(new BasicStroke(1));
-			markerStep = chartHeight*0.9f/10.0f;
-			for(int i=1; i<11;i++){
-				int x = origin.getPosX()-6;
-				int y = origin.getPosY()+chartHeight-(int)(markerStep*i);
-				int xTarget =   origin.getPosX()+6;
-				int yTarget = origin.getPosY()+chartHeight-(int)(markerStep*i);
-				g2.drawLine(x, y, xTarget, yTarget);
-			}
 			
 			//Y-AXIS Column Markers
 			g2.setStroke(new BasicStroke(3));
@@ -163,7 +142,7 @@ public class HistogramPanel extends JPanel{
 			//X-AXIS - Label
 			g2.setColor(Color.BLACK);
 			g2.setFont(new Font("Calibri", Font.BOLD, 16));
-			g2.drawString("Klassenbreite ", origin.getPosX()+chartWidth-50, origin.getPosY()+chartHeight+30);
+			g2.drawString("Klassenbreite ", origin.getPosX()+chartWidth-50, origin.getPosY()+chartHeight+25);
 			
 			
 			//Y-AXIS - Label
@@ -171,28 +150,41 @@ public class HistogramPanel extends JPanel{
 			g2.setFont(new Font("Calibri", Font.BOLD, 16));
 			g2.drawString("r(H) ", origin.getPosX()-35, origin.getPosY()+10);
 			
-			//X-AXIS- Regular Labels
-			float markerValueStep = MainFrame.getDataHandler().getHighestValue()/10;
-			markerStep = chartWidth*0.9f/10.0f;
-			for(int i=1; i<=10;i++){
-				String labelString = String.format("%.2f",MainFrame.getDataHandler().getLowestValue()+markerValueStep*i);
-				int stringWidth = g2.getFontMetrics().stringWidth(labelString);
-				int x = origin.getPosX()+ (int)(markerStep*i)-stringWidth/2;
-				int y = origin.getPosY()+chartHeight+ 15;
-				g2.setColor(Color.BLACK);
-				g2.setFont(new Font("Calibri", Font.BOLD, 10));
-				g2.drawString(String.valueOf(labelString), x, y);
-			}
+			//X-AXIS- Marker Labels
+			String labelString  = String.format("%.2f",MainFrame.getDataHandler().getList().get(0).getLowerValue().value);
+			int stringWidth = g2.getFontMetrics().stringWidth(labelString);
+			int x = origin.getPosX()-stringWidth/2;
+			int y = origin.getPosY()+chartHeight+ 25;
+			g2.setColor(Color.BLACK);
+			g2.setFont(new Font("Calibri", Font.BOLD, 16));
+			g2.drawString(labelString, x, y);
 			
-			//Y-AXIS- Regular Labels
-			markerValueStep = GraphFactory.getMaxHeight(MainFrame.getDataHandler().getList(), MainFrame.getDataHandler().getSampleSize())/10;
-			markerStep = chartHeight*0.9f/10.0f;
-			for(int i=1; i<=10;i++){
-				String labelString = String.format("%.2f", markerValueStep *i);
-				int x = origin.getPosX()-35;
-				int y = origin.getPosY()+ chartHeight-(int)(markerStep*i)+3;
+			for(int i=0; i<rectangles.size();i++){
+				labelString = String.format("%.2f",MainFrame.getDataHandler().getList().get(i).getUpperValue().value);
+				stringWidth = g2.getFontMetrics().stringWidth(labelString);
+				x = origin.getPosX()+positions.get(i).getPosX()+rectangles.get(i).getWidth()-stringWidth/2;
+				y = origin.getPosY()+chartHeight+ 25;
 				g2.setColor(Color.BLACK);
-				g2.setFont(new Font("Calibri", Font.BOLD, 10));
+				g2.setFont(new Font("Calibri", Font.BOLD, 16));
+				g2.drawString(labelString, x, y);
+			}
+
+			//Y-AXIS- Marker Labels
+			labelString  = "0.00";
+			stringWidth = g2.getFontMetrics().stringWidth(labelString);
+			x = origin.getPosX()-15-stringWidth;
+			y = origin.getPosY()+chartHeight;
+			g2.setColor(Color.BLACK);
+			g2.setFont(new Font("Calibri", Font.BOLD, 16));
+			g2.drawString(labelString, x, y);
+			
+			for(int i=0; i<rectangles.size();i++){
+				labelString = String.format("%.2f",MainFrame.getDataHandler().getResults().getRelativeOccurences()[i]);
+				stringWidth = g2.getFontMetrics().stringWidth(labelString);
+				x = origin.getPosX()-15-stringWidth;
+				y =origin.getPosY()+positions.get(i).getPosY();
+				g2.setColor(Color.BLACK);
+				g2.setFont(new Font("Calibri", Font.BOLD, 16));
 				g2.drawString(String.valueOf(labelString), x, y);
 			}
 			

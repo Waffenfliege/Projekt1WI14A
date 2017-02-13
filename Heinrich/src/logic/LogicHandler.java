@@ -180,7 +180,7 @@ public class LogicHandler
 		for (int i = 0; i < quantiles.length; i++)
 		{
 
-			// ...zunÃ¤chst die Klasse finden, in der sich das Quantil befindet
+			// ...zunächst die Klasse finden, in der sich das Quantil befindet
 			// (analog wie beim Median)
 			float currentAlpha = quantiles[i].getAlpha();
 

@@ -18,6 +18,7 @@ import view.MainFrame;
 public class EmpiricDistributionPanel extends JPanel{
 
 	ArrayList<EmpiricLine> lines;
+	ArrayList<EmpiricTupel> tupels;
 	ArrayList<Vector2D>positions;
 	Vector2D origin;
 	Color labelColor;
@@ -29,6 +30,7 @@ public class EmpiricDistributionPanel extends JPanel{
 	
 	/**
 	 * Returns a JPanel extension that paints an empiric distribution graph
+	 * @param tupels ArrayList of EmpiricTupels
 	 * @param lines ArrayList of EmpiricLines to be painted
 	 * @param positions ArrayList of Vector2D with the positions of the lines to be painted
 	 * @param origin Vector2D designating the origin of the cartesian system
@@ -40,9 +42,10 @@ public class EmpiricDistributionPanel extends JPanel{
 	 * @param detail boolean if axis lables are to be painted
 	 * @author Mathias Engmann
 	 */
-	public EmpiricDistributionPanel(ArrayList<EmpiricLine> lines, ArrayList<Vector2D>positions, Vector2D origin, Color labelColor, int width, int height, int chartWidth, int chartHeight, boolean detail){
+	public EmpiricDistributionPanel(ArrayList<EmpiricTupel> tupels, ArrayList<EmpiricLine> lines, ArrayList<Vector2D>positions, Vector2D origin, Color labelColor, int width, int height, int chartWidth, int chartHeight, boolean detail){
 		super();
 
+		this.tupels = tupels;
 		this.lines = lines;
 		this.positions = positions;	
 		this.origin= origin;
@@ -100,16 +103,6 @@ public class EmpiricDistributionPanel extends JPanel{
 	
 		if(isDetailed){
 			//########################## MARKERS ###########################
-			//X-AXIS Regular Markers
-			g2.setStroke(new BasicStroke(1));
-			float markerStep = chartWidth*0.9f/10.0f;
-			for(int i=1; i<=10;i++){
-				int x = origin.getPosX()+ (int)(markerStep*i);
-				int y = origin.getPosY()+chartHeight-6;
-				int xTarget =   origin.getPosX()+ (int)(markerStep*i);
-				int yTarget  =origin.getPosY()+chartHeight+6;
-				g2.drawLine(x, y, xTarget, yTarget);
-			}
 			
 			//X-AXIS Markers
 			g2.setStroke(new BasicStroke(3));
@@ -121,14 +114,13 @@ public class EmpiricDistributionPanel extends JPanel{
 				g2.drawLine(x, y, xTarget, yTarget);
 			}
 			
-			//Y-AXIS Regular Markers
-			g2.setStroke(new BasicStroke(1));
-			markerStep = chartHeight*0.9f/10.0f ;
-			for(int i=1; i<=10;i++){
-				int x = origin.getPosX()-6;
-				int y = origin.getPosY()+(int)(markerStep*i);
-				int xTarget =   origin.getPosX()+6;
-				int yTarget = origin.getPosY()+(int)(markerStep*i);
+			//Y-AXIS Markers
+			g2.setStroke(new BasicStroke(3));
+			for(int i=0; i<lines.size();i++){
+				int x =  origin.getPosX()-12;
+				int y =origin.getPosY()+positions.get(i).getPosY();
+				int xTarget =   origin.getPosX()+12;
+				int yTarget  =origin.getPosY()+positions.get(i).getPosY();
 				g2.drawLine(x, y, xTarget, yTarget);
 			}
 			
@@ -153,7 +145,7 @@ public class EmpiricDistributionPanel extends JPanel{
 			//X-AXIS - Label
 			g2.setColor(Color.BLACK);
 			g2.setFont(new Font("Calibri", Font.BOLD, 16));
-			g2.drawString("Klassenbreite ", origin.getPosX()+chartWidth-50, origin.getPosY()+chartHeight+30);
+			g2.drawString("Klassenbreite ", origin.getPosX()+chartWidth-50, origin.getPosY()+chartHeight+25);
 			
 			
 			//Y-AXIS - Label
@@ -161,29 +153,44 @@ public class EmpiricDistributionPanel extends JPanel{
 			g2.setFont(new Font("Calibri", Font.BOLD, 16));
 			g2.drawString("R(H) ", origin.getPosX()-35, origin.getPosY()+10);
 			
-			//X-AXIS- Regular Labels
-			float markerValueStep = MainFrame.getDataHandler().getHighestValue()/11;
-			markerStep = chartWidth*0.9f/10.0f;
-			for(int i=1; i<=10;i++){
-				String labelString = String.format("%.2f",MainFrame.getDataHandler().getLowestValue()+markerValueStep*i);
-				int stringWidth = g2.getFontMetrics().stringWidth(labelString);
-				int x = origin.getPosX()+ (int)(markerStep*i)-stringWidth/2;
-				int y = origin.getPosY()+chartHeight+ 15;
+			//X-AXIS- Marker Labels
+			String labelString  = String.format("%.2f",MainFrame.getDataHandler().getList().get(0).getLowerValue().value);
+			int stringWidth = g2.getFontMetrics().stringWidth(labelString);
+			int x = origin.getPosX()-stringWidth/2;
+			int y = origin.getPosY()+chartHeight+ 25;
+			g2.setColor(Color.BLACK);
+			g2.setFont(new Font("Calibri", Font.BOLD, 16));
+			g2.drawString(labelString, x, y);
+			
+			for(int i=0; i<lines.size();i++){
+				labelString = String.format("%.2f",MainFrame.getDataHandler().getList().get(i).getUpperValue().value);
+				stringWidth = g2.getFontMetrics().stringWidth(labelString);
+				x = origin.getPosX()+positions.get(i).getPosX()+lines.get(i).getLength()-stringWidth/2;
+				y = origin.getPosY()+chartHeight+ 25;
 				g2.setColor(Color.BLACK);
-				g2.setFont(new Font("Calibri", Font.BOLD, 10));
+				g2.setFont(new Font("Calibri", Font.BOLD, 16));
 				g2.drawString(labelString, x, y);
 			}
+
+			//Y-AXIS- Marker Labels
+			labelString  = "0.00";
+			stringWidth = g2.getFontMetrics().stringWidth(labelString);
+			x = origin.getPosX()-15-stringWidth;
+			y = origin.getPosY()+chartHeight;
+			g2.setColor(Color.BLACK);
+			g2.setFont(new Font("Calibri", Font.BOLD, 16));
+			g2.drawString(labelString, x, y);
 			
-			//Y-AXIS- Regular Labels
-			for(int i=1; i<=10;i++){
-				String labelString = String.format("%.2f", 1.0f/10*i);
-				int x = origin.getPosX()-35;
-				int y = origin.getPosY()+chartHeight-chartHeight/11*i;
+			for(int i=0; i<lines.size();i++){
+				labelString = String.format("%.2f",tupels.get(i).getSummedQuote());
+				stringWidth = g2.getFontMetrics().stringWidth(labelString);
+				x = origin.getPosX()-15-stringWidth;
+				y =origin.getPosY()+positions.get(i).getPosY();
 				g2.setColor(Color.BLACK);
-				g2.setFont(new Font("Calibri", Font.BOLD, 10));
+				g2.setFont(new Font("Calibri", Font.BOLD, 16));
 				g2.drawString(String.valueOf(labelString), x, y);
 			}
-			
+	
 		}
 		
 		//Y-AXIS - LINES
