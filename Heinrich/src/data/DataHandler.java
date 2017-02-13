@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 import view.InputPanel;
 
+/**
+ * 
+ * 
+ * @author Mathias Engmann, Jonathan Klopfer.
+ */
 public class DataHandler
 {
 	private final static int MAX_CLASS_COUNT = 20;
@@ -192,7 +197,7 @@ public class DataHandler
 				putListItem(lowerValue, upperValue, absoluteOccurence);
 			}
 
-			// classes already existing
+			// some classes already existing
 			else
 			{
 
@@ -288,106 +293,31 @@ public class DataHandler
 			throws IllegalOverlapException
 	{
 		ArrayList<Integer> result = new ArrayList<Integer>();
-	
-		//New class Creation 
-		if(currentViewIndex==-1){
-			for (int i = 0; i < classes.size(); i++)
-			{
-				if (classes.get(i).getUpperValue().value <= lowerValue.value)
-				{
-					if (classes.get(i).getUpperValue().clamp == ClampType.INCLUSIVE && lowerValue.clamp == ClampType.INCLUSIVE)
-					{
-						result.add(i);
-					} else
-					{
-						continue;
-					}
-				} else if (classes.get(i).getLowerValue().value >= upperValue.value)
-				{
-					if (classes.get(i).getLowerValue().clamp == ClampType.INCLUSIVE && upperValue.clamp == ClampType.INCLUSIVE)
-					{
-						result.add(i);
-					} else
-					{
-						continue;
-					}
-				} else
-				{
-					result.add(i);
-				}
-			}
-
 		
-		}
-		
-		//Class change - exclude current class from set of classes to test
-		//Happens for classes to be changed
-		else{
-			//All classes below changed index
-			for (int i = 0; i < currentViewIndex; i++)
-			{
-				//TODO kleiner und gleich muss getrennt behandelt werden! unterscheidung fehler. 
-				//Gleiche klammern bei gleichen Werten. Klammern egal wenn obergrenze der bestehenden 
-				//Klasse kleiner als untergrenze der neuen Klasse. Da ist die Frage ob da ein Abstand 
-				//bestehen darf oder das ein anderer Fehler ist.  
-				
-				if (classes.get(i).getUpperValue().value <= lowerValue.value)
-				{
-					if (classes.get(i).getUpperValue().clamp == ClampType.INCLUSIVE && lowerValue.clamp == ClampType.INCLUSIVE)
-					{
-						result.add(i);
-					} else
-					{
-						continue;
-					}
-				} else if (classes.get(i).getLowerValue().value >= upperValue.value)
-				{
-					if (classes.get(i).getLowerValue().clamp == ClampType.INCLUSIVE && upperValue.clamp == ClampType.INCLUSIVE)
-					{
-						result.add(i);
-					} else
-					{
-						continue;
-					}
-				} else
-				{
-					result.add(i);
-				}
-			}
+		// Check all existing classes
+		for(int i = 0; i < classes.size(); i++){
 			
-			//All classes above changed index
-			for (int i = currentViewIndex+1; i < classes.size(); i++)
-			{
-				if (classes.get(i).getUpperValue().value <= lowerValue.value)
-				{
-					if (classes.get(i).getUpperValue().clamp == ClampType.INCLUSIVE && lowerValue.clamp == ClampType.INCLUSIVE)
-					{
-						result.add(i);
-					} else
-					{
-						continue;
-					}
-				} else if (classes.get(i).getLowerValue().value >= upperValue.value)
-				{
-					if (classes.get(i).getLowerValue().clamp == ClampType.INCLUSIVE && upperValue.clamp == ClampType.INCLUSIVE)
-					{
-						result.add(i);
-					} else
-					{
-						continue;
-					}
-				} else
-				{
+			// Exclude given class if it already exists
+			if(!(currentViewIndex == i)){
+				// Handle possible options first:
+				if(classes.get(i).getUpperValue().value < lowerValue.value){
+					continue; //1
+				} else if(classes.get(i).getLowerValue().value > upperValue.value){
+					continue; //7 
+				} else if(classes.get(i).getUpperValue().value == lowerValue.value && !(classes.get(i).getUpperValue().clamp == ClampType.INCLUSIVE && lowerValue.clamp == ClampType.INCLUSIVE)){
+					continue; //2a
+				} else if(classes.get(i).getLowerValue().value == upperValue.value && !(classes.get(i).getLowerValue().clamp == ClampType.INCLUSIVE && upperValue.clamp == ClampType.INCLUSIVE)){
+					continue; //6a
+				} else {
 					result.add(i);
 				}
 			}
 		}
 		
 		if (result.size() > 0)
-		{
-			throw new IllegalOverlapException("Klassen überschneiden sich.", result);
-		}
-
+			{
+				throw new IllegalOverlapException("Klassen \u00fcberschneiden sich.", result);
+			}
 	}
 	
 	/**
