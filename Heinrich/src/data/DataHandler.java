@@ -300,13 +300,13 @@ public class DataHandler
 			if(!(currentViewIndex == i)){
 				// Handle possible options first:
 				if(classes.get(i).getUpperValue().value < lowerValue.value){
-					continue; //1
+					continue; 
 				} else if(classes.get(i).getLowerValue().value > upperValue.value){
-					continue; //7 
+					continue;
 				} else if(classes.get(i).getUpperValue().value == lowerValue.value && !(classes.get(i).getUpperValue().clamp == ClampType.INCLUSIVE && lowerValue.clamp == ClampType.INCLUSIVE)){
-					continue; //2a
+					continue; 
 				} else if(classes.get(i).getLowerValue().value == upperValue.value && !(classes.get(i).getLowerValue().clamp == ClampType.INCLUSIVE && upperValue.clamp == ClampType.INCLUSIVE)){
-					continue; //6a
+					continue; 
 				} else {
 					result.add(i);
 				}
