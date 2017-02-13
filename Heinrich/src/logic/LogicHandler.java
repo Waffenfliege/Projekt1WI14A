@@ -302,38 +302,35 @@ public class LogicHandler
 		return result;
 	}
 	/**
-	 * 
-	 * @param classMiddles ROOOBERT
-	 * @param classMiddlesAdded ROOOBERT
-	 * @param orderedClassMiddles ROOOBERT
-	 * @return ROOOBERT
+	 * This methode calculates the gini coefficient
+	 * @param classMiddles float array of all the class middles
+	 * @param classMiddlesAdded float of all class middles added together
+	 * @param orderedClassMiddles float 2D array, for the ordered class middles and their relative occurences
+	 * @return float, the gini coefficient
 	 * @author Robert Bilger
 	 */
 	public static float getGiniCoefficient(float[] classMiddles, float classMiddlesAdded, float[][] orderedClassMiddles)
 	{
-		float size = classMiddles.length + 1;// Da die erste Zeile voller nuller
-												// ist
+		float size = classMiddles.length + 1;
 		float[][] giniTable = new float[6][(int) size];
 		float classMiddlesAddUp = 0;
 		float lorenz = 0;
 		float giniCoefficient;
 
 		for (int i = 0; i < 6; i++)
-		{ // Die erste Zeile der Tabelle beinhaltet immer ausschlieÃŸlich nuller
+		{ // Only 0s in the first row
 			giniTable[i][0] = 0;
 		}
 		for (int i = 1; i < size; i++)
-		{ // Die erste Spalte wird durchnummerriert -> m
+		{ // -> m (row number)
 			giniTable[0][i] = i;
 		}
 		for (int i = 1; i < size; i++)
-		{ // Die zweite Spalte wird mit den Aufaddierten relativen HÃ¤ufigkeiten
-			// gefÃ¼llt ->u (von m)
+		{ // -> u (of m)
 			giniTable[1][i] = orderedClassMiddles[i - 1][1] + giniTable[1][i - 1];
 		}
 		for (int i = 1; i < size; i++)
-		{ // Die dritte Spalte wird mit den Aufaddierten relativen Klassenmitten
-			// gefÃ¼llt -> v (von m)
+		{ // -> v (of m)
 			classMiddlesAddUp = orderedClassMiddles[i - 1][0] + classMiddlesAddUp;
 			giniTable[2][i] = classMiddlesAddUp / classMiddlesAdded;
 		}
@@ -359,9 +356,9 @@ public class LogicHandler
 		return giniCoefficient;
 	}
 	/**
-	 * 
-	 * @param classMiddles ROOOBERT
-	 * @return ROOOBERT
+	 * This methode adds all class middles together
+	 * @param classMiddles float array with all class middles
+	 * @return float, all classMiddles added together
 	 * @author Robert
 	 */
 	public static float getClassMiddlesAdded(float[] classMiddles)
@@ -372,20 +369,19 @@ public class LogicHandler
 		{
 			classMiddlesAdded = classMiddles[i] + classMiddlesAdded;
 		}
-		return classMiddlesAdded; // Gibt die Klassenmitten + vorherige
-									// Klassenmitten aus.
+		//Problem if there are negative class middles? 
+		return classMiddlesAdded;
 	}
 
 	/**
-	 * 
-	 * @param classMiddles ROOOBERT
-	 * @param relativeOccurences ROOOBERT
-	 * @return ROOOBERT
+	 * This methode sort the class middles with their relative occurences
+	 * @param classMiddles float array with all class middles
+	 * @param relativeOccurences float array with all relative occurences
+	 * @return float 2D array, classMiddles in order with their relative occurences
 	 * @author Robert Bilger
 	 */
 	public static float[][] getOrderedClassMiddles(float[] classMiddles, float[] relativeOccurences)
-	{ // Reihenfolge 123 der Klassenmitten ist gleich wie von den Häufigkeiten
-		// (davon wird ausgegangen)
+	{
 		float[][] orderedClassMiddles = new float[classMiddles.length][2];
 		int counter = 0;
 		float minValue = classMiddles[0];
@@ -422,7 +418,7 @@ public class LogicHandler
 	}
 
 	/**
-	 * 
+	 * This methode returns the highest Value in classMiddles
 	 * @param classMiddles, to search for the highest classMiddle
 	 * @return float, highest classMiddle
 	 * @author Robert Bilger
