@@ -110,7 +110,6 @@ public class BeispielGUI extends JFrame
 
 	public void jButton1_ActionPerformed(ActionEvent evt)
 	{
-		// TODO hier Quelltext einfügen
 		zaehler = 0;
 		tb_tab.setValueAt("x", 0, 0);
 		tb_tab.setValueAt("f(x)", 1, 0);

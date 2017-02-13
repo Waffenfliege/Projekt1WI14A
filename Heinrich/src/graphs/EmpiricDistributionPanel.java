@@ -74,7 +74,6 @@ public class EmpiricDistributionPanel extends JPanel{
 			
 			g2.setStroke(new BasicStroke(3));
 			g2.setColor(lines.get(i).getColor()); 
-			//TODO
 			int x = origin.getPosX()+positions.get(i).getPosX();
 			int y = origin.getPosY()+positions.get(i).getPosY();
 			int xTarget = origin.getPosX()+positions.get(i).getPosX()+lines.get(i).getLength();

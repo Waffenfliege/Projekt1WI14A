@@ -289,8 +289,6 @@ public class LogicHandler
 		result = sigmaResult / (sampleSize - 1);
 		return result;
 	}
-	
-	//TODO
 
 	/**
 	 * 
@@ -303,9 +301,6 @@ public class LogicHandler
 		float result = (float) Math.sqrt(variance);
 		return result;
 	}
-	
-	//TODO
-
 	/**
 	 * 
 	 * @param classMiddles ROOOBERT
@@ -363,8 +358,6 @@ public class LogicHandler
 
 		return giniCoefficient;
 	}
-
-	//TODO comments
 	/**
 	 * 
 	 * @param classMiddles ROOOBERT
@@ -383,7 +376,6 @@ public class LogicHandler
 									// Klassenmitten aus.
 	}
 
-	//TODO comments
 	/**
 	 * 
 	 * @param classMiddles ROOOBERT
@@ -429,7 +421,6 @@ public class LogicHandler
 		return orderedClassMiddles;
 	}
 
-	//TODO Comments
 	/**
 	 * 
 	 * @param classMiddles ROOOBERT

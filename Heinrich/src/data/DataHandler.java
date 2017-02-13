@@ -153,7 +153,7 @@ public class DataHandler
 	 * @param currentViewIndex Current Integer index of the handled statistical class.
 	 * @throws IllegalOverlapException Exception due to overlapping borders with one or multiple other statistical classes.
 	 * @throws IllegalBorderException  Exception due to illegal borders.
-	 * @throws Exception Suddenly: Exception! //TODO Fix meme
+	 * @throws Exception Suddenly: Exception!
 	 */
 	public void receiveData(StatisticClassValue lowerValue, StatisticClassValue upperValue, int absoluteOccurence,
 			int currentViewIndex) throws IllegalOverlapException, IllegalBorderException, Exception
