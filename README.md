@@ -3,10 +3,10 @@
 Wilkommen zu unserem Projekt!
 
 Ziel ist es ein Statistikprogramm mit Klassen und absoluten Häufigkeiten (max. 20 Klassen) 
-inkl. GUI erfolgreich zu programmieren.
+inkl. GUI zu programmieren.
 
 Projektstand:
-Warten auf vorgelagerte Gruppen.
+Abgeschlossen.
 
 Programmiersprache: JAVA
 
